@@ -21,13 +21,13 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Image, { foreignKey: 'userId' })
       User.hasMany(models.Spot, { foreignKey: 'ownerId' })
 
-      User.belongsToMany(models.Spot, {
-        through: models.Booking
-      })
+      // User.belongsToMany(models.Spot, {
+      //   through: models.Booking
+      // })
      
-      User.belongsToMany(models.Spot, {
-        through: models.Review
-      })
+      // User.belongsToMany(models.Spot, {
+      //   through: models.Review
+      // })
     }
 
     validatePassword(password) {

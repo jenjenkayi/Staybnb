@@ -26,25 +26,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     startDate: {
       allowNull: false,
-      type: DataTypes.DATETIME,
-      validate: {
-        isBeforeStartDate(value) {
-          if (this.endDate < value) {
-            throw new Error('Invalid Date')
-          }
-        }
-      }
+      type: DataTypes.DATE,
+      defaultValue: new Date()
     },
     endDate: {
       allowNull: false,
-      type: DataTypes.DATETIME,
-      validate: {
-        isAfterStartDate(value) {
-          if (this.startDate > value) {
-            throw new Error('Invalid Date')
-          }
-        }
-      }
+      type: DataTypes.DATE,
+      defaultValue: new Date()
     }
   }, {
     sequelize,
