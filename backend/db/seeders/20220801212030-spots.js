@@ -17,7 +17,43 @@ module.exports = {
         name: "App Academy",
         description: "Place where web developers are created",
         price: 123
-      }
+      },
+      {
+        ownerId: 2,
+        address: "456 Disney Lane",
+        city: "Los Angeles",
+        state: "California",
+        country: "United States of America",
+        lat: 52.7645358,
+        lng: -112.4730327,
+        name: "Mickey House",
+        description: "Place where web developers are created",
+        price: 200
+      },
+      {
+        ownerId: 3,
+        address: "818 Sixflag Street",
+        city: "Los Angeles",
+        state: "California",
+        country: "United States of America",
+        lat: 56.7645358,
+        lng: -100.4730327,
+        name: "Minnie House",
+        description: "Place where web developers are created",
+        price: 150
+      },
+      {
+        ownerId: 4,
+        address: "246 Knotts Road",
+        city: "San Francisco",
+        state: "California",
+        country: "United States of America",
+        lat: 23.7645358,
+        lng: -152.4730327,
+        name: "Winnie House",
+        description: "Place where web developers are created",
+        price: 250
+      },
   ], {});
   },
 
