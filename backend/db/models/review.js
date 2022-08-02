@@ -17,14 +17,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   Review.init({
     review: {
-      tpye: DataTypes.TEXT,
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         len: [10]
       }
     },
     stars: {
-      tpye: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         min: 1,
@@ -32,11 +32,11 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     userId: {
-      tpye: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     spotId: {
-      tpye: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     }
 }, {
