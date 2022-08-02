@@ -40,7 +40,6 @@ router.post('/', validateLogin, async (req, res, next) => {
             user
         });
 
-        
     }
 );
 
@@ -61,6 +60,17 @@ router.get('/', restoreUser, (req, res) => {
         } else return res.json({});
     }
 );
+
+// Get the Current User
+router.post('/', validateLogin, async (req, res, next) => {
+    const user = await User.findOne({
+        
+    })
+
+    return res.json(user)
+});
+
+
 
 
 module.exports = router;
