@@ -6,8 +6,8 @@ const bcrypt = require("bcryptjs");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject() {
-      const { id, email, username } = this; 
-      return { id, email, username };
+      const { id, firstName, lastName, email, username } = this; 
+      return { id, firstName, lastName, email, username };
     }
     /**
      * Helper method for defining associations.
