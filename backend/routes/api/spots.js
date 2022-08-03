@@ -99,22 +99,48 @@ router.get('/', async (req, res) => {
 
 
 // Get all Spots owned by the Current User
+// router.get('/current', requireAuth, async (req, res) => {
+//     console.log(req.user.id)
+//     const currentUserSpots = await Spot.findAll({
+//         include: {
+//             model: User,
+//             where: {
+//                 id: req.user.id
+//             }
+//         },
+//     })
+//     console.log(currentUserSpots)
+
+//     res.status(200);
+//     res.json(currentUserSpots);
+// })
+
+// Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
-    console.log(req.user.id)
-    const currentUserSpots = await Spot.findAll({
-        include: {
-            model: User,
-            where: {
-                id: req.user.id
-            }
-        },
-    })
-    console.log(currentUserSpots)
+    const currentUserSpots = await Spot.findByPk(req.user.id, {
+            include: [
+                {
+                    model: Review,
+                    attributes: []
+                },
+            ],
+            attributes: {
+                include: [
+                    [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+                ]
+            },
+            group: ['Spot.id']
+        })
 
-    res.status(200);
-    res.json(currentUserSpots);
+        let previewImage = await Image.findOne({
+            attributes: ['url'],
+                where: { previewImage: true, spotId: currentUserSpots.id },
+            })
+            currentUserSpots.dataValues.previewImage = previewImage
+        // }
+
+        return res.json({Spots: currentUserSpots})
 })
-
 
 // Get details of a Spot from an id
 router.get('/:spotId', async (req, res) => {
