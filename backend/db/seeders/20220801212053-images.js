@@ -30,9 +30,9 @@ module.exports = {
       {
         url: 'image url',
         previewImage: true,
-        spotId: 4,
-        reviewId: 4,
-        userId: 4
+        spotId: 3,
+        reviewId: 3,
+        userId: 3
     }
   ], {});
   },

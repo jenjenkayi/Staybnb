@@ -43,7 +43,7 @@ module.exports = {
         price: 150
       },
       {
-        ownerId: 4,
+        ownerId: 3,
         address: "246 Knotts Road",
         city: "San Francisco",
         state: "California",
