@@ -99,23 +99,6 @@ router.get('/', async (req, res) => {
 
 
 // Get all Spots owned by the Current User
-// router.get('/current', requireAuth, async (req, res) => {
-//     console.log(req.user.id)
-//     const currentUserSpots = await Spot.findAll({
-//         include: {
-//             model: User,
-//             where: {
-//                 id: req.user.id
-//             }
-//         },
-//     })
-//     console.log(currentUserSpots)
-
-//     res.status(200);
-//     res.json(currentUserSpots);
-// })
-
-// Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
     const currentUserSpots = await Spot.findByPk(req.user.id, {
             include: [
@@ -137,14 +120,13 @@ router.get('/current', requireAuth, async (req, res) => {
                 where: { previewImage: true, spotId: currentUserSpots.id },
             })
             currentUserSpots.dataValues.previewImage = previewImage
-        // }
 
         return res.json({Spots: currentUserSpots})
 })
 
 // Get details of a Spot from an id
 router.get('/:spotId', async (req, res) => {
-    const spots = await Spot.findByPk(req.params.spotId, {
+    const spot = await Spot.findByPk(req.params.spotId, {
         include: [
             {
                 model: Image,
@@ -161,26 +143,17 @@ router.get('/:spotId', async (req, res) => {
         ],
         attributes: {
             include: [
-                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
                 [sequelize.fn("COUNT", sequelize.col("Reviews.review")), "numReviews"],
+                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
 
             ]
         },
         group: ['Spot.id']
     })
 
-    for (let i = 0; i < spots.length; i++) {
-        let spot = spots[i]
 
-        let numReviews = await Review.findAll({
-            attributes:
-                ['review', 'stars'],
-            where: { spotId: spots[i].id },
-        })
-        spot.dataValues.numReviews = numReviews
-        }
 
-    if (!spots) {
+    if (!spot) {
         res.status(404)
         return res.json(
             {
@@ -189,7 +162,7 @@ router.get('/:spotId', async (req, res) => {
             }
         )
     }
-    return res.json(spots)
+    return res.json(spot)
 })
 
 
