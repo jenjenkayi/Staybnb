@@ -135,18 +135,20 @@ router.get('/:spotId', async (req, res) => {
 
             ]
         },
-        group: ['Spot.id']
+        // group: ['Spot.id']
     })
 
-    for (let i = 0; i < spots.length; i++) {
-        let spot = spots[i]
+    // for (let i = 0; i < spots.length; i++) {
+    //     let spot = spots[i]
 
-        let reviews = await Review.findAll({
-            attributes:
-                ['review', 'stars'],
-            where: { spotId: spots[i].id },
-        })
-        }
+    //     let numReviews = await Review.findAll({
+    //         attributes:
+    //             ['review', 'stars'],
+    //         where: { spotId: spots[i].id },
+    //     })
+    //     spot.dataValues.numReviews = numReviews
+
+    //     }
 
     if (!spots) {
         res.status(404)
