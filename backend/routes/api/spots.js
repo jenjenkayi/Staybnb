@@ -100,12 +100,12 @@ router.get('/', async (req, res) => {
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
-    // const { current } = req.user.id
     const currentUserSpots = await Spot.findAll({
         where: {
             current: req.user.id
          },
     })
+    
     res.status(200);
     res.json(currentUserSpots);
 })
@@ -113,29 +113,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // Get details of a Spot from an id
 router.get('/:spotId', async (req, res) => {
-    // const spots = await Spot.findByPk(req.params.spotId, {
-    //     include: [
-    //         {
-    //             model: Image,
-    //             attributes: ['id', 'url']
-    //         },
-    //         {
-    //             model: User,
-    //             attributes: ['id', 'firstName', 'lastName']
-    //         },
-    //         {
-    //             model: Review,
-    //             attributes: []
-    //         }
-    //     ],
-
-    //     attributes: {
-    //         include: 
-    //                 [
-    //                     [sequelize.fn("COUNT", sequelize.col("review")), "numReviews"],
-    //                     [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"],
-    //                 ],
-    //         }
     const spots = await Spot.findByPk(req.params.spotId, {
         include: [
             {
@@ -154,23 +131,21 @@ router.get('/:spotId', async (req, res) => {
         attributes: {
             include: [
                 [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-                [sequelize.fn("COUNT", sequelize.col("review")), "numReviews"],
+                [sequelize.fn("COUNT", sequelize.col("Reviews.review")), "numReviews"],
 
             ]
         },
-        group: ['Spot.id']
     })
 
-    // for (let i = 0; i < spots.length; i++) {
-    //     let spot = spots[i]
+    for (let i = 0; i < spots.length; i++) {
+        let spot = spots[i]
 
-    //     let previewImage = await Image.findOne({
-    //         attributes:
-    //             ['url'],
-    //         where: { previewImage: true, spotId: spots[i].id },
-    //     })
-    //     spot.dataValues.previewImage = previewImage
-    //     }
+        let reviews = await Review.findAll({
+            attributes:
+                ['review', 'stars'],
+            where: { spotId: spots[i].id },
+        })
+        }
 
     if (!spots) {
         res.status(404)
@@ -183,6 +158,33 @@ router.get('/:spotId', async (req, res) => {
     }
     return res.json(spots)
 })
+
+
+//Create a Spot
+// router.post('/', async (req, res) => {
+//    const ownerId = req.params.id
+//     const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+//     const owner = await User.findByPk(ownerId)
+
+//     const newSpot = await Spot.create({
+//         ownerId: owner.id,
+//         address, 
+//         city, 
+//         state, 
+//         country, 
+//         lat, 
+//         lng, 
+//         name, 
+//         description, 
+//         price,
+//     })
+//     res.status(201)
+//     return res.json(newSpot)
+// });
+
+
+
 
 
 
