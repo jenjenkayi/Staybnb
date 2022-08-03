@@ -6,6 +6,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
+const user = require('../../db/models/user');
 
 
 // Get all Spots
@@ -100,28 +101,37 @@ router.get('/', async (req, res) => {
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
-    const currentUserSpots = await Spot.findByPk(req.user.id, {
-            include: [
-                {
-                    model: Review,
-                    attributes: []
-                },
-            ],
-            attributes: {
-                include: [
-                    [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-                ]
+    // const { user } = req;
+    const currentUserSpots = await Spot.findAll({
+        where: {
+            ownerId: req.user.id
+        },
+    
+        include: [
+            {
+                model: Review,
+                attributes: []
             },
-            group: ['Spot.id']
-        })
+        ],
+        attributes: {
+            include: [
+                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+            ]
+        },
+        group: ['Spot.id']
+    })
+
+    for (let i = 0; i < currentUserSpots.length; i++) {
+        let spot = currentUserSpots[i]
 
         let previewImage = await Image.findOne({
             attributes: ['url'],
-                where: { previewImage: true, spotId: currentUserSpots.id },
+                where: { previewImage: true, spotId: currentUserSpots[i].id },
             })
-            currentUserSpots.dataValues.previewImage = previewImage
+            spot.dataValues.previewImage = previewImage
+        }
 
-        return res.json({Spots: currentUserSpots})
+    return res.json({Spots: currentUserSpots})
 })
 
 // Get details of a Spot from an id
@@ -150,8 +160,6 @@ router.get('/:spotId', async (req, res) => {
         },
         group: ['Spot.id']
     })
-
-
 
     if (!spot) {
         res.status(404)
@@ -190,6 +198,7 @@ router.get('/:spotId', async (req, res) => {
 // });
 
 
+// Add an Image to a Spot based on the Spot's id
 
 
 
