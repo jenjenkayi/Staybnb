@@ -135,6 +135,7 @@ router.get('/:spotId', async (req, res) => {
 
             ]
         },
+        group: ['Spot.id']
     })
 
     for (let i = 0; i < spots.length; i++) {
