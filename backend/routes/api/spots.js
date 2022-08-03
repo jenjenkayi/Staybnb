@@ -100,11 +100,12 @@ router.get('/', async (req, res) => {
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
+    // const { current } = req.user.id
     const currentUserSpots = await Spot.findAll({
-        // where: {
-        //     ownerId: req.user.id
-        // },
-    });
+        where: {
+            current: req.user.id
+         },
+    })
     res.status(200);
     res.json(currentUserSpots);
 })
@@ -112,17 +113,64 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // Get details of a Spot from an id
 router.get('/:spotId', async (req, res) => {
-    const spots = await Spot.findByPk(req.params.spotId);
-    // , {
+    // const spots = await Spot.findByPk(req.params.spotId, {
     //     include: [
     //         {
     //             model: Image,
+    //             attributes: ['id', 'url']
     //         },
     //         {
-    //             model: User
+    //             model: User,
+    //             attributes: ['id', 'firstName', 'lastName']
+    //         },
+    //         {
+    //             model: Review,
+    //             attributes: []
     //         }
-    //     ]
-    // });
+    //     ],
+
+    //     attributes: {
+    //         include: 
+    //                 [
+    //                     [sequelize.fn("COUNT", sequelize.col("review")), "numReviews"],
+    //                     [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"],
+    //                 ],
+    //         }
+    const spots = await Spot.findByPk(req.params.spotId, {
+        include: [
+            {
+                model: Image,
+                attributes: ['id', 'url']
+            },
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: Review,
+                attributes: []
+            },
+        ],
+        attributes: {
+            include: [
+                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+                [sequelize.fn("COUNT", sequelize.col("review")), "numReviews"],
+
+            ]
+        },
+        group: ['Spot.id']
+    })
+
+    // for (let i = 0; i < spots.length; i++) {
+    //     let spot = spots[i]
+
+    //     let previewImage = await Image.findOne({
+    //         attributes:
+    //             ['url'],
+    //         where: { previewImage: true, spotId: spots[i].id },
+    //     })
+    //     spot.dataValues.previewImage = previewImage
+    //     }
 
     if (!spots) {
         res.status(404)
