@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
+const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -100,12 +100,17 @@ router.get('/', async (req, res) => {
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
+    console.log(req.user.id)
     const currentUserSpots = await Spot.findAll({
-        where: {
-            current: req.user.id
-         },
+        include: {
+            model: User,
+            where: {
+                id: req.user.id
+            }
+        },
     })
-    
+    console.log(currentUserSpots)
+
     res.status(200);
     res.json(currentUserSpots);
 })
@@ -135,20 +140,19 @@ router.get('/:spotId', async (req, res) => {
 
             ]
         },
-        // group: ['Spot.id']
+        group: ['Spot.id']
     })
 
-    // for (let i = 0; i < spots.length; i++) {
-    //     let spot = spots[i]
+    for (let i = 0; i < spots.length; i++) {
+        let spot = spots[i]
 
-    //     let numReviews = await Review.findAll({
-    //         attributes:
-    //             ['review', 'stars'],
-    //         where: { spotId: spots[i].id },
-    //     })
-    //     spot.dataValues.numReviews = numReviews
-
-    //     }
+        let numReviews = await Review.findAll({
+            attributes:
+                ['review', 'stars'],
+            where: { spotId: spots[i].id },
+        })
+        spot.dataValues.numReviews = numReviews
+        }
 
     if (!spots) {
         res.status(404)
