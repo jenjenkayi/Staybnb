@@ -28,8 +28,10 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: ['id', ['reviewId', 'imageableId'], 'url']
             },
         ],
+        group: ['Review.id'],
     })
     
+    res.status(200);
     return res.json({Reviews: currentUserReviews });
 })
 
