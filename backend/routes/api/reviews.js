@@ -25,10 +25,9 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: ['id', ['reviewId', 'imageableId'], 'url']
             },
         ],
-        
-        // where: {
-        //     userId: req.user.id
-        // },
+        where: {
+            userId: req.user.id
+        },
     })
     
     return res.json({Reviews: currentUserReviews });
