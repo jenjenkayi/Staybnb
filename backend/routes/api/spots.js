@@ -134,9 +134,13 @@ router.get('/current', requireAuth, async (req, res) => {
 router.get('/:spotId', async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId, {
         include: [
+            // {
+            //     model: Image,
+            //     attributes: ['id', ['spotId', 'imageableId'] , 'url']
+            // },
             {
                 model: Image,
-                attributes: ['id', ['spotId', 'imageableId'] , 'url']
+                attributes: []
             },
             {
                 model: User, as: 'Owner',
@@ -201,7 +205,30 @@ router.post('/', validateSpot, async (req, res) => {
 
 
 // Add an Image to a Spot based on the Spot's id
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId);
 
+    if (!spot) {
+        res.status(404)
+        return res.json(
+            {
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            }
+        )
+    }
+
+    const { url, previewImage } = req.body;
+
+    const newImage = Spot.build({
+        imageableid: req.params.spotId,
+        url,       
+    })
+
+
+    // await newImage.save()
+    res.send(newImage);
+})
 
 
 
