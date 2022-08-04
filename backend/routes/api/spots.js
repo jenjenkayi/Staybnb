@@ -6,7 +6,6 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
-// const user = require('../../db/models/user');
 
 const validateSpot = [
     check('address')
@@ -164,8 +163,6 @@ router.get('/:spotId', async (req, res) => {
         where: { spotId: spot.id },
     })
 
-    console.log(reviewCount)
-
     spot.dataValues.Images = Images
     spot.dataValues.reviewCount = reviewCount
   
@@ -178,7 +175,8 @@ router.get('/:spotId', async (req, res) => {
             }
         )
     } 
-        return res.json(spot);
+    
+    return res.json(spot);
     
 })
 
