@@ -157,7 +157,7 @@ router.get('/:spotId', async (req, res) => {
                     [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
                 ]
             },
-        group: ['Owner.id']
+        group: ['Spot.id', 'Owner.id']
     })
     
     let Images = await Image.findAll({
