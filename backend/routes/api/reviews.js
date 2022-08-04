@@ -11,6 +11,9 @@ const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/mode
 // Get all Reviews of the Current User
 router.get('/current', requireAuth, async (req, res) => {
     const currentUserReviews = await Review.findAll({
+        where: {
+            userId: req.user.id
+        },
         include: [
             {
                 model: User,
@@ -25,9 +28,6 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: ['id', ['reviewId', 'imageableId'], 'url']
             },
         ],
-        where: {
-            userId: req.user.id
-        },
     })
     
     return res.json({Reviews: currentUserReviews });
