@@ -6,7 +6,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
-const user = require('../../db/models/user');
+// const user = require('../../db/models/user');
 
 const validateSpot = [
     check('address')
@@ -259,7 +259,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
             }
         )
     }
-    
+
     await spot.save()
     res.json(spot)
 })
@@ -277,6 +277,13 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
             }
         )
     }
+
+    await spot.destroy()
+    return res.json(
+        {
+            "message": "Successfully deleted",
+            "statusCode": 200
+    })
 })
 
 
