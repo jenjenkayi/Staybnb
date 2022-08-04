@@ -43,21 +43,6 @@ const validateSpot = [
 ]
 
 // Get all Spots
-// router.get('/', async (req, res, next) => {
-//     const spots = await Spot.findAll({
-//         include: [
-//             {model: Review, attributes: []},
-//             {model: Image, attributes: [], where: {previewImage: true}}],
-//         attributes: {
-//         include: [
-//                 [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-//                 [sequelize.literal("Images.url"), "previewImage"]]},
-//         group: ['Spot.id'],
-//     })
-//     res.status(200)
-//     res.json({Spot: spots})
-// })
-
 router.get('/', async (req, res) => {
     const spots = await Spot.findAll({
         include: [
@@ -144,19 +129,14 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.json({Spots: currentUserSpots})
 })
 
+
 // Get details of a Spot from an id
 router.get('/:spotId', async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId, {
-        attributes: {
-            include: [
-                    [sequelize.fn("COUNT", sequelize.col("Reviews.review")), "numReviews"],
-                    [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
-                ]
-            },
-            include: [
+        include: [
             {
                 model: Image,
-                attributes: ['id', 'url']
+                attributes: ['id', ['spotId', 'imageableId'] , 'url']
             },
             {
                 model: User, as: 'Owner',
@@ -167,11 +147,17 @@ router.get('/:spotId', async (req, res) => {
                 attributes: []
             },
         ],
+        attributes: {
+            include: [
+                    [sequelize.fn("COUNT", sequelize.col("Reviews.review")), "numReviews"],
+                    [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
+                ]
+            },
         group: ['Spot.id']
     })
     
     let Images = await Image.findAll({
-        attributes: ['id', 'url'],
+        attributes: ['id', ['spotId', 'imageableId'], 'url'],
         where: { spotId: spot.id },
     })
 
@@ -185,9 +171,9 @@ router.get('/:spotId', async (req, res) => {
                 "statusCode": 404
             }
         )
-    }
-
-    return res.json({Spots: spot});
+    } 
+        return res.json(spot);
+    
 })
 
 
