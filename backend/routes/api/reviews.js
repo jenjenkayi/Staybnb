@@ -31,7 +31,7 @@ router.get('/current', requireAuth, async (req, res) => {
         // },
     })
     
-    return res.json(currentUserReviews);
+    return res.json({Reviews: currentUserReviews });
 })
 
 // Get all Reviews by a Spot's id
