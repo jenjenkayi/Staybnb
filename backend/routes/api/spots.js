@@ -138,10 +138,10 @@ router.get('/:spotId', async (req, res) => {
             //     model: Image,
             //     attributes: ['id', ['spotId', 'imageableId'] , 'url']
             // },
-            {
-                model: Image,
-                attributes: []
-            },
+            // {
+            //     model: Image,
+            //     attributes: []
+            // },
             {
                 model: User, as: 'Owner',
                 attributes: ['id', 'firstName', 'lastName']
@@ -157,7 +157,7 @@ router.get('/:spotId', async (req, res) => {
                     [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
                 ]
             },
-        group: ['Spot.id', 'Images.id']
+        group: ['Owner.id']
     })
     
     let Images = await Image.findAll({
