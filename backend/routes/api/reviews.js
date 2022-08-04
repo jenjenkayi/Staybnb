@@ -35,40 +35,6 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.json({Reviews: currentUserReviews });
 })
 
-// Get all Reviews by a Spot's id
-router.get('/:spotId/reviews', async (req, res) => {
-    const spot = await Review.findByPk(req.params.spotId, {
-        where: {
-            spotId: req.user.id
-        },
-
-        include: [
-            {
-                model: User,
-                attributes: ['id', 'firstName', 'lastName']
-            },
-            {
-                model: Image,
-                attributes: ['id', ['reviewId', 'imageableId'], 'url']
-            },
-        ],
-
-    })
-
-    if (!spot) {
-        res.status(404)
-        return res.json(
-            {
-                "message": "Spot couldn't be found",
-                "statusCode": 404
-            }
-        )
-    } 
-
-    return res.json({ Reviews: currentUserReviews });
-
-})
-
 
 // Create a Review for a Spot based on the Spot's id
 router.post('/:spotId/reviews', async (req, res) => {
