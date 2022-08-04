@@ -6,6 +6,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
+const image = require('../../db/models/image');
 
 
 // Get all Reviews of the Current User
@@ -36,49 +37,12 @@ router.get('/current', requireAuth, async (req, res) => {
 })
 
 
-// Create a Review for a Spot based on the Spot's id
-router.post('/:spotId/reviews', async (req, res) => {
-    const spotid = req.params.spotId;
-    const spot = await Review.findByPk(req.params.spotId, {
-    })
 
-    const { userId, spotId, review, stars } = req.body;
-
-    const newReview = await Review.create({
-        userId, 
-        spotId, 
-        review, 
-        stars
-    })
-
-    if (!spot) {
-        res.status(404)
-        return res.json(
-            {
-                "message": "Spot couldn't be found",
-                "statusCode": 404
-            }
-        )
-    }
-
-    if (review) {
-        res.status(404)
-        return res.json(
-            {
-                "message": "User already has a review for this spot",
-                "statusCode": 403
-            }
-        )
-    }
-
-    await newReview.save()
-    res.json(newReview)
-})
 
 
 // Add an Image to a Review based on the Review's id
 router.post('/:reviewId/images', requireAuth, async (req, res) => {
-
+    const review = await Review.findByPk(req.params.reviewId);
 
     if (!review) {
         res.status(404)
@@ -90,7 +54,22 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         )
     }
 
-    if (images > 10) {
+    const { url, previewImage } = req.body;
+
+    const newImage = await Image.create({
+        url,
+        previewImage,
+        userId: req.user.id,
+        reviewId: req.params.reviewId
+    })
+
+    let imageCount = await Image.count({
+        where: { previewImage: true },
+    })
+
+    console.log(imageCount)
+
+    if (imageCount >= 10) {
         res.status(404)
         return res.json(
             {
@@ -99,6 +78,14 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
             }
         )
     }
+
+    let response = {
+        id: image.id,
+        imageableId: image.reviewId,
+        url: image.url
+    }
+
+    return res.json(response)
 })
 
 // Edit a Review

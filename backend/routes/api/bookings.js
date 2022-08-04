@@ -16,9 +16,35 @@ router.get('/current', requireAuth, async (req, res) => {
 
 
 
-// Get all Bookings for a Spot based on the Spot's id
-// Create a Booking from a Spot based on the Spot's id
 // Edit a Booking
+router.put('/:bookingId', requireAuth, async (req, res) => {
+})
+
+
 // Delete a Booking
+router.delete('/:bookingId', requireAuth, async (req, res) => {
+    const booking = await Booking.findByPk(req.params.bookingId)
+
+    if (!booking) {
+        res.status(404)
+        return res.json(
+            {
+                "message": "Booking couldn't be found",
+                "statusCode": 404
+            }
+        )
+    }
+
+    await booking.destroy()
+    return res.json(
+        {
+            "message": "Successfully deleted",
+            "statusCode": 200
+        })
+})
+
+
+
+
 
 module.exports = router;

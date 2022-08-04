@@ -75,28 +75,6 @@ router.get('/', async (req, res) => {
     return res.json(spots)
 })
 
-    // const avgRev = Review.findAll({
-    //     attributes: 
-    //         [[sequelize.fn("AVG", sequelize.col("stars")), "avgRating"]],
-    // })
-    // let response = {
-    //     id: spots.id,
-    //     ownerId: spots.ownerId,
-    //     address: spots.address,
-    //     city: spots.city,
-    //     state: spots.state,
-    //     country: spots.country,
-    //     lat: spots.lat,
-    //     lng: spots.lng,
-    //     name: spots.name,
-    //     description: spots.description,
-    //     price: spots.price,
-    //     createdAt: spots.createdAt,
-    //     updatedAt: spots.updatedAt,
-    //     avgRating: avgRev[0].dataValues.avgRating,
-    //     previewImage: spots.previewImage
-    // }
-
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
@@ -319,6 +297,60 @@ router.get('/:spotId/reviews', async (req, res) => {
 
 })
 
+
+// Create a Review for a Spot based on the Spot's id
+router.post('/:spotId/reviews', async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+    const reviews = await Review.findAll({
+        where: { spotId: req.params.spotId }
+    })
+
+    const { review, stars } = req.body;
+
+    const newReview = await Review.create({
+        userId: req.user.id,
+        spotId: req.params.spotId,
+        review,
+        stars
+    })
+
+    if (!spot) {
+        res.status(404)
+        return res.json(
+            {
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            }
+        )
+    }
+
+    if (reviews) {
+        res.status(404)
+        return res.json(
+            {
+                "message": "User already has a review for this spot",
+                "statusCode": 403
+            }
+        )
+    }
+
+    await newReview.save()
+    return res.json(newReview)
+})
+
+
+// Get all Bookings for a Spot based on the Spot's id
+router.get('/:spotId/bookings', async (req, res) => {
+
+})
+
+
+
+
+// Create a Booking from a Spot based on the Spot's id
+router.post('/:spotId/bookings', async (req, res) => {
+
+})
 
 
 module.exports = router;
