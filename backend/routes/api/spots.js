@@ -8,6 +8,39 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
 const user = require('../../db/models/user');
 
+const validateSpot = [
+    check('address')
+        .exists({ checkFalsy: true })
+        .withMessage('Street address is required.'),
+    check('city')
+        .exists({ checkFalsy: true })
+        .withMessage('City is required.'),
+    check('state')
+        .exists({ checkFalsy: true })
+        .withMessage('State is required.'),  
+    check('country')
+        .exists({ checkFalsy: true })
+        .withMessage('Country is required.'),
+    check('lat')
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage('Latitude is not valid.'),
+    check('lng')
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage('Longitude is not valid".'),
+    check('name')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 50 })
+        .withMessage('Name must be less than 50 characters.'),
+    check('description')
+        .exists({ checkFalsy: true })
+        .withMessage('Description is required.'),
+    check('price')
+        .exists({ checkFalsy: true })
+        .withMessage('Price per day is required.'),
+    handleValidationErrors
+]
 
 // Get all Spots
 // router.get('/', async (req, res, next) => {
@@ -114,13 +147,19 @@ router.get('/current', requireAuth, async (req, res) => {
 // Get details of a Spot from an id
 router.get('/:spotId', async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId, {
-        include: [
+        attributes: {
+            include: [
+                    [sequelize.fn("COUNT", sequelize.col("Reviews.review")), "numReviews"],
+                    [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
+                ]
+            },
+            include: [
             {
                 model: Image,
                 attributes: ['id', 'url']
             },
             {
-                model: User,
+                model: User, as: 'Owner',
                 attributes: ['id', 'firstName', 'lastName']
             },
             {
@@ -128,25 +167,14 @@ router.get('/:spotId', async (req, res) => {
                 attributes: []
             },
         ],
-        attributes: {
-            include: [
-                [sequelize.fn("COUNT", sequelize.col("Reviews.review")), "numReviews"],
-                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-            ]
-        },
         group: ['Spot.id']
     })
     
-    // let previewImage = await Image.findOne({
-    //         attributes: ['url'],
-    //         where: { previewImage: true, spotId: spot.id },
-    //     })
-    //     spot.dataValues.previewImage = previewImage
-
     let Images = await Image.findAll({
         attributes: ['id', 'url'],
         where: { spotId: spot.id },
     })
+
     spot.dataValues.Images = Images
   
     if (!spot) {
@@ -164,27 +192,26 @@ router.get('/:spotId', async (req, res) => {
 
 
 //Create a Spot
-// router.post('/', async (req, res) => {
-//    const ownerId = req.params.id
-//     const { address, city, state, country, lat, lng, name, description, price } = req.body
+router.post('/', validateSpot, async (req, res) => {
+    
+    const { ownerId, address, city, state, country, lat, lng, name, description, price } = req.body
+ 
+    const newSpot = Spot.build({
+        ownerId: req.user.id,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    })
 
-//     const owner = await User.findByPk(ownerId)
-
-//     const newSpot = await Spot.create({
-//         ownerId: owner.id,
-//         address, 
-//         city, 
-//         state, 
-//         country, 
-//         lat, 
-//         lng, 
-//         name, 
-//         description, 
-//         price,
-//     })
-//     res.status(201)
-//     return res.json(newSpot)
-// });
+    // await newSpot.save()
+    res.send(newSpot)
+});
 
 
 // Add an Image to a Spot based on the Spot's id
