@@ -138,14 +138,6 @@ router.get('/current', requireAuth, async (req, res) => {
 router.get('/:spotId', async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId, {
         include: [
-            // {
-            //     model: Image,
-            //     attributes: ['id', ['spotId', 'imageableId'] , 'url']
-            // },
-            // {
-            //     model: Image,
-            //     attributes: []
-            // },
             {
                 model: User, as: 'Owner',
                 attributes: ['id', 'firstName', 'lastName']
@@ -157,7 +149,6 @@ router.get('/:spotId', async (req, res) => {
         ],
         attributes: {
             include: [
-                    // [sequelize.fn("COUNT", sequelize.col("Reviews.review")), "numReviews"],
                     [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
                 ]
             },
@@ -229,33 +220,26 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         )
     }
 
-    const { url, previewImage } = req.body;
-
-    const newImage = await Spot.create({
-        imageableid: req.params.spotId,
+    const newImage = await Image.create({
         url,       
+        userId: spot.dataValues.id,
+        imageableid: req.params.spotId,
     })
 
+    let response = {
+        id: newImage.id,
+        imageableid: newImage.spotId,
+        url: newImage.url
+    }
 
-    // await newImage.save()
-    res.send(newImage);
+    res.json(response);
 })
 
 // Edit a Spot
-router.put('/:spotId', requireAuth, async (req, res) => {
+router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body
     const spot = await Spot.findByPk(req.params.spotId)
-
-    if (!spot) {
-        res.status(404)
-        return res.json(
-            {
-                "message": "Spot couldn't be found",
-                "statusCode": 404
-            }
-        )
-    }
-
+    
     spot.address = address,
     spot.city = city,
     spot.state = state,
@@ -265,7 +249,17 @@ router.put('/:spotId', requireAuth, async (req, res) => {
     spot.name = name,
     spot.description = description,
     spot.price = price
-
+    
+    if (!spot) {
+        res.status(404)
+        return res.json(
+            {
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            }
+        )
+    }
+    
     await spot.save()
     res.json(spot)
 })
