@@ -153,7 +153,7 @@ router.get('/:spotId', async (req, res) => {
         ],
         attributes: {
             include: [
-                    [sequelize.fn("COUNT", sequelize.col("Reviews.review")), "numReviews"],
+                    // [sequelize.fn("COUNT", sequelize.col("Reviews.review")), "numReviews"],
                     [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
                 ]
             },
@@ -165,7 +165,14 @@ router.get('/:spotId', async (req, res) => {
         where: { spotId: spot.id },
     })
 
+    let reviewCount = await Review.count({
+        where: { spotId: spot.id },
+    })
+
+    console.log(reviewCount)
+
     spot.dataValues.Images = Images
+    spot.dataValues.reviewCount = reviewCount
   
     if (!spot) {
         res.status(404)
@@ -182,7 +189,7 @@ router.get('/:spotId', async (req, res) => {
 
 
 //Create a Spot
-router.post('/', validateSpot, async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
     
     const { address, city, state, country, lat, lng, name, description, price } = req.body
  
@@ -198,9 +205,9 @@ router.post('/', validateSpot, async (req, res) => {
         description,
         price
     })
-
+    
     await newSpot.save()
-    res.send(newSpot)
+    res.json(newSpot)
 });
 
 
