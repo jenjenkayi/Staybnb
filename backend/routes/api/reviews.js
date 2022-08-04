@@ -36,10 +36,6 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.json({Reviews: currentUserReviews });
 })
 
-
-
-
-
 // Add an Image to a Review based on the Review's id
 router.post('/:reviewId/images', requireAuth, async (req, res) => {
     const review = await Review.findByPk(req.params.reviewId);
@@ -90,16 +86,13 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
 // Edit a Review
 router.put('/:reviewId', requireAuth, async (req, res) => {
-    const { userId, spotId, review, stars } = req.body
-    const spot = await Spot.findByPk(req.params.spotId)
+    const { review, stars } = req.body
+    const reviews = await Review.findByPk(req.params.reviewId)
 
-    spot.userId = userId, 
-    spot.spotId = spotId, 
-    spot.review = review, 
-    spot.stars = stars
+    reviews.review = review, 
+    reviews.stars = stars
       
-
-    if (!spot) {
+    if (!reviews) {
         res.status(404)
         return res.json(
             {
@@ -109,8 +102,8 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
         )
     }
 
-    await spot.save()
-    res.json(spot)
+    await reviews.save()
+    res.json(reviews)
 })
 
 // Delete a Review
