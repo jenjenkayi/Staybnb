@@ -79,7 +79,6 @@ router.get('/', async (req, res) => {
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
-    // const { user } = req;
     const currentUserSpots = await Spot.findAll({
         where: {
             ownerId: req.user.id
@@ -133,12 +132,23 @@ router.get('/:spotId', async (req, res) => {
             include: [
                 [sequelize.fn("COUNT", sequelize.col("Reviews.review")), "numReviews"],
                 [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-
             ]
         },
         group: ['Spot.id']
     })
+    
+    // let previewImage = await Image.findOne({
+    //         attributes: ['url'],
+    //         where: { previewImage: true, spotId: spot.id },
+    //     })
+    //     spot.dataValues.previewImage = previewImage
 
+    let Images = await Image.findAll({
+        attributes: ['id', 'url'],
+        where: { spotId: spot.id },
+    })
+    spot.dataValues.Images = Images
+  
     if (!spot) {
         res.status(404)
         return res.json(
@@ -148,7 +158,8 @@ router.get('/:spotId', async (req, res) => {
             }
         )
     }
-    return res.json(spot)
+
+    return res.json({Spots: spot});
 })
 
 
