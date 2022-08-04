@@ -66,9 +66,13 @@ router.get('/', async (req, res) => {
             attributes: 
                ['url'],
             where: { previewImage: true, spotId: spots[i].id},
+            raw: true
         })
-        spot.dataValues.previewImage = previewImage
+        if (previewImage) {
+            spot.dataValues.previewImage = previewImage.url
+        }
     }
+    
     return res.json(spots)
 })
 
