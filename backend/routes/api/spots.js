@@ -13,29 +13,17 @@ const user = require('../../db/models/user');
 // router.get('/', async (req, res, next) => {
 //     const spots = await Spot.findAll({
 //         include: [
-//             {
-//                 model: Review,
-//                 attributes: []
-//             },
-//             {
-//                 model: Image,
-//                 attributes: [],
-//                 where: {previewImage: true}
-//             }
-//         ],
+//             {model: Review, attributes: []},
+//             {model: Image, attributes: [], where: {previewImage: true}}],
 //         attributes: {
 //         include: [
 //                 [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-//                 [sequelize.literal("Images.url"), "previewImage"]
-//             ]
-//         },
+//                 [sequelize.literal("Images.url"), "previewImage"]]},
 //         group: ['Spot.id'],
 //     })
-
 //     res.status(200)
 //     res.json({Spot: spots})
 // })
-
 
 router.get('/', async (req, res) => {
     const spots = await Spot.findAll({
@@ -62,21 +50,14 @@ router.get('/', async (req, res) => {
             where: { previewImage: true, spotId: spots[i].id},
         })
         spot.dataValues.previewImage = previewImage
-        // console.log(spot);
     }
+    return res.json(spots)
+})
 
     // const avgRev = Review.findAll({
     //     attributes: 
-    //         [
-    //             [
-    //                 sequelize.fn("AVG", sequelize.col("stars")), "avgRating"
-    //             ]
-    //         ],
+    //         [[sequelize.fn("AVG", sequelize.col("stars")), "avgRating"]],
     // })
-
-    // console.log(spots);
-    // console.log(avgRev.dataValues);
-
     // let response = {
     //     id: spots.id,
     //     ownerId: spots.ownerId,
@@ -94,9 +75,6 @@ router.get('/', async (req, res) => {
     //     avgRating: avgRev[0].dataValues.avgRating,
     //     previewImage: spots.previewImage
     // }
-    // console.log(avgRev[0].dataValues.avgRating)
-    return res.json(spots)
-})
 
 
 // Get all Spots owned by the Current User
