@@ -406,10 +406,10 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
-    }
-    
-    const { startDate, endDate } = req.body;
+    } 
 
+    const { startDate, endDate } = req.body;
+    
     const newBooking = await Booking.create({
         spotId: req.params.spotId,
         userId: req.user.id,
@@ -417,7 +417,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         endDate
     })
     
-
     if (startDate > endDate) {
         res.status(403)
         return res.json(
