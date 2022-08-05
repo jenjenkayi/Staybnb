@@ -14,18 +14,24 @@ router.get('/current', requireAuth, async (req, res) => {
         where: {
             userId: req.user.id
         },
-        include: [
-            {
-                model: Spot,
-                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
-            },
-            // {
-            //     model: Image,
-            //     attributes: ['previewImage']
-            // }
-        ],
-        group: ['Booking.id'],
+        include: {
+            model: Spot,
+            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+        },
+        // group: ['Spot.id'],
     })
+
+    for (let i = 0; i < currentUserBookings.length; i++) {
+        let booking = currentUserBookings[i]
+
+        let previewImage = await Image.findOne({
+            attributes: ['url'],
+            where: { previewImage: true, spotId: currentUserBookings[i].id },
+        })
+        if (previewImage) {
+            booking.dataValues.previewImage = previewImage.url
+        }
+    }
 
     res.status(200);
     return res.json({ Bookings: currentUserBookings });
