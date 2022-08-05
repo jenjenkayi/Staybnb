@@ -43,6 +43,54 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // Edit a Booking
 router.put('/:bookingId', requireAuth, async (req, res) => {
+    const { startDate, endDate } = req.body
+
+    const booking = await Booking.findByPk(req.params.bookingId);
+
+    booking.startDate = startDate,
+    booking.endDate = endDate
+
+    if (startDate > endDate) {
+        res.status(400)
+        return res.json({
+                "message": "Validation error",
+                "statusCode": 400,
+                "errors": {
+                    "endDate": "endDate cannot be on or before startDate"
+                }
+            })
+    }
+
+    if (!booking) {
+        res.status(404)
+        return res.json({
+            "message": "Booking couldn't be found",
+            "statusCode": 404
+        })
+    }
+
+    if (endDate < new Date()) {
+        res.status(403)
+        return res.json({
+                "message": "Past bookings can't be modified",
+                "statusCode": 403
+        })
+    }
+
+    if (booking.startDate !== startDate && booking.endDate !== endDate) {
+        res.status(403)
+        return res.json({
+            "message": "Sorry, this spot is already booked for the specified dates",
+            "statusCode": 403,
+            "errors": {
+                "startDate": "Start date conflicts with an existing booking",
+                "endDate": "End date conflicts with an existing booking"
+            }
+        })
+    }
+
+    await booking.save()
+    return res.json(booking)
 })
 
 
@@ -52,12 +100,18 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
 
     if (!booking) {
         res.status(404)
-        return res.json(
-            {
+        return res.json({
                 "message": "Booking couldn't be found",
                 "statusCode": 404
-            }
-        )
+            })
+    }
+    
+    if (startDate < new Date()) {
+        res.status(404)
+        return res.json({
+                "message": "Bookings that have been started can't be deleted",
+                "statusCode": 403
+            })
     }
 
     await booking.destroy()

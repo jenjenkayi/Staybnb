@@ -63,8 +63,6 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         where: { previewImage: true },
     })
 
-    console.log(imageCount)
-
     if (imageCount >= 10) {
         res.status(404)
         return res.json(
