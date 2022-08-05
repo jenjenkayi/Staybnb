@@ -10,6 +10,7 @@ const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/mode
 
 // Get all of the Current User's Bookings
 router.get('/current', requireAuth, async (req, res) => {
+    const spots = await Spot.findAll();
     const currentUserBookings = await Booking.findAll({
         where: {
             userId: req.user.id
@@ -21,19 +22,20 @@ router.get('/current', requireAuth, async (req, res) => {
         // group: ['Spot.id'],
     })
 
-    for (let i = 0; i < currentUserBookings.length; i++) {
-        let booking = currentUserBookings[i]
+    for (let i = 0; i < spots.length; i++) {
+        let  spot = spots[i]
 
         let previewImage = await Image.findOne({
             attributes: ['url'],
-            where: { previewImage: true, spotId: currentUserBookings[i].id },
+            where: { previewImage: true, spotId: spot.id },
+            raw: true
         })
+
         if (previewImage) {
-            booking.dataValues.previewImage = previewImage.url
+            spot.dataValues.previewImage = previewImage.url
         }
     }
 
-    res.status(200);
     return res.json({ Bookings: currentUserBookings });
 })
 
