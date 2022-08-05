@@ -29,7 +29,7 @@ router.get('/current', requireAuth, async (req, res) => {
             //     userId: req.user.id
             // },
         ],
-        group: ['Review.id'],
+        // group: ['Review.id'],
     })
     
     res.status(200);
