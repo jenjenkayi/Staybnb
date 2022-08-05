@@ -91,12 +91,12 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
         res.status(404)
         return res.json(
             {
-                "message": "Spot couldn't be found",
+                "message": "Review couldn't be found",
                 "statusCode": 404
             }
         )
     }
-    
+
     reviews.review = review, 
     reviews.stars = stars
       
