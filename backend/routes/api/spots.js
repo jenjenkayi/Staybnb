@@ -138,11 +138,21 @@ router.get('/:spotId', async (req, res) => {
         ],
         attributes: {
             include: [
-                    [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
-                ]
-            },
+                [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
+            ]
+        },
         group: ['Spot.id', 'Owner.id']
     })
+    
+    if (!spot) {
+        res.status(404)
+        return res.json(
+            {
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            }
+        )
+    } 
     
     let Images = await Image.findAll({
         attributes: ['id', ['spotId', 'imageableId'], 'url'],
@@ -156,15 +166,6 @@ router.get('/:spotId', async (req, res) => {
     spot.dataValues.Images = Images
     spot.dataValues.reviewCount = reviewCount
   
-    if (!spot) {
-        res.status(404)
-        return res.json(
-            {
-                "message": "Spot couldn't be found",
-                "statusCode": 404
-            }
-        )
-    } 
     
     return res.json(spot);
     
@@ -324,7 +325,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
     const { review, stars } = req.body;
 
     const newReview = await Review.create({
-        userId: req.params.userId,
+        userId: req.user.id,
         spotId: req.params.spotId,
         review,
         stars

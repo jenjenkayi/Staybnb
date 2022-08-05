@@ -43,10 +43,8 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // Edit a Booking
 router.put('/:bookingId', requireAuth, async (req, res) => {
-    const { startDate, endDate } = req.body
-
     const booking = await Booking.findByPk(req.params.bookingId);
-
+    
     if (!booking) {
         res.status(404)
         return res.json({
@@ -55,6 +53,8 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
     
+    const { startDate, endDate } = req.body
+
     booking.startDate = startDate,
     booking.endDate = endDate
 
@@ -68,7 +68,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
                 }
             })
     }
-
 
     if (endDate < new Date()) {
         res.status(403)
