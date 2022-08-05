@@ -42,44 +42,42 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
     if (!review) {
         res.status(404)
-        return res.json(
-            {
+        return res.json({
                 "message": "Review couldn't be found",
                 "statusCode": 404
-            }
-        )
+            })
     }
 
-    const { url, previewImage } = req.body;
+        const { url, previewImage } = req.body;
 
-    const newImage = await Image.create({
-        url,
-        previewImage,
-        userId: req.user.id,
-        reviewId: req.params.reviewId
-    })
+        const newImage = await Image.create({
+            url,
+            previewImage,
+            userId: req.user.id,
+            reviewId: req.params.reviewId,
+            spotId: review.spotId
+        })
 
-    let imageCount = await Image.count({
-        where: { previewImage: true },
-    })
+    // let imageCount = await Image.count({
+    //     where: { previewImage: true },
+    // })
 
-    if (imageCount >= 10) {
-        res.status(404)
-        return res.json(
-            {
-                "message": "Maximum number of images for this resource was reached",
-                "statusCode": 403
-            }
-        )
-    }
+    // if (imageCount >= 10) {
+    //     res.status(404)
+    //     return res.json({
+    //             "message": "Maximum number of images for this resource was reached",
+    //             "statusCode": 403
+    //         })
+    // }
 
     let response = {
-        id: image.id,
-        imageableId: image.reviewId,
-        url: image.url
+        id: newImage.id,
+        imageableId: newImage.reviewId,
+        url: newImage.url
     }
 
-    return res.json(response)
+    // await newImage.save()
+    res.json(response)
 })
 
 // Edit a Review
