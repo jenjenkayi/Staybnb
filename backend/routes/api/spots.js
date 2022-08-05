@@ -400,6 +400,14 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         where: { spotId: req.params.spotId }
     })
 
+    if (!spot) {
+        res.status(404)
+        return res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+    
     const { startDate, endDate } = req.body;
 
     const newBooking = await Booking.create({
@@ -408,6 +416,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         startDate, 
         endDate
     })
+    
 
     if (startDate > endDate) {
         res.status(403)
@@ -434,13 +443,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             })
     }
 
-    if (!spot) {
-        res.status(404)
-        return res.json({
-            "message": "Spot couldn't be found",
-            "statusCode": 404
-        })
-    }
 
     await newBooking.save()
     return res.json(newBooking)
