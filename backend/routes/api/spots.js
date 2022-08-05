@@ -332,19 +332,19 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
         )
     }
   
-
-    const { review, stars } = req.body;
-
-    const newReview = await Review.create({
-        userId: req.user.id,
-        spotId: req.params.spotId,
-        review,
-        stars
-    })
-   
-
-
-    if (reviews) {
+    let userId = Spot.ownerId;
+    
+    if (Review.userId !== userId) {
+        const { review, stars } = req.body;
+        const newReview = await Review.create({
+            userId: req.user.id,
+            spotId: req.params.spotId,
+            review,
+            stars
+        });
+        await newReview.save()
+        return res.json(newReview)
+    } else {
         res.status(404)
         return res.json(
             {
@@ -354,8 +354,6 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
         )
     }
 
-    await newReview.save()
-    return res.json(newReview)
 })
 
 
