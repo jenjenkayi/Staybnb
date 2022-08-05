@@ -213,7 +213,6 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         previewImage: previewImage,
         url: url,       
         spotId: req.params.spotId,
-        reviewId: req.params.reviewId,
         userId: req.user.id
     })
 
@@ -224,7 +223,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
     const response = {
         id: newImage.id,
-        imageableId: newImage.reviewId,
+        imageableId: newImage.spotId,
         url: newImage.url
     }
 
