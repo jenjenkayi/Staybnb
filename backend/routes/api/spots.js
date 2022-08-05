@@ -321,6 +321,17 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
     const reviews = await Review.findAll({
         where: { spotId: req.params.spotId }
     })
+    
+    if (!spot) {
+        res.status(404)
+        return res.json(
+            {
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            }
+        )
+    }
+  
 
     const { review, stars } = req.body;
 
@@ -332,15 +343,6 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
     })
    
 
-    if (!spot) {
-        res.status(404)
-        return res.json(
-            {
-                "message": "Spot couldn't be found",
-                "statusCode": 404
-            }
-        )
-    }
 
     if (reviews) {
         res.status(404)
