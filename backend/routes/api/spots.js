@@ -76,6 +76,17 @@ router.get('/', async (req, res) => {
         // ...pagination
     })
     
+    // let avgReview = await Review.findAll({
+    //     where: { spotId: req.params.id },
+    //     attributes: {
+    //         include: [
+    //             [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+    //         ]
+    //     },
+    // })
+
+    // spots.dataValues.avgReview = avgReview
+
     for (let i = 0; i < spots.length; i++) {
     let spot = spots[i]
 
@@ -107,25 +118,13 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: []
             },
         ],
-        // attributes: {
-        //     include: [
-        //         [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-        //     ]
-        // },
-        group: ['Spot.id']
-    })
-
-    let avgReview = await Review.findAll({
-        where: { spotId: req.params.id },
         attributes: {
             include: [
                 [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
             ]
         },
+        group: ['Spot.id']
     })
-
-    currentUserSpots.dataValues.avgReview = avgReview
-
 
     for (let i = 0; i < currentUserSpots.length; i++) {
         let spot = currentUserSpots[i]
