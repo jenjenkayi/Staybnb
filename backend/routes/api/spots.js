@@ -44,19 +44,19 @@ const validateSpot = [
 
 // Get all Spots
 router.get('/', async (req, res) => {
-    let pagination = {};
-    let { page, size } = req.query;
+    // let pagination = {};
+    // let { page, size } = req.query;
 
-    page = parseInt(page);
-    size = parseInt(size);
+    // page = parseInt(page);
+    // size = parseInt(size);
 
-    if (!page) page = 0;
-    if (!size) size = 20;
+    // if (!page) page = 0;
+    // if (!size) size = 20;
 
-    if (size >= 0 && page >= 0) {
-        pagination.limit = size,
-        pagination.offset = size * (page - 1)
-    }
+    // if (size >= 0 && page >= 0) {
+    //     pagination.limit = size,
+    //     pagination.offset = size * (page - 1)
+    // }
 
     const spots = await Spot.findAll({
         include: [
@@ -73,7 +73,7 @@ router.get('/', async (req, res) => {
 
         group:['Spot.id'],
 
-        ...pagination
+        // ...pagination
     })
     
     for (let i = 0; i < spots.length; i++) {
@@ -107,13 +107,25 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: []
             },
         ],
+        // attributes: {
+        //     include: [
+        //         [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+        //     ]
+        // },
+        group: ['Spot.id']
+    })
+
+    let avgReview = await Review.findAll({
+        where: { spotId: req.params.id },
         attributes: {
             include: [
                 [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
             ]
         },
-        group: ['Spot.id']
     })
+
+    currentUserSpots.dataValues.avgReview = avgReview
+
 
     for (let i = 0; i < currentUserSpots.length; i++) {
         let spot = currentUserSpots[i]
@@ -125,6 +137,7 @@ router.get('/current', requireAuth, async (req, res) => {
             spot.dataValues.previewImage = previewImage
         }
 
+    
     return res.json({Spots: currentUserSpots})
 })
 
