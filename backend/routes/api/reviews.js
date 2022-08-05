@@ -12,9 +12,6 @@ const image = require('../../db/models/image');
 // Get all Reviews of the Current User
 router.get('/current', requireAuth, async (req, res) => {
     const currentUserReviews = await Review.findAll({
-        where: {
-            userId: req.user.id
-        },
         include: [
             {
                 model: User,
@@ -28,6 +25,9 @@ router.get('/current', requireAuth, async (req, res) => {
                 model: Image,
                 attributes: ['id', ['reviewId', 'imageableId'], 'url']
             },
+            // where: {
+            //     userId: req.user.id
+            // },
         ],
         group: ['Review.id'],
     })

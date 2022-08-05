@@ -216,10 +216,6 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         userId: req.user.id
     })
 
-    console.log(req.params.spotId);
-    console.log(req.params.reviewId);
-    console.log(req.user.id)
-
 
     const response = {
         id: newImage.id,
