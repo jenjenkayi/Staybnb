@@ -87,9 +87,6 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
     const { review, stars } = req.body
     const reviews = await Review.findByPk(req.params.reviewId)
 
-    reviews.review = review, 
-    reviews.stars = stars
-      
     if (!reviews) {
         res.status(404)
         return res.json(
@@ -99,6 +96,10 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
             }
         )
     }
+    
+    reviews.review = review, 
+    reviews.stars = stars
+      
 
     await reviews.save()
     res.json(reviews)
