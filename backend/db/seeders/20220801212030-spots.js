@@ -41,19 +41,7 @@ module.exports = {
         name: "Minnie House",
         description: "Place where web developers are created",
         price: 150
-      },
-      {
-        ownerId: 3,
-        address: "246 Knotts Road",
-        city: "San Francisco",
-        state: "California",
-        country: "United States of America",
-        lat: 23.7645358,
-        lng: -152.4730327,
-        name: "Winnie House",
-        description: "Place where web developers are created",
-        price: 250
-      },
+      }
   ], {});
   },
 

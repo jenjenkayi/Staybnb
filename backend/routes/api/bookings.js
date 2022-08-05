@@ -8,12 +8,28 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
 
 
-
 // Get all of the Current User's Bookings
 router.get('/current', requireAuth, async (req, res) => {
+    const currentUserBookings = await Booking.findAll({
+        where: {
+            userId: req.user.id
+        },
+        include: [
+            {
+                model: Spot,
+                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+            },
+            // {
+            //     model: Image,
+            //     attributes: ['previewImage']
+            // }
+        ],
+        group: ['Booking.id'],
+    })
+
+    res.status(200);
+    return res.json({ Bookings: currentUserBookings });
 })
-
-
 
 
 // Edit a Booking

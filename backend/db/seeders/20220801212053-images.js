@@ -27,13 +27,6 @@ module.exports = {
         reviewId: 3,
         userId: 3
     },
-      {
-        url: 'image url',
-        previewImage: true,
-        spotId: 3,
-        reviewId: 3,
-        userId: 3
-    }
   ], {});
   },
 
