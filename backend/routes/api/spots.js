@@ -44,13 +44,19 @@ const validateSpot = [
 
 // Get all Spots
 router.get('/', async (req, res) => {
-    // let { page, size } = req.query;
+    let pagination = {};
+    let { page, size } = req.query;
 
-    // page = parseInt(page);
-    // size = parseInt(size);
+    page = parseInt(page);
+    size = parseInt(size);
 
-    // if (Number.isNaN(page)) page = 0;
-    // if (Number.isNaN(size)) size = 20;
+    if (!page) page = 0;
+    if (!size) size = 20;
+
+    if (size >= 0 && page >= 0) {
+        pagination.limit = size,
+        pagination.offset = size * (page - 1)
+    }
 
     const spots = await Spot.findAll({
         include: [
@@ -64,10 +70,10 @@ router.get('/', async (req, res) => {
                     [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
                 ]
         },
-        // limit: size,
-        // offset: size * (page - 1),
 
-        group:['Spot.id']
+        group:['Spot.id'],
+
+        ...pagination
     })
     
     for (let i = 0; i < spots.length; i++) {
@@ -396,7 +402,7 @@ router.get('/:spotId/bookings', async (req, res) => {
 
 // Create a Booking from a Spot based on the Spot's id
 router.post('/:spotId/bookings', requireAuth, async (req, res) => {
-    const spot = await Spot.findByPk(req.params.spotId);
+    const spot = await Spot.findByPk(req.params.spotId); 
     const { user } = req;
     const bookings = await Booking.findAll({
         where: { spotId: req.params.spotId }
