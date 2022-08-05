@@ -153,7 +153,7 @@ router.get('/:spotId', async (req, res) => {
             }
         )
     } 
-    
+
     let Images = await Image.findAll({
         attributes: ['id', ['spotId', 'imageableId'], 'url'],
         where: { spotId: spot.id },
@@ -233,6 +233,15 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body
     const spot = await Spot.findByPk(req.params.spotId)
     
+    if (!spot) {
+        res.status(404)
+        return res.json(
+            {
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            }
+        )
+    }
     spot.address = address,
     spot.city = city,
     spot.state = state,
@@ -243,15 +252,6 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     spot.description = description,
     spot.price = price
     
-    if (!spot) {
-        res.status(404)
-        return res.json(
-            {
-                "message": "Spot couldn't be found",
-                "statusCode": 404
-            }
-        )
-    }
 
     await spot.save()
     return res.json(spot)
