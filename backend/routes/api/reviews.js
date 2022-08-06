@@ -8,7 +8,6 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
 const image = require('../../db/models/image');
 
-
 // Get all Reviews of the Current User
 router.get('/current', requireAuth, async (req, res) => {
     const currentUserReviews = await Review.findAll({

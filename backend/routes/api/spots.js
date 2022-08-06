@@ -43,6 +43,17 @@ const validateSpot = [
     handleValidationErrors
 ];
 
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required.'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5.'),
+    handleValidationErrors
+];
+
 // Get all Spots
 router.get('/', async (req, res) => {
     const spots = await Spot.findAll({
@@ -285,7 +296,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
             }
         })
     }
-    
+
     await spot.save()
     return res.json(spot)
 })
@@ -349,7 +360,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 
 
 // Create a Review for a Spot based on the Spot's id
-router.post('/:spotId/reviews', requireAuth, async (req, res) => {
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId);
     const reviews = await Review.findAll({
         where: { spotId: req.params.spotId }
@@ -367,6 +378,17 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
   
     let userId = Spot.ownerId;
     
+    if (validateReview) {
+        return res.json({
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": {
+                "review": "Review text is required",
+                "stars": "Stars must be an integer from 1 to 5",
+            }
+        })
+    }
+
     if (Review.userId !== userId) {
         const { review, stars } = req.body;
         const newReview = await Review.create({
@@ -386,6 +408,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
             }
         )
     }
+
 
 })
 
