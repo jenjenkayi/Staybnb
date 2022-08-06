@@ -87,27 +87,37 @@ router.get('/', async (req, res) => {
     //     // group:['Spot.id'],
     // })
 
-    const spots = await Spot.findAll({
-       include: [
-            { 
-               model: Review,
-               attributes: []
-            },
-            // { 
-            //     model: Review 
-            // }
-       ]
-    })
+    const spots = await Spot.findAll()
+    //     {
+    //    include: [
+    //         { 
+    //            model: Review,
+    //            attributes: []
+    //         },
+    //    ]
+    // })
 
     for (let i = 0; i < spots.length; i++) {
-        let spot = spots[i]
+        let spot = spots[i];
+        let spotId = spots[i].id;
 
-        let avgRating = await Spot.findByPk(req.params.spotId, {
-            include: [
-                    [
-                        sequelize.fn("AVG", sequelize.col("stars")), "avgRating"
+        let avgRating = await Spot.findByPk(spotId, {
+                include: [
+                    {
+                    model: Review,
+                    attributes: [
+                        [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"]
                     ]
+                    },
                 ],
+                
+                // attributes: {
+                // include: [
+                //     [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+                // ]
+                // },
+                
+            // group: ['Spot.id'],
         })
 
         spot.dataValues.avgRating = avgRating
