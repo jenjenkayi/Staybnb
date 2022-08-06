@@ -58,7 +58,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     booking.startDate = startDate,
     booking.endDate = endDate
 
-    if (startDate > endDate) {
+    if (booking.startDate > booking.endDate) {
         res.status(400)
         return res.json({
                 "message": "Validation error",
@@ -69,7 +69,9 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             })
     }
 
-    if (endDate < new Date()) {
+    const today = new Date();
+
+    if (booking.endDate < today) {
         res.status(403)
         return res.json({
                 "message": "Past bookings can't be modified",
@@ -77,7 +79,10 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
 
-    if (booking.startDate !== startDate && booking.endDate !== endDate) {
+    console.log(booking.startDate);
+    console.log(startDate)
+
+    if (booking.startDate === req.body.startDate) {
         res.status(403)
         return res.json({
             "message": "Sorry, this spot is already booked for the specified dates",
