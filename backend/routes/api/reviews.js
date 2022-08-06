@@ -72,8 +72,6 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         where: { previewImage: true, reviewId: req.params.reviewId },
     })
 
-    console.log(images.length);
-
     if (images.length >= 10) {
         res.status(403)
         return res.json({
