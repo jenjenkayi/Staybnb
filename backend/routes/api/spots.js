@@ -531,7 +531,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const bookings = await Booking.findAll({
         where: { spotId: req.params.spotId }
     })
-    console.log(bookings);
 
     if (!spot) {
         res.status(404)

@@ -55,10 +55,8 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     }
     
     booking.startDate = startDate,
-    booking.endDate = endDate,
+    booking.endDate = endDate
     
-    console.log(req.body.startDate)
-
     if (booking.startDate > booking.endDate) {
         res.status(400)
         return res.json({
@@ -80,9 +78,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
 
-    // console.log(booking.startDate);
-    console.log(req.body.startDate)
-
+  
     if (booking.startDate === req.body.startDate) {
         res.status(403)
         return res.json({
