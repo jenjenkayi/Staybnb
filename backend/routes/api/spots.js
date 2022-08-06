@@ -53,38 +53,106 @@ const validateReview = [
 ];
 
 // Get all Spots
+// Add Query Filters to Get All Spots
 router.get('/', async (req, res) => {
-    const spots = await Spot.findAll({
-        include: [
-                {
-                    model: Review,
-                    attributes: []
-                },
-            ],
-        attributes: {
-            include: [
-                    [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-                ]
-        },
+    // let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    // let pagination = {};
+    
+    // page = parseInt(page);
+    // size = parseInt(size);
+    
+    // if (!page) page = 0;
+    // if (!size) size = 20;
+    
+    // if (page >= 1 && size >= 1) {
+    //     pagination.limit = size,
+    //     pagination.offset = size * (page - 1)
+    // }
+    
+    // const spots = await Spot.findAll({
+    //     where: { spotId: Spot.id },
+    //     include: [
+    //             {
+    //                 model: Review,
+    //                 attributes: []
+    //             },
+    //         ],
+    //     attributes: {
+    //         include: [
+    //                 [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+    //             ]
+    //     },
+    //     // ...pagination,
 
-        group:['Spot.id'],
+    //     // group:['Spot.id'],
+    // })
+
+    const spots = await Spot.findAll({
+       include: [
+            { 
+               model: Review,
+               attributes: []
+            },
+            // { 
+            //     model: Review 
+            // }
+       ]
     })
 
     for (let i = 0; i < spots.length; i++) {
-    let spot = spots[i]
+        let spot = spots[i]
+
+        let avgRating = await Spot.findByPk(req.params.spotId, {
+            include: [
+                    [
+                        sequelize.fn("AVG", sequelize.col("stars")), "avgRating"
+                    ]
+                ],
+        })
+
+        spot.dataValues.avgRating = avgRating
 
         let previewImage = await Image.findOne({
-            attributes: 
-               ['url'],
+            attributes: ['url'],
             where: { previewImage: true, spotId: spots[i].id},
             raw: true
         })
+
         if (previewImage) {
             spot.dataValues.previewImage = previewImage.url
         }
     }
-    
-    return res.json(spots)
+
+    // let avgReview = await Review.findAll({
+    //     where: {spotId: req.params.spotId},
+    //     attributes: {
+    //         include: [
+    //             [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+    //         ]
+    //     },
+    // })
+
+    // spots.dataValues.avgReview = avgReview;
+
+    // for (let i = 0; i < spots.length; i++) {
+    // let spot = spots[i]
+
+    //     let previewImage = await Image.findOne({
+    //         attributes: ['url'],
+    //         where: { previewImage: true, spotId: spots[i].id},
+    //         raw: true
+    //     })
+
+    //     if (previewImage) {
+    //         spot.dataValues.previewImage = previewImage.url
+    //     }
+    // }
+   
+    return res.json({
+            "Spots": spots,
+            // "page": page,
+            // "size": size
+        })
 })
 
 
