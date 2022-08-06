@@ -43,9 +43,8 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // Edit a Booking
 router.put('/:bookingId', requireAuth, async (req, res) => {
-    const { startDate, endDate } = req.body
     const booking = await Booking.findByPk(req.params.bookingId);
-    
+  
     if (!booking) {
         res.status(404)
         return res.json({
@@ -54,10 +53,11 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
     
+    const { startDate, endDate } = req.body;
     booking.startDate = startDate,
     booking.endDate = endDate
     
-    if (booking.startDate > booking.endDate) {
+    if (startDate >= endDate) {
         res.status(400)
         return res.json({
                 "message": "Validation error",
@@ -70,7 +70,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 
     const today = new Date();
 
-    if (booking.endDate < today) {
+    if (startDate <= today) {
         res.status(403)
         return res.json({
                 "message": "Past bookings can't be modified",
@@ -78,6 +78,13 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
 
+    if (booking.endDate <= today) {
+        res.status(403)
+        return res.json({
+            "message": "Past bookings can't be modified",
+            "statusCode": 403
+        })
+    }
   
     if (booking.startDate === req.body.startDate) {
         res.status(403)
