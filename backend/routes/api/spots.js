@@ -245,12 +245,12 @@ router.get('/:spotId', async (req, res) => {
         where: { spotId: spot.id },
     })
 
-    let reviewCount = await Review.count({
+    let numReviews = await Review.count({
         where: { spotId: spot.id },
     })
 
     spot.dataValues.Images = Images
-    spot.dataValues.reviewCount = reviewCount
+    spot.dataValues.numReviews = numReviews
   
     
     return res.json(spot);
