@@ -276,6 +276,9 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
         price
     })
     
+    await newSpot.save()
+    res.json(newSpot)
+    
     if (validateSpot) {
         return res.json({
             "message": "Validation Error",
@@ -293,8 +296,7 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
             }
         })
     }
-    await newSpot.save()
-    res.json(newSpot)
+
 });
 
 
