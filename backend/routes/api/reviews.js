@@ -68,12 +68,14 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
             spotId: review.spotId
         })
 
-    let imageCount = await Image.count({
-        where: { previewImage: true },
+    let images = await Image.findAll({
+        where: { previewImage: true, reviewId: req.params.reviewId },
     })
 
-    if (imageCount >= 10) {
-        res.status(404)
+    console.log(images.length);
+
+    if (images.length >= 10) {
+        res.status(403)
         return res.json({
                 "message": "Maximum number of images for this resource was reached",
                 "statusCode": 403
@@ -115,7 +117,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
             }
         })
     }
-    
+
     reviews.review = review, 
     reviews.stars = stars
       

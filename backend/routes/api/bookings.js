@@ -43,6 +43,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // Edit a Booking
 router.put('/:bookingId', requireAuth, async (req, res) => {
+    const { startDate, endDate } = req.body
     const booking = await Booking.findByPk(req.params.bookingId);
     
     if (!booking) {
@@ -53,10 +54,10 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
     
-    const { startDate, endDate } = req.body
-
     booking.startDate = startDate,
-    booking.endDate = endDate
+    booking.endDate = endDate,
+    
+    console.log(req.body.startDate)
 
     if (booking.startDate > booking.endDate) {
         res.status(400)
@@ -79,8 +80,8 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
 
-    console.log(booking.startDate);
-    console.log(startDate)
+    // console.log(booking.startDate);
+    console.log(req.body.startDate)
 
     if (booking.startDate === req.body.startDate) {
         res.status(403)
