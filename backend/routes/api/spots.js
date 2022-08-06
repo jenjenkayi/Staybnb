@@ -41,7 +41,7 @@ const validateSpot = [
         .exists({ checkFalsy: true })
         .withMessage('Price per day is required.'),
     handleValidationErrors
-]
+];
 
 // Get all Spots
 router.get('/', async (req, res) => {
@@ -100,6 +100,14 @@ router.get('/current', requireAuth, async (req, res) => {
         group: ['Spot.id']
     })
 
+
+    if (!req.user.id) {
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    }
+
     for (let i = 0; i < currentUserSpots.length; i++) {
         let spot = currentUserSpots[i]
 
@@ -109,7 +117,6 @@ router.get('/current', requireAuth, async (req, res) => {
             })
             spot.dataValues.previewImage = previewImage
         }
-
     
     return res.json({Spots: currentUserSpots})
 })
@@ -165,7 +172,7 @@ router.get('/:spotId', async (req, res) => {
 
 
 //Create a Spot
-router.post('/', requireAuth, async (req, res) => {
+router.post('/', requireAuth, validateSpot, async (req, res) => {
     
     const { address, city, state, country, lat, lng, name, description, price } = req.body
  
@@ -182,6 +189,23 @@ router.post('/', requireAuth, async (req, res) => {
         price
     })
     
+    if (validateSpot) {
+        return res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+                "address": "Street address is required",
+                "city": "City is required",
+                "state": "State is required",
+                "country": "Country is required",
+                "lat": "Latitude is not valid",
+                "lng": "Longitude is not valid",
+                "name": "Name must be less than 50 characters",
+                "description": "Description is required",
+                "price": "Price per day is required",
+            }
+        })
+    }
     await newSpot.save()
     res.json(newSpot)
 });
@@ -244,7 +268,24 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     spot.description = description,
     spot.price = price
     
-
+    if (validateSpot) {
+        return res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+                "address": "Street address is required",
+                "city": "City is required",
+                "state": "State is required",
+                "country": "Country is required",
+                "lat": "Latitude is not valid",
+                "lng": "Longitude is not valid",
+                "name": "Name must be less than 50 characters",
+                "description": "Description is required",
+                "price": "Price per day is required",
+            }
+        })
+    }
+    
     await spot.save()
     return res.json(spot)
 })
@@ -450,37 +491,45 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
 // Add Query Filters to Get All Spots
 router.get('/', async (req, res) => {
-        let pagination = {};
-        let { page, size } = req.query;
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    let pagination = {};
 
         page = parseInt(page);
         size = parseInt(size);
 
-        if (!page) page = 1;
+        if (!page) page = 0;
         if (!size) size = 20;
 
-        if (size >= 1 && page >= 1) {
+        if (page >= 1 && size >= 1) {
             pagination.limit = size,
-                pagination.offset = size * (page - 1)
+            pagination.offset = size * (page - 1)
         }
 
-    //  ...pagination
+        const spots = await Spot.findAll({
+            attributes: [
+                'ownerId',
+                'address',
+                'city',
+                'state',
+                'country',
+                'lat',
+                'lng',
+                'name',
+                'description',
+                'price',
+                'createdAt',
+                'updatedAt',
+                'previewImage'
+            ],
 
-         
-    // for (let i = 0; i < spots.length; i++) {
-    //     let spot = spots[i]
+             ...pagination
+        })
 
-    //     let previewImage = await Image.findOne({
-    //         attributes: ['url'],
-    //         where: {
-    //             previewImage: true,
-    //             spotId: spots[i].id
-    //         }
-    //     })
-    //     if (previewImage) {
-    //         spot.dataValues.previewImage = previewImage.url
-    //     }
-    // }
+        return res.json({
+            "Spots": spots,
+            "page": page,
+            "size": size
+        })
 })
 
 
