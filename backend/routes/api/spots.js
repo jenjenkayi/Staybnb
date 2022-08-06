@@ -7,6 +7,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
 const image = require('../../db/models/image');
+const spot = require('../../db/models/spot');
 
 const validateSpot = [
     check('address')
@@ -44,20 +45,6 @@ const validateSpot = [
 
 // Get all Spots
 router.get('/', async (req, res) => {
-    // let pagination = {};
-    // let { page, size } = req.query;
-
-    // page = parseInt(page);
-    // size = parseInt(size);
-
-    // if (!page) page = 0;
-    // if (!size) size = 20;
-
-    // if (size >= 0 && page >= 0) {
-    //     pagination.limit = size,
-    //     pagination.offset = size * (page - 1)
-    // }
-
     const spots = await Spot.findAll({
         include: [
                 {
@@ -72,20 +59,7 @@ router.get('/', async (req, res) => {
         },
 
         group:['Spot.id'],
-
-        // ...pagination
     })
-    
-    // let avgReview = await Review.findAll({
-    //     where: { spotId: req.params.id },
-    //     attributes: {
-    //         include: [
-    //             [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-    //         ]
-    //     },
-    // })
-
-    // spots.dataValues.avgReview = avgReview
 
     for (let i = 0; i < spots.length; i++) {
     let spot = spots[i]
@@ -428,10 +402,10 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         })
     } 
 
-    console.log(req.params.ownerId);
-    console.log(req.user.id)
+    console.log(req.params.spotId); //3
+    console.log(req.user.id) //2
 
-    if (req.params.ownerId !== req.user.id) {
+    // if (req.params.ownerId !== req.user.id) {
     const { startDate, endDate } = req.body;
     
     const newBooking = await Booking.create({
@@ -442,8 +416,8 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     })
 
     // await newBooking.save()
-    return res.json(newBooking)
-    }
+    // return res.json(newBooking)
+    // }
 
     if (startDate > endDate) {
         res.status(400)
@@ -458,7 +432,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         )
     }
 
-    if (bookings.startDate !== startDate && bookings.endDate !== endDate) {
+    if (bookings.startDate === newBooking.startDate && bookings.endDate === newBooking.endDate) {
         res.status(403)
         return res.json({
                 "message": "Sorry, this spot is already booked for the specified dates",
@@ -470,9 +444,43 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             })
     }
 
+    return res.json(newBooking)
+})
 
-    // await newBooking.save()
-    // return res.json(newBooking)
+
+// Add Query Filters to Get All Spots
+router.get('/', async (req, res) => {
+        let pagination = {};
+        let { page, size } = req.query;
+
+        page = parseInt(page);
+        size = parseInt(size);
+
+        if (!page) page = 1;
+        if (!size) size = 20;
+
+        if (size >= 1 && page >= 1) {
+            pagination.limit = size,
+                pagination.offset = size * (page - 1)
+        }
+
+    //  ...pagination
+
+         
+    // for (let i = 0; i < spots.length; i++) {
+    //     let spot = spots[i]
+
+    //     let previewImage = await Image.findOne({
+    //         attributes: ['url'],
+    //         where: {
+    //             previewImage: true,
+    //             spotId: spots[i].id
+    //         }
+    //     })
+    //     if (previewImage) {
+    //         spot.dataValues.previewImage = previewImage.url
+    //     }
+    // }
 })
 
 
