@@ -8,6 +8,17 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
 const image = require('../../db/models/image');
 
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required.'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5.'),
+    handleValidationErrors
+];
+
 // Get all Reviews of the Current User
 router.get('/current', requireAuth, async (req, res) => {
     const currentUserReviews = await Review.findAll({
@@ -80,7 +91,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 })
 
 // Edit a Review
-router.put('/:reviewId', requireAuth, async (req, res) => {
+router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     const { review, stars } = req.body
     const reviews = await Review.findByPk(req.params.reviewId)
 
@@ -94,6 +105,17 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
         )
     }
 
+    if (validateReview) {
+        return res.json({
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": {
+                "review": "Review text is required",
+                "stars": "Stars must be an integer from 1 to 5",
+            }
+        })
+    }
+    
     reviews.review = review, 
     reviews.stars = stars
       

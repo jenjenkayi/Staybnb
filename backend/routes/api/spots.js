@@ -376,8 +376,6 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
         )
     }
   
-    let userId = Spot.ownerId;
-    
     if (validateReview) {
         return res.json({
             "message": "Validation error",
@@ -389,6 +387,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
         })
     }
 
+    let userId = Spot.ownerId;
     if (Review.userId !== userId) {
         const { review, stars } = req.body;
         const newReview = await Review.create({
