@@ -10,7 +10,11 @@ const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/mode
 
 // Get all of the Current User's Bookings
 router.get('/current', requireAuth, async (req, res) => {
-    const spots = await Spot.findAll();
+    const spots = await Spot.findAll({
+        where: {
+            ownerId: req.user.id
+        }
+    });
     const currentUserBookings = await Booking.findAll({
         where: {
             userId: req.user.id
@@ -31,9 +35,9 @@ router.get('/current', requireAuth, async (req, res) => {
             raw: true
         })
 
-        if (previewImage) {
-            spot.dataValues.previewImage = previewImage.url
-        }
+        // if (previewImage) {
+            spot.dataValues.previewImage = previewImage
+        // }
     }
 
 
@@ -115,6 +119,14 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
             })
     }
     
+    // if (!req.user.id) {
+    //     res.status(403)
+    //     return res.json({
+    //         "message": "Forbidden",
+    //         "statusCode": 403
+    //     });
+    // }
+
     const today = new Date();
     if (booking.startDate < today) {
         res.status(404)
