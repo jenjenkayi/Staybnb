@@ -110,6 +110,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 // Delete a Booking
 router.delete('/:bookingId', requireAuth, async (req, res) => {
     const booking = await Booking.findByPk(req.params.bookingId)
+    const spots = await Spot.findAll();
 
     if (!booking) {
         res.status(404)
@@ -118,14 +119,14 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
                 "statusCode": 404
             })
     }
-    
-    // if (!req.user.id) {
-    //     res.status(403)
-    //     return res.json({
-    //         "message": "Forbidden",
-    //         "statusCode": 403
-    //     });
-    // }
+
+    if (req.params.bookingId !== req.user.id || spots.ownerId !== req.user.id) {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden",
+            "statusCode": 403
+        });
+    }
 
     const today = new Date();
     if (booking.startDate < today) {
