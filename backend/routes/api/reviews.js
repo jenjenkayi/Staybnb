@@ -105,17 +105,6 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
         )
     }
 
-    if (validateReview) {
-        return res.json({
-            "message": "Validation error",
-            "statusCode": 400,
-            "errors": {
-                "review": "Review text is required",
-                "stars": "Stars must be an integer from 1 to 5",
-            }
-        })
-    }
-
     reviews.review = review, 
     reviews.stars = stars
       
