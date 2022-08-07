@@ -143,37 +143,25 @@ router.get('/', validatePagination, async (req, res) => {
 
     const spots = await Spot.findAll({
             include: [
-                {
-                    model: Review,
-                    attributes: []
-                },
+                { model: Review, attributes: [] },
             ],
-            // attributes: {
-            //     include: [
-            //         [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-            //     ]
-            // },
             where,
             ...pagination,
-            group: ['Spot.id', 'Review.id'],
+            group: ['Spot.id'],
         })
-
         
         for (let i = 0; i < spots.length; i++) {
             let spot = spots[i]
-            
+
             let avgRating = await Review.findAll({        
                 attributes: {
-                include: [
-                        [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
-                    ]
+                include: [[sequelize.fn("AVG", sequelize.col("stars")), "avgRating"]]
                 },
             })
-            spot.dataValues.avgRating = avgRating
+            spot.dataValues.avgRating = avgRating;
 
             let previewImage = await Image.findOne({
-                attributes:
-                    ['url'],
+                attributes:['url'],
                 where: { previewImage: true, spotId: spots[i].id },
                 raw: true
             })
@@ -181,7 +169,6 @@ router.get('/', validatePagination, async (req, res) => {
                 spot.dataValues.previewImage = previewImage.url
             }
         }
-
             return res.json({
                     "Spots": spots,
                     "page": page,
