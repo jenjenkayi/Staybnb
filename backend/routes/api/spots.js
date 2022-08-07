@@ -147,7 +147,7 @@ router.get('/', validatePagination, async (req, res) => {
             ],
             where,
             ...pagination,
-            group: ['Spot.id'],
+            group: ['Spot.id', 'Review.id'],
         })
         
         for (let i = 0; i < spots.length; i++) {
