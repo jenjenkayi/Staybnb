@@ -278,25 +278,6 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
     
     await newSpot.save()
     res.json(newSpot)
-    
-    if (validateSpot) {
-        return res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "address": "Street address is required",
-                "city": "City is required",
-                "state": "State is required",
-                "country": "Country is required",
-                "lat": "Latitude is not valid",
-                "lng": "Longitude is not valid",
-                "name": "Name must be less than 50 characters",
-                "description": "Description is required",
-                "price": "Price per day is required",
-            }
-        })
-    }
-
 });
 
 
@@ -335,7 +316,6 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
 // Edit a Spot
 router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
-    const { address, city, state, country, lat, lng, name, description, price } = req.body
     const spot = await Spot.findByPk(req.params.spotId)
     
     if (!spot) {
@@ -345,8 +325,11 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
                 "message": "Spot couldn't be found",
                 "statusCode": 404
             }
-        )
-    }
+            )
+        }
+    
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+    
     spot.address = address,
     spot.city = city,
     spot.state = state,
@@ -357,24 +340,6 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     spot.description = description,
     spot.price = price
     
-    if (validateSpot) {
-        return res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "address": "Street address is required",
-                "city": "City is required",
-                "state": "State is required",
-                "country": "Country is required",
-                "lat": "Latitude is not valid",
-                "lng": "Longitude is not valid",
-                "name": "Name must be less than 50 characters",
-                "description": "Description is required",
-                "price": "Price per day is required",
-            }
-        })
-    }
-
     await spot.save()
     return res.json(spot)
 })
