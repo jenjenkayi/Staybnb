@@ -10,11 +10,13 @@ const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/mode
 
 // Get all of the Current User's Bookings
 router.get('/current', requireAuth, async (req, res) => {
-    const spots = await Spot.findAll({
-        where: {
-            ownerId: req.user.id
-        }
-    });
+    const spots = await Spot.findAll()
+        // {
+    //     where: {
+    //         spotId: req.params.SpotId
+    //     }
+    // });
+
     const currentUserBookings = await Booking.findAll({
         where: {
             userId: req.user.id
@@ -23,23 +25,42 @@ router.get('/current', requireAuth, async (req, res) => {
             model: Spot,
             attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
         },
-        // group: ['Spot.id'],
+        group: ['Spot.id'],
     })
 
-    for (let i = 0; i < spots.length; i++) {
-        let  spot = spots[i]
+    if (!req.user.id) {
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    }
+
+    // for (let i = 0; i < spots.length; i++) {
+    //     let  spot = spots[i]
+
+    //     let previewImage = await Image.findOne({
+    //         attributes: ['url'],
+    //         where: { previewImage: true, spotId: spot.id },
+    //         raw: true
+    //     })
+
+    //     if (previewImage) {
+    //         spot.dataValues.previewImage = previewImage
+    //     }
+    // }
+    for (let i = 0; i < currentUserBookings.length; i++) {
+        let  booking = currentUserBookings[i]
 
         let previewImage = await Image.findOne({
             attributes: ['url'],
-            where: { previewImage: true, spotId: spot.id },
+            where: { previewImage: true, spotId: booking.spotId },
             raw: true
         })
 
         // if (previewImage) {
-            spot.dataValues.previewImage = previewImage
+            booking.dataValues.previewImage = previewImage
         // }
     }
-
 
     return res.json({ Bookings: currentUserBookings });
 })
