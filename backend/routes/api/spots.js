@@ -184,8 +184,8 @@ router.get('/', validatePagination, async (req, res) => {
 
             return res.json({
                     "Spots": spots,
-                    // "page": page,
-                    // "size": size
+                    "page": page,
+                    "size": size
                 })
         })
    
