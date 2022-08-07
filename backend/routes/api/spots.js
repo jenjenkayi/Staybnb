@@ -6,6 +6,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
+const { Op } = require('sequelize')
 
 const validateSpot = [
     check('address')
@@ -52,23 +53,94 @@ const validateReview = [
     handleValidationErrors
 ];
 
+const validatePagination = [
+    check('page')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 0, max: 10 })
+        .withMessage('Page must be greater than or equal to 0.'),
+    check('size')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 0, max: 10 })
+        .withMessage('Size must be greater than or equal to 0.'),
+    check('maxLat')
+        .optional()
+        .isDecimal()
+        .withMessage('Maximum latitude is invalid.'),
+    check('minLat')
+        .optional()
+        .isDecimal()
+        .withMessage('Minimum latitude is invalid.'),
+    check('minLng')
+        .optional()
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage('Maximum longitude is invalid.'),
+    check('maxLng')
+        .optional()
+        .isDecimal()
+        .withMessage('Minimum longitude is invalid.'),
+    check('minPrice')
+        .optional()
+        .isDecimal({ min: 0 })
+        .custom((value, { req }) => {
+            if (parseFloat(value) < 0) {
+                return Promise.reject('Minimum price must be greater than or equal to 0')
+            } else {
+                return true
+            }
+        }),
+        // .withMessage('Maximum price must be greater than or equal to 0.'),
+    check('maxPrice')
+        .optional()
+        .isDecimal({ min: 0 })
+        .custom((value, { req }) => {
+            if (parseFloat(value) < 0) {
+                return Promise.reject('Maximum price must be greater than or equal to 0')
+            } else {
+                return true
+            }
+        }),
+        // .withMessage('Maximum price must be greater than or equal to 0.'),
+    handleValidationErrors
+];
+
 // Get all Spots
 // Add Query Filters to Get All Spots
-router.get('/', async (req, res) => {
-    // let pagination = {};
-    // let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+router.get('/', validatePagination, async (req, res) => {
+    let pagination = {};
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     
-    // page = parseInt(page);
-    // size = parseInt(size);
+    page = parseInt(page);
+    size = parseInt(size);
     
-    // if (!page) page = 0;
-    // if (!size) size = 20;
+    if (!page) page = 0;
+    if (!size) size = 20;
     
-    // if (page >= 1 && size >= 1) {
-    //     pagination.limit = size,
-    //     pagination.offset = size * (page - 1)
-    // }
-    
+    if (page >= 1 && size >= 1) {
+        pagination.limit = size,
+        pagination.offset = size * page
+    }
+    let where = {}
+
+    if (minLat) {
+        where.lat = {[Op.gte]: parseFloat(minLat)}
+    }
+    if (maxLat) {
+        where.lat = {[Op.lte]: parseFloat(maxLat)}
+    }
+    if (minLng) {
+        where.lat = {[Op.gte]: parseFloat(minLng)}
+    }
+    if (maxLng) {
+        where.lat = {[Op.lte]: parseFloat(maxLng)}
+    }
+    if (minPrice) {
+        where.price = {[Op.gte]: parseFloat(minPrice)}
+    }
+    if (maxPrice) {
+        where.price = {[Op.lte]: parseFloat(maxPrice)}
+    }
+
     const spots = await Spot.findAll({
             include: [
                 {
@@ -76,17 +148,28 @@ router.get('/', async (req, res) => {
                     attributes: []
                 },
             ],
-            attributes: {
-                include: [
-                    [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
-                ]
-            },
-
-            group: ['Spot.id'],
+            // attributes: {
+            //     include: [
+            //         [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+            //     ]
+            // },
+            where,
+            ...pagination,
+            // group: ['Spot.id'],
         })
 
+        
         for (let i = 0; i < spots.length; i++) {
             let spot = spots[i]
+            
+            let avgRating = await Review.findAll({        
+                attributes: {
+                include: [
+                        [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+                    ]
+                },
+            })
+            spot.dataValues.avgRating = avgRating
 
             let previewImage = await Image.findOne({
                 attributes:
