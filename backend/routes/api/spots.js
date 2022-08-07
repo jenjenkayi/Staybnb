@@ -142,12 +142,15 @@ router.get('/', validatePagination, async (req, res) => {
         for (let i = 0; i < spots.length; i++) {
             let spot = spots[i]
 
-            let avgRating = await Review.findAll({        
-                attributes: {
-                include: [[sequelize.fn("AVG", sequelize.col("stars")), "avgRating"]]
-                },
-            })
-            spot.dataValues.avgRating = avgRating;
+            // let avgRating = await Review.findOne({
+            //     // where: { Review.spotId: spots[i].spotId },        
+            //     attributes: {
+            //     include: [[sequelize.fn("AVG", sequelize.col("stars")), "avgRating"]]
+            //     },
+            // })
+
+            // console.log(avgRating)
+            // spot.dataValues.avgRating = avgRating;
 
             let previewImage = await Image.findOne({
                 attributes:['url'],
