@@ -420,17 +420,6 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
             }
         )
     }
-  
-    if (validateReview) {
-        return res.json({
-            "message": "Validation error",
-            "statusCode": 400,
-            "errors": {
-                "review": "Review text is required",
-                "stars": "Stars must be an integer from 1 to 5",
-            }
-        })
-    }
 
     let userId = Spot.ownerId;
     if (Review.userId !== userId) {
