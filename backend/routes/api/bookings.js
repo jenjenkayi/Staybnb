@@ -10,12 +10,13 @@ const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/mode
 
 // Get all of the Current User's Bookings
 router.get('/current', requireAuth, async (req, res) => {
-    const spots = await Spot.findAll()
-        // {
-    //     where: {
-    //         spotId: req.params.SpotId
-    //     }
-    // });
+    const spots = await Spot.findAll(
+        {
+        where: {
+            spotId: req.params.SpotId
+        }
+        }
+    );
 
     const currentUserBookings = await Booking.findAll({
         where: {
@@ -35,32 +36,32 @@ router.get('/current', requireAuth, async (req, res) => {
         })
     }
 
-    // for (let i = 0; i < spots.length; i++) {
-    //     let  spot = spots[i]
-
-    //     let previewImage = await Image.findOne({
-    //         attributes: ['url'],
-    //         where: { previewImage: true, spotId: spot.id },
-    //         raw: true
-    //     })
-
-    //     if (previewImage) {
-    //         spot.dataValues.previewImage = previewImage
-    //     }
-    // }
-    for (let i = 0; i < currentUserBookings.length; i++) {
-        let  booking = currentUserBookings[i]
+    for (let i = 0; i < spots.length; i++) {
+        let  spot = spots[i]
 
         let previewImage = await Image.findOne({
             attributes: ['url'],
-            where: { previewImage: true, spotId: booking.spotId },
+            where: { previewImage: true, spotId: spot.id },
             raw: true
         })
 
-        // if (previewImage) {
-            booking.dataValues.previewImage = previewImage
-        // }
+        if (previewImage) {
+            spot.dataValues.previewImage = previewImage
+        }
     }
+    // for (let i = 0; i < currentUserBookings.length; i++) {
+    //     let  booking = currentUserBookings[i]
+
+    //     let previewImage = await Image.findOne({
+    //         attributes: ['url'],
+    //         where: { previewImage: true, spotId: booking.spotId },
+    //         raw: true
+    //     })
+
+        // if (previewImage) {
+            // booking.dataValues.previewImage = previewImage
+        // }
+    // }
 
     return res.json({ Bookings: currentUserBookings });
 })
