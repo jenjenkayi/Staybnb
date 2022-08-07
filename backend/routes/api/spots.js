@@ -278,6 +278,7 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
     
     await newSpot.save()
     res.json(newSpot)
+
 });
 
 
@@ -342,6 +343,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     
     await spot.save()
     return res.json(spot)
+    
 })
 
 // Delete a Spot
