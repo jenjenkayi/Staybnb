@@ -55,8 +55,8 @@ const validateReview = [
 // Get all Spots
 // Add Query Filters to Get All Spots
 router.get('/', async (req, res) => {
-    // let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     // let pagination = {};
+    // let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     
     // page = parseInt(page);
     // size = parseInt(size);
@@ -69,102 +69,43 @@ router.get('/', async (req, res) => {
     //     pagination.offset = size * (page - 1)
     // }
     
-    // const spots = await Spot.findAll({
-    //     where: { spotId: Spot.id },
-    //     include: [
-    //             {
-    //                 model: Review,
-    //                 attributes: []
-    //             },
-    //         ],
-    //     attributes: {
-    //         include: [
-    //                 [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
-    //             ]
-    //     },
-    //     // ...pagination,
-
-    //     // group:['Spot.id'],
-    // })
-
-    const spots = await Spot.findAll()
-    //     {
-    //    include: [
-    //         { 
-    //            model: Review,
-    //            attributes: []
-    //         },
-    //    ]
-    // })
-
-    for (let i = 0; i < spots.length; i++) {
-        let spot = spots[i];
-        let spotId = spots[i].id;
-
-        let avgRating = await Spot.findByPk(spotId, {
-                include: [
-                    {
+    const spots = await Spot.findAll({
+            include: [
+                {
                     model: Review,
-                    attributes: [
-                        [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"]
-                    ]
-                    },
-                ],
-                
-                // attributes: {
-                // include: [
-                //     [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
-                // ]
-                // },
-                
-            // group: ['Spot.id'],
+                    attributes: []
+                },
+            ],
+            attributes: {
+                include: [
+                    [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+                ]
+            },
+
+            group: ['Spot.id'],
         })
 
-        spot.dataValues.avgRating = avgRating
+        for (let i = 0; i < spots.length; i++) {
+            let spot = spots[i]
 
-        let previewImage = await Image.findOne({
-            attributes: ['url'],
-            where: { previewImage: true, spotId: spots.id},
-            raw: true
-        })
-
-        if (previewImage) {
-            spot.dataValues.previewImage = previewImage.url
+            let previewImage = await Image.findOne({
+                attributes:
+                    ['url'],
+                where: { previewImage: true, spotId: spots[i].id },
+                raw: true
+            })
+            if (previewImage) {
+                spot.dataValues.previewImage = previewImage.url
+            }
         }
-    }
 
-    // let avgReview = await Review.findAll({
-    //     where: {spotId: req.params.spotId},
-    //     attributes: {
-    //         include: [
-    //             [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
-    //         ]
-    //     },
-    // })
-
-    // spots.dataValues.avgReview = avgReview;
-
-    // for (let i = 0; i < spots.length; i++) {
-    // let spot = spots[i]
-
-    //     let previewImage = await Image.findOne({
-    //         attributes: ['url'],
-    //         where: { previewImage: true, spotId: spots[i].id},
-    //         raw: true
-    //     })
-
-    //     if (previewImage) {
-    //         spot.dataValues.previewImage = previewImage.url
-    //     }
-    // }
-   
-    return res.json({
-            "Spots": spots,
-            // "page": page,
-            // "size": size
+            return res.json({
+                    "Spots": spots,
+                    // "page": page,
+                    // "size": size
+                })
         })
-})
-
+   
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
