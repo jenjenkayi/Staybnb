@@ -155,7 +155,7 @@ router.get('/', validatePagination, async (req, res) => {
             // },
             where,
             ...pagination,
-            group: ['Spot.id', 'Review.id'],
+            // group: ['Spot.id', 'Review.id'],
         })
 
         
