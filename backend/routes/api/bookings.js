@@ -13,7 +13,7 @@ router.get('/current', requireAuth, async (req, res) => {
     const spots = await Spot.findAll(
         {
         where: {
-            spotId: req.params.SpotId
+            id: req.params.SpotId
         }
         }
     );
