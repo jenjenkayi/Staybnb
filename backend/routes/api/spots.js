@@ -120,26 +120,15 @@ router.get('/', validatePagination, async (req, res) => {
         pagination.limit = size,
         pagination.offset = size * page
     }
+
     let where = {}
 
-    if (minLat) {
-        where.lat = {[Op.gte]: parseFloat(minLat)}
-    }
-    if (maxLat) {
-        where.lat = {[Op.lte]: parseFloat(maxLat)}
-    }
-    if (minLng) {
-        where.lat = {[Op.gte]: parseFloat(minLng)}
-    }
-    if (maxLng) {
-        where.lat = {[Op.lte]: parseFloat(maxLng)}
-    }
-    if (minPrice) {
-        where.price = {[Op.gte]: parseFloat(minPrice)}
-    }
-    if (maxPrice) {
-        where.price = {[Op.lte]: parseFloat(maxPrice)}
-    }
+    if (minLat) {where.lat = {[Op.gte]: parseFloat(minLat)}}
+    if (maxLat) {where.lat = {[Op.lte]: parseFloat(maxLat)}}
+    if (minLng) {where.lat = {[Op.gte]: parseFloat(minLng)}}
+    if (maxLng) {where.lat = {[Op.lte]: parseFloat(maxLng)}}
+    if (minPrice) {where.price = {[Op.gte]: parseFloat(minPrice)}}
+    if (maxPrice) {where.price = {[Op.lte]: parseFloat(maxPrice)}}
 
     const spots = await Spot.findAll({
             include: [
@@ -147,7 +136,7 @@ router.get('/', validatePagination, async (req, res) => {
             ],
             where,
             ...pagination,
-            group: ['Spot.id', 'Review.id'],
+            // group: ['Spot.id', 'Review.id'],
         })
         
         for (let i = 0; i < spots.length; i++) {
@@ -213,6 +202,7 @@ router.get('/current', requireAuth, async (req, res) => {
             attributes: ['url'],
                 where: { previewImage: true, spotId: currentUserSpots[i].id },
             })
+            
             spot.dataValues.previewImage = previewImage
         }
     
