@@ -138,7 +138,7 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
             })
     }
 
-    if (Booking.userId !== req.user.id) {
+    if (booking.userId !== req.user.id) {
         res.status(403)
         return res.json({
             "message": "Forbidden",
