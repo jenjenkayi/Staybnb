@@ -97,32 +97,27 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             })
     }
 
-    for (let i = 0; i < bookings.length; i++) {
-        let booking = bookings[i];
-
-        const today = new Date();
-        if (booking.endDate <= today) {
-            res.status(403)
-            return res.json({
-                "message": "Past bookings can't be modified",
-                "statusCode": 403
-            })
-        }
-
-        if (booking.startDate === startDate) {
-            res.status(403)
-            return res.json({
-                "message": "Sorry, this spot is already booked for the specified dates",
-                "statusCode": 403,
-                "errors": {
-                    "startDate": "Start date conflicts with an existing booking",
-                    "endDate": "End date conflicts with an existing booking"
-                }
-            })
-        }
-
+    if (bookings.length > 1) {
+        res.status(403)
+        return res.json({
+            "message": "Sorry, this spot is already booked for the specified dates",
+            "statusCode": 403,
+            "errors": {
+                "startDate": "Start date conflicts with an existing booking",
+                "endDate": "End date conflicts with an existing booking"
+            }
+        })
     }
 
+    const today = new Date();
+
+    if (booking.endDate <= today) {
+        res.status(403)
+        return res.json({
+            "message": "Past bookings can't be modified",
+            "statusCode": 403
+        })
+    }
 
 
     await booking.save()
