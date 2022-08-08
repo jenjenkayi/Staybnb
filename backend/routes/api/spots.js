@@ -510,7 +510,7 @@ router.get('/:spotId/bookings', async (req, res) => {
 
 
 // Create a Booking from a Spot based on the Spot's id
-router.post('/:spotId/bookings', restoreUser, requireAuth, async (req, res) => {
+router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId); 
     const bookings = await Booking.findAll({
         where: { spotId: req.params.spotId }
@@ -533,23 +533,32 @@ router.post('/:spotId/bookings', restoreUser, requireAuth, async (req, res) => {
     }
     
     let { startDate, endDate } = req.body;
-    // startDate = new Date(startDate);
-    // endDate = new Date(endDate);
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
 
     const newBooking = await Booking.create({
             spotId: req.params.spotId,
             userId: req.user.id,
-            startDate,
-            endDate
-            // startDate: startDate,
-            // endDate: endDate
+            startDate: startDate,
+            endDate: endDate
         })
+        
+       if (startDate >= endDate) {
+           res.status(400)
+           return res.json({
+                   "message": "Validation error",
+                   "statusCode": 400,
+                   "errors": {
+                       "endDate": "endDate cannot be on or before startDate"
+                   }
+               })
+       } 
         
     // for (let i = 0; i < bookings.length; i++) {
     //     let booking = bookings[i];
     
-    //     // if (newBooking.startDate !== booking.startDate) {
-        if (bookings.length > 1) {
+        if (newBooking.startDate !== bookings.startDate) {
+        // if (bookings.length > 1) {
             res.status(403)
             return res.json({
                      "message": "Sorry, this spot is already booked for the specified dates",
@@ -561,17 +570,6 @@ router.post('/:spotId/bookings', restoreUser, requireAuth, async (req, res) => {
                 })
             }
         //  }
-     
-    if (startDate >= endDate) {
-        res.status(400)
-        return res.json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": {
-                    "endDate": "endDate cannot be on or before startDate"
-                }
-            })
-    } 
      
     return res.json(newBooking)
 })
