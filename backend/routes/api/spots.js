@@ -299,14 +299,13 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
             })
     }
 
-    let ownerId = spot.ownerId
-    if (ownerId !== req.user.id) {
-        res.status(403)
-        return res.json({
-            "message": "Forbidden",
-            "statusCode": 403
-        });
-    }
+    // if (ownerId !== req.user.id) {
+    //     res.status(403)
+    //     return res.json({
+    //         "message": "Forbidden",
+    //         "statusCode": 403
+    //     });
+    // }
     
     const { url, previewImage } = req.body;
 
