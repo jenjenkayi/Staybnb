@@ -544,10 +544,11 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         })
         
 
-    for (let i = 0; i < bookings.length; i++) {
-        let booking = bookings[i];
+    // for (let i = 0; i < bookings.length; i++) {
+    //     let booking = bookings[i];
     
-        if (booking.dataValues.startDate === startDate) {
+    //     if (booking.dataValues.startDate === startDate) {
+        if (newBooking.startDate === bookings.startDate) {
             res.status(403)
             return res.json({
                      "message": "Sorry, this spot is already booked for the specified dates",
@@ -558,9 +559,9 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
                     }
                 })
             }
-         }
+        //  }
      
-    if (startDate > endDate) {
+    if (startDate >= endDate) {
         res.status(400)
         return res.json({
                 "message": "Validation error",
