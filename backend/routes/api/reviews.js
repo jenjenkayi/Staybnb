@@ -58,13 +58,16 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
             })
     }
 
-    // if (Review.userId === req.user.id) {
-    //     res.status(403)
-    //     return res.json({
-    //         "message": "Forbidden",
-    //         "statusCode": 403
-    //     });
-    // }
+    console.log(review.userId)
+    console.log(req.user.id)
+
+    if (Review.userId !== req.user.id) {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden",
+            "statusCode": 403
+        });
+    } 
 
         const { url, previewImage } = req.body;
 
@@ -112,6 +115,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
             }
         )
     }
+
 
     if (reviews.userId === req.user.id) {
         res.status(403)

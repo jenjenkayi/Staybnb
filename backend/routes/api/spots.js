@@ -299,7 +299,8 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
             })
     }
 
-    if (spot.ownerId !== req.user.id) {
+    let ownerId = spot.ownerId
+    if (ownerId !== req.user.id) {
         res.status(403)
         return res.json({
             "message": "Forbidden",
@@ -379,7 +380,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
             }
         )
     }
-    
+
     if (spot.ownerId !== req.user.id) {
         res.status(403)
         return res.json({
