@@ -24,11 +24,7 @@ const validateLogin = [
 router.post('/', validateLogin, async (req, res, next) => {
         const { credential, password } = req.body;
 
-        let user = await User.login({ credential, password }, {
-            attributes: {
-                include: ['id', 'firstName', 'lastName', 'userName', 'email', 'token']
-            }
-        });
+        let user = await User.login({ credential, password });
 
         if (!user) {
             const err = new Error('Login failed');
@@ -38,9 +34,16 @@ router.post('/', validateLogin, async (req, res, next) => {
             return next(err);
         }
         
+        // await setTokenCookie(res, user);
+
         let tokenCookie = await setTokenCookie(res, user);
         user = user.toJSON()
         user.token = ''
+        user.id = id 
+        user.firstName = firstName
+        user.lastName = lastName
+        user.userName =userName
+        user.email = email
         
         return res.json(user);
 
