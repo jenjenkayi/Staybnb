@@ -125,8 +125,8 @@ router.get('/', validatePagination, async (req, res) => {
 
     if (minLat) {where.lat = {[Op.gte]: parseFloat(minLat)}}
     if (maxLat) {where.lat = {[Op.lte]: parseFloat(maxLat)}}
-    if (minLng) {where.lat = {[Op.gte]: parseFloat(minLng)}}
-    if (maxLng) {where.lat = {[Op.lte]: parseFloat(maxLng)}}
+    if (minLng) {where.lng = {[Op.gte]: parseFloat(minLng)}}
+    if (maxLng) {where.lng = {[Op.lte]: parseFloat(maxLng)}}
     if (minPrice) {where.price = {[Op.gte]: parseFloat(minPrice)}}
     if (maxPrice) {where.price = {[Op.lte]: parseFloat(maxPrice)}}
 
@@ -136,18 +136,17 @@ router.get('/', validatePagination, async (req, res) => {
             ],
             where,
             ...pagination,
-            // group: ['Spot.id', 'Review.id'],
     })
     
     for (let i = 0; i < spots.length; i++) {
-            let spot = spots[i]
+            let spot = spots[i];
 
             let totalReview = await Review.sum('stars', { 
                 where: { spotId: spot.id }
-            })
+            });
             let totalStars = await Review.count({
                  where: { spotId: spot.id }
-            })
+            });
             let avgRating = totalReview / totalStars;
 
             let previewImage = await Image.findOne({
@@ -156,8 +155,11 @@ router.get('/', validatePagination, async (req, res) => {
             })
 
             if (previewImage) {
-                spot.dataValues.previewImage = previewImage.url
-                spot.dataValues.avgRating = avgRating
+                spot = {
+                    ...spot.dataValues
+                }
+                // spot.dataValues.previewImage = previewImage.url
+                // spot.dataValues.avgRating = avgRating
             }
         }
             return res.json({
