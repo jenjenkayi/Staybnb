@@ -137,28 +137,28 @@ router.get('/', validatePagination, async (req, res) => {
             where,
             ...pagination,
             // group: ['Spot.id', 'Review.id'],
-        })
-        
-        for (let i = 0; i < spots.length; i++) {
+    })
+    
+    for (let i = 0; i < spots.length; i++) {
             let spot = spots[i]
 
-            let avgRating = await Review.findOne({
-                where: { spotId: spots[i].id},
-                attributes: {
-                include: [[sequelize.fn("AVG", sequelize.col("stars")), "avgRating"]]
-                },
+            let totalReview = await Review.sum('stars', { 
+                where: { spotId: spot.id }
             })
-
-            console.log(avgRating)
-            spot.dataValues.avgRating = avgRating;
+            let totalStars = await Review.count({
+                 where: { spotId: spot.id }
+            })
+            let avgRating = totalReview / totalStars;
 
             let previewImage = await Image.findOne({
+                where: { previewImage: true, spotId: spot.id },
                 attributes:['url'],
-                where: { previewImage: true, spotId: spots[i].id },
-                raw: true
             })
+
             if (previewImage) {
                 spot.dataValues.previewImage = previewImage.url
+                spot.dataValues.avgRating = avgRating
+
             }
         }
             return res.json({
