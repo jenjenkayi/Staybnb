@@ -533,20 +533,23 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     }
     
     let { startDate, endDate } = req.body;
-    startDate = new Date(startDate);
-    endDate = new Date(endDate);
+    // startDate = new Date(startDate);
+    // endDate = new Date(endDate);
 
     const newBooking = await Booking.create({
             spotId: req.params.spotId,
             userId: req.user.id,
-            startDate: startDate,
-            endDate: endDate
+            startDate,
+            endDate
+            // startDate: startDate,
+            // endDate: endDate
         })
         
-    for (let i = 0; i < bookings.length; i++) {
-        let booking = bookings[i];
+    // for (let i = 0; i < bookings.length; i++) {
+    //     let booking = bookings[i];
     
-        if (newBooking.startDate !== booking.startDate) {
+    //     // if (newBooking.startDate !== booking.startDate) {
+        if (bookings.length > 1) {
             res.status(403)
             return res.json({
                      "message": "Sorry, this spot is already booked for the specified dates",
@@ -557,7 +560,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
                     }
                 })
             }
-         }
+        //  }
      
     if (startDate >= endDate) {
         res.status(400)
