@@ -107,7 +107,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     }
     
     bookings.forEach(booking => {
-       if (booking.dataValues.startDate === startDate) {
+       if (booking.dataValues.startDate !== startDate) {
            res.status(403)
            return res.json({
                "message": "Sorry, this spot is already booked for the specified dates",
