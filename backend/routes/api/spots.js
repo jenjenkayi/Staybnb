@@ -204,7 +204,9 @@ router.get('/current', requireAuth, async (req, res) => {
                 where: { previewImage: true, spotId: currentUserSpots[i].id },
             })
             
-            spot.dataValues.previewImage = previewImage
+        if (previewImage) {
+            spot.dataValues.previewImage = previewImage.dataValues.url
+            // spot.dataValues.previewImage = previewImage
         }
     
     return res.json({Spots: currentUserSpots})
