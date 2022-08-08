@@ -524,13 +524,13 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         });
     } 
 
-    if (spot.ownerId === req.user.id) {
-        res.status(403)
-        return res.json({
-            "message": "Forbidden",
-            "statusCode": 403
-        });
-    }
+    // if (spot.ownerId === req.user.id) {
+    //     res.status(403)
+    //     return res.json({
+    //         "message": "Forbidden",
+    //         "statusCode": 403
+    //     });
+    // }
     
     let { startDate, endDate } = req.body;
     startDate = new Date(startDate);
