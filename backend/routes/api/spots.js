@@ -151,14 +151,13 @@ router.get('/', validatePagination, async (req, res) => {
             let avgRating = totalReview / totalStars;
 
             let previewImage = await Image.findOne({
-                where: { previewImage: true, spotId: spot.id },
                 attributes:['url'],
+                where: { previewImage: true, spotId: spot.id },
             })
 
             if (previewImage) {
                 spot.dataValues.previewImage = previewImage.url
                 spot.dataValues.avgRating = avgRating
-
             }
         }
             return res.json({
