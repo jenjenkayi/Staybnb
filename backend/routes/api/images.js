@@ -10,9 +10,8 @@ const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/mode
 
 // Delete an Image
 router.delete('/:imageId', requireAuth, async (req, res) => {
-    const image = await Image.findByPk(req.params.imageId, {
+    const image = await Image.findByPk(req.params.imageId)
         // where: { req.user.id }
-    })
 
     if (!image) {
         res.status(404)
