@@ -26,7 +26,7 @@ router.post('/', validateLogin, async (req, res, next) => {
 
         let user = await User.login({ credential, password }, {
             attributes: {
-                exclude: ['createdAt', 'updatedAt']
+                include: ['id', 'firstName', 'lastName', 'userName', 'email', 'token']
             }
         });
 
@@ -38,8 +38,6 @@ router.post('/', validateLogin, async (req, res, next) => {
             return next(err);
         }
         
-        // await setTokenCookie(res, user);
-
         let tokenCookie = await setTokenCookie(res, user);
         user = user.toJSON()
         user.token = ''
