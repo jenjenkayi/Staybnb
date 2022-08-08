@@ -106,16 +106,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
     
-    const bookinggs = await Booking.findAll({
-        where: {
-            spotId: req.params.bookingId,
-            [Op.and]: [
-                { endDate: { [Op.gte]: startDate } },
-                { startDate: { [Op.lte]: endDate } },
-            ],
-        },
-    });
-    if (bookinggs.length >= 1) {
+    if (bookings.length >= 1) {
         res.status(403)
         res.json({
             "message": "Sorry, this spot is already booked for the specified dates",
