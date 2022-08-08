@@ -18,7 +18,7 @@ router.get('/current', requireAuth, async (req, res) => {
             model: Spot,
             attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
         },
-        group: ['Spot.id', 'Booking.id'],
+        // group: ['Spot.id', 'Booking.id'],
     })
     
     if (!req.user.id) {
@@ -28,24 +28,11 @@ router.get('/current', requireAuth, async (req, res) => {
         })
     }
     
-    // for (let i = 0; i < spots.length; i++) {
-    //     let  spot = spots[i]
-        
-    //     let previewImage = await Image.findOne({
-    //         attributes: ['url'],
-    //         where: { previewImage: true, spotId: spot.id },
-    //         raw: true
-    //     })
-        
-    //     if (previewImage) {
-    //         spot.dataValues.previewImage = previewImage
-    //     }
-    // }
     for (let i = 0; i < currentUserBookings.length; i++) {
         let  booking = currentUserBookings[i]
         
-        const spots = await Spot.findAll({
-            where: { id: req.params.SpotId}
+        const spot = await Spot.findOne({
+            where: { id: booking.spotId}
             });
 
         const previewImage = await Image.findOne({
@@ -54,8 +41,8 @@ router.get('/current', requireAuth, async (req, res) => {
         })
 
         if (previewImage) {
-            spots.dataValues.previewImage = previewImage.dataValues.url
-            booking.dataValues.Spot = spots
+            spot.dataValues.previewImage = previewImage.dataValues.url
+            booking.dataValues.Spot = spot
         }
     }
 
