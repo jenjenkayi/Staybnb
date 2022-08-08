@@ -38,7 +38,7 @@ router.post('/', validateLogin, async (req, res, next) => {
 
         let tokenCookie = await setTokenCookie(res, user);
         user = user.toJSON()
-        user.token = ''
+        user.token = tokenCookie
         
         return res.json(user);
 
