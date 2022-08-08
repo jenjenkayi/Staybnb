@@ -32,7 +32,8 @@ router.get('/current', requireAuth, async (req, res) => {
         let  booking = currentUserBookings[i]
         
         const spot = await Spot.findOne({
-            where: { id: booking.spotId}
+            where: { id: booking.spotId},
+            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
             });
 
         const previewImage = await Image.findOne({
