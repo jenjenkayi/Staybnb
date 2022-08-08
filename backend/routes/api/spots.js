@@ -554,10 +554,10 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
                })
        } 
         
-    // for (let i = 0; i < bookings.length; i++) {
-    //     let booking = bookings[i];
+    for (let i = 0; i < bookings.length; i++) {
+        let booking = bookings[i];
     
-        if (newBooking.startDate !== bookings.startDate) {
+        if (newBooking.startDate === booking.startDate) {
         // if (bookings.length > 1) {
             res.status(403)
             return res.json({
@@ -569,7 +569,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
                     }
                 })
             }
-        //  }
+         }
      
     return res.json(newBooking)
 })
