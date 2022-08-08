@@ -73,7 +73,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
     
-    if (booking.userId !== req.user.id) {
+    if (booking.userId === req.user.id) {
         res.status(403)
         return res.json({
             "message": "Forbidden",
