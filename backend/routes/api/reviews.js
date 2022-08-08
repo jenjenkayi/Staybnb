@@ -58,7 +58,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
             })
     }
 
-    if (Review.id !== req.user.id) {
+    if (Review.id === req.user.id) {
         res.status(403)
         return res.json({
             "message": "Forbidden",
@@ -120,7 +120,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
             "statusCode": 403
         });
     }
-    
+
     reviews.review = review, 
     reviews.stars = stars
       
