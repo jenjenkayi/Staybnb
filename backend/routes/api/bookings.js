@@ -40,9 +40,10 @@ router.get('/current', requireAuth, async (req, res) => {
             where: { previewImage: true, spotId: booking.spotId },
         })
 
+        // console.log(booking)
         if (previewImage) {
-            spot.dataValues.previewImage = previewImage.dataValues.url
             booking.dataValues.Spot = spot
+            spot.dataValues.previewImage = previewImage.dataValues.url
         }
     }
 
