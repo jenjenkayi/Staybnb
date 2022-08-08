@@ -58,13 +58,13 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
             })
     }
 
-    if (Review.userId === req.user.id) {
-        res.status(403)
-        return res.json({
-            "message": "Forbidden",
-            "statusCode": 403
-        });
-    }
+    // if (Review.userId === req.user.id) {
+    //     res.status(403)
+    //     return res.json({
+    //         "message": "Forbidden",
+    //         "statusCode": 403
+    //     });
+    // }
 
         const { url, previewImage } = req.body;
 
