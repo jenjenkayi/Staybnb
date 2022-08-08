@@ -66,8 +66,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         }
     })
 
-    console.log(count)
-
     if (!booking) {
         res.status(404)
         return res.json({
@@ -76,6 +74,14 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
     
+    if (Booking.userId !== req.user.id) {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden",
+            "statusCode": 403
+        });
+    }
+
     const { startDate, endDate } = req.body;
     booking.startDate = startDate,
     booking.endDate = endDate
@@ -103,15 +109,15 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
 
-    const today = new Date();
+    // const today = new Date();
 
-    if (booking.endDate <= today) {
-        res.status(403)
-        return res.json({
-            "message": "Past bookings can't be modified",
-            "statusCode": 403
-        })
-    }
+    // if (booking.endDate <= today) {
+    //     res.status(403)
+    //     return res.json({
+    //         "message": "Past bookings can't be modified",
+    //         "statusCode": 403
+    //     })
+    // }
 
 
     await booking.save()
