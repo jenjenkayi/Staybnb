@@ -348,7 +348,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
             "statusCode": 403
         });
     }
-    
+
     const { address, city, state, country, lat, lng, name, description, price } = req.body
     
     spot.address = address,
@@ -378,6 +378,14 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
                 "statusCode": 404
             }
         )
+    }
+    
+    if (spot.ownerId !== req.user.id) {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden",
+            "statusCode": 403
+        });
     }
 
     await spot.destroy()
