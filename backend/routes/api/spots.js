@@ -118,7 +118,7 @@ router.get('/', async (req, res) => {
     
     if (page >= 1 && size >= 1) {
         pagination.limit = size,
-        pagination.offset = size * page
+        pagination.offset = size * (page - 1)
     }
 
     let where = {}
@@ -156,7 +156,7 @@ router.get('/', async (req, res) => {
 
             if (previewImage) {
                 spot.dataValues.previewImage = previewImage.dataValues.url
-                spot.dataValues.avgRating = avgRating
+                spot.dataValues.avgRating = parseFloat(Number(avgRating)).toFixed(1);
             }
         }
             return res.json({
