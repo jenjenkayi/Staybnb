@@ -4,7 +4,7 @@ const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-
+const { Op } = require('sequelize')
 const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
 
 
@@ -55,9 +55,8 @@ router.get('/current', requireAuth, async (req, res) => {
 router.put('/:bookingId', requireAuth, async (req, res) => {
     const booking = await Booking.findByPk(req.params.bookingId);
     let bookings = await Booking.findAll({
-        where: {
-            id: req.params.bookingId
-        }
+        where: { id: req.params.bookingId },
+        attributes: ['startDate', 'endDate']
     })
 
     let count = await Booking.count({
@@ -97,20 +96,21 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             })
     }
 
-    if (bookings.length > 1) {
-        res.status(403)
-        return res.json({
-            "message": "Sorry, this spot is already booked for the specified dates",
-            "statusCode": 403,
-            "errors": {
-                "startDate": "Start date conflicts with an existing booking",
-                "endDate": "End date conflicts with an existing booking"
-            }
-        })
+    bookings.forEach(booking => {
+       if (booking.dataValues.startDate !== startDate) {
+           res.status(403)
+           return res.json({
+               "message": "Sorry, this spot is already booked for the specified dates",
+               "statusCode": 403,
+               "errors": {
+                   "startDate": "Start date conflicts with an existing booking",
+                   "endDate": "End date conflicts with an existing booking"
+               }
+       })
     }
+    })
 
     const today = new Date();
-
     if (booking.endDate <= today) {
         res.status(403)
         return res.json({
@@ -118,7 +118,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             "statusCode": 403
         })
     }
-
 
     await booking.save()
     return res.json(booking)
