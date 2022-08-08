@@ -10,14 +10,6 @@ const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/mode
 
 // Get all of the Current User's Bookings
 router.get('/current', requireAuth, async (req, res) => {
-    const spots = await Spot.findAll(
-        {
-        where: {
-            id: req.params.SpotId
-        }
-        }
-    );
-
     const currentUserBookings = await Booking.findAll({
         where: {
             userId: req.user.id
@@ -28,40 +20,44 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         group: ['Spot.id', 'Booking.id'],
     })
-
+    
     if (!req.user.id) {
         res.json({
             "message": "Authentication required",
             "statusCode": 401
         })
     }
+    
+    // for (let i = 0; i < spots.length; i++) {
+    //     let  spot = spots[i]
+        
+    //     let previewImage = await Image.findOne({
+    //         attributes: ['url'],
+    //         where: { previewImage: true, spotId: spot.id },
+    //         raw: true
+    //     })
+        
+    //     if (previewImage) {
+    //         spot.dataValues.previewImage = previewImage
+    //     }
+    // }
+    for (let i = 0; i < currentUserBookings.length; i++) {
+        let  booking = currentUserBookings[i]
+        
+        const spots = await Spot.findAll({
+            where: { id: req.params.SpotId}
+            });
 
-    for (let i = 0; i < spots.length; i++) {
-        let  spot = spots[i]
-
-        let previewImage = await Image.findOne({
+        const previewImage = await Image.findOne({
             attributes: ['url'],
-            where: { previewImage: true, spotId: spot.id },
-            raw: true
+            where: { previewImage: true, spotId: booking.spotId },
         })
 
         if (previewImage) {
-            spot.dataValues.previewImage = previewImage
+            spots.dataValues.previewImage = previewImage.dataValues.url
+            booking.dataValues.Spot = spots
         }
     }
-    // for (let i = 0; i < currentUserBookings.length; i++) {
-    //     let  booking = currentUserBookings[i]
-
-    //     let previewImage = await Image.findOne({
-    //         attributes: ['url'],
-    //         where: { previewImage: true, spotId: booking.spotId },
-    //         raw: true
-    //     })
-
-        // if (previewImage) {
-            // booking.dataValues.previewImage = previewImage
-        // }
-    // }
 
     return res.json({ Bookings: currentUserBookings });
 })
