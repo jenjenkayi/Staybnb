@@ -58,7 +58,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
             })
     }
 
-    if (Review.userId !== req.user.id) {
+    if (Review.userId === req.user.id) {
         res.status(403)
         return res.json({
             "message": "Forbidden",
