@@ -510,7 +510,7 @@ router.get('/:spotId/bookings', async (req, res) => {
 
 
 // Create a Booking from a Spot based on the Spot's id
-router.post('/:spotId/bookings', requireAuth, async (req, res) => {
+router.post('/:spotId/bookings', restoreUser, requireAuth, async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId); 
     const bookings = await Booking.findAll({
         where: { spotId: req.params.spotId }
