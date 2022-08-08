@@ -299,6 +299,14 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
             })
     }
 
+    if (spot.ownerId !== req.user.id) {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden",
+            "statusCode": 403
+        });
+    }
+    
     const { url, previewImage } = req.body;
 
     const newImage = await Image.create({
@@ -445,8 +453,6 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
             }
         )
     }
-
-
 })
 
 
