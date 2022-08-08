@@ -96,6 +96,16 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             })
     }
 
+    
+    const today = new Date();
+    if (booking.endDate <= today) {
+        res.status(403)
+        return res.json({
+            "message": "Past bookings can't be modified",
+            "statusCode": 403
+        })
+    }
+    
     bookings.forEach(booking => {
        if (booking.dataValues.startDate !== startDate) {
            res.status(403)
@@ -109,16 +119,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
        })
     }
     })
-
-    const today = new Date();
-    if (booking.endDate <= today) {
-        res.status(403)
-        return res.json({
-            "message": "Past bookings can't be modified",
-            "statusCode": 403
-        })
-    }
-
     await booking.save()
     return res.json(booking)
 })
