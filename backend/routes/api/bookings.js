@@ -16,7 +16,7 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         include: {
             model: Spot,
-            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+            // attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
         },
         // group: ['Spot.id', 'Booking.id'],
     })
