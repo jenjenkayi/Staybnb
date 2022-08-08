@@ -208,7 +208,7 @@ router.get('/current', requireAuth, async (req, res) => {
             spot.dataValues.previewImage = previewImage.dataValues.url
             // spot.dataValues.previewImage = previewImage
         }
-    
+    }
     return res.json({Spots: currentUserSpots})
 })
 
