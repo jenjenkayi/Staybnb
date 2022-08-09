@@ -156,7 +156,7 @@ router.get('/', async (req, res) => {
 
             if (previewImage) {
                 spot.dataValues.previewImage = previewImage.dataValues.url
-                spot.dataValues.avgRating = avgRating
+                spot.dataValues.avgRating = parseFloat(Number(avgRating)).toFixed(1);
             }
         }
 
