@@ -157,6 +157,8 @@ router.get('/', validatePagination, async (req, res) => {
             if (previewImage) {
                 spot.dataValues.previewImage = previewImage.dataValues.url
                 spot.dataValues.avgRating = avgRating
+                spot.dataValues.lng = parseFloat(lng)
+                spot.dataValues.lat = parseFloat(lat)
             }
         }
             return res.json({
