@@ -158,14 +158,16 @@ router.get('/', async (req, res) => {
                 spot.dataValues.previewImage = previewImage.dataValues.url
                 spot.dataValues.avgRating = avgRating
             }
-            spot.dataValues.lng = parseInt(lng)
-            spot.dataValues.lat = parseFloat(lat)
         }
+
+        console.log(spots);
+
             return res.json({
                     "Spots": spots,
                     "page": page,
                     "size": size
                 })
+
         })
    
 
