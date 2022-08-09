@@ -106,70 +106,173 @@ const validatePagination = [
 
 // Get all Spots
 // Add Query Filters to Get All Spots
-router.get('/', async (req, res) => {
-    let pagination = {};
-    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+// router.get('/', async (req, res) => {
+//     let pagination = {};
+//     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     
-    page = parseInt(page);
-    size = parseInt(size);
+//     page = parseInt(page);
+//     size = parseInt(size);
     
-    if (!page) page = 0;
-    if (!size) size = 20;
+//     if (!page) page = 0;
+//     if (!size) size = 20;
     
+//     if (page >= 1 && size >= 1) {
+//         pagination.limit = size,
+//         pagination.offset = size * (page - 1)
+//     }
+
+//     let where = {}
+
+//     if (minLat) {where.lat = {[Op.gte]: parseFloat(minLat)}}
+//     if (maxLat) {where.lat = {[Op.lte]: parseFloat(maxLat)}}
+//     if (minLng) {where.lng = {[Op.gte]: parseFloat(minLng)}}
+//     if (maxLng) {where.lng = {[Op.lte]: parseFloat(maxLng)}}
+//     if (minPrice) {where.price = {[Op.gte]: parseFloat(minPrice)}}
+//     if (maxPrice) {where.price = {[Op.lte]: parseFloat(maxPrice)}}
+
+//     const spots = await Spot.findAll({
+//             include: [
+//                 { model: Review, attributes: [] },
+//             ],
+//             where,
+//             ...pagination,
+//     })
+    
+//     for (let i = 0; i < spots.length; i++) {
+//             let spot = spots[i];
+
+//             let totalReview = await Review.sum('stars', { 
+//                 where: { spotId: spot.id }
+//             });
+//             let totalStars = await Review.count({
+//                  where: { spotId: spot.id }
+//             });
+//             let avgRating = totalReview / totalStars;
+
+//             let previewImage = await Image.findOne({
+//                 attributes:['url'],
+//                 where: { previewImage: true, spotId: spot.id },
+//             })
+
+//             if (previewImage) {
+//                 spot.dataValues.previewImage = previewImage.dataValues.url
+//                 spot.dataValues.avgRating = parseFloat(Number(avgRating)).toFixed(1);
+//             }
+//         }
+
+//         console.log(spots);
+
+//             return res.json({
+//                     "Spots": spots,
+//                     "page": page,
+//                     "size": size
+//                 })
+
+//         })
+   
+//Get All Spots
+router.get('/', ValidatePagination, async (req, res, next) => {
+    let { size, page, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
+    if (!page) page = 0
+    if (!size) size = 20
+    // console.log(minPrice)
+    page = parseInt(page)
+    size = parseInt(size)
+    let where = {}
+    let filterArr = []
+    if (minLat) {
+        filterArr.push({ lat: { [Op.gte]: parseFloat(minLat) } })
+    }
+    if (maxLat) {
+        filterArr.push({ lat: { [Op.lte]: parseFloat(maxLat) } })
+    }
+    if (minLng) {
+        filterArr.push({ lng: { [Op.gte]: parseFloat(minLng) } })
+    }
+    if (maxLng) {
+        filterArr.push({ lng: { [Op.lte]: parseFloat(maxLng) } })
+    }
+    if (minPrice) {
+        filterArr.push({ price: { [Op.gte]: parseFloat(minPrice) } })
+    }
+    if (maxPrice) {
+        filterArr.push({ price: { [Op.lte]: parseFloat(maxPrice) } })
+    }
+    //  console.log(...filterArr)
+
+
+    //  if (parseFloat(minPrice) < 0){
+    //   res.status(400)
+    //   res.json({
+    //     "message": "Validation Error",
+    //     "statusCode": 400,
+    //     "errors": { "minPrice": "Maximum price must be greater than or 0"
+    //   }
+    //   })
+    //  }
+    let pagination = {}
+
     if (page >= 1 && size >= 1) {
-        pagination.limit = size,
+        pagination.limit = size
         pagination.offset = size * (page - 1)
     }
 
-    let where = {}
-
-    if (minLat) {where.lat = {[Op.gte]: parseFloat(minLat)}}
-    if (maxLat) {where.lat = {[Op.lte]: parseFloat(maxLat)}}
-    if (minLng) {where.lng = {[Op.gte]: parseFloat(minLng)}}
-    if (maxLng) {where.lng = {[Op.lte]: parseFloat(maxLng)}}
-    if (minPrice) {where.price = {[Op.gte]: parseFloat(minPrice)}}
-    if (maxPrice) {where.price = {[Op.lte]: parseFloat(maxPrice)}}
-
-    const spots = await Spot.findAll({
-            include: [
-                { model: Review, attributes: [] },
-            ],
-            where,
-            ...pagination,
+    const allSpots = await Spot.findAll({
+        include: [
+            { model: Review, attributes: [] }
+        ],
+        where: { [Op.and]: [...filterArr] },
+        ...pagination,
+        // group: ['Spot.id']
     })
-    
-    for (let i = 0; i < spots.length; i++) {
-            let spot = spots[i];
 
-            let totalReview = await Review.sum('stars', { 
-                where: { spotId: spot.id }
-            });
-            let totalStars = await Review.count({
-                 where: { spotId: spot.id }
-            });
-            let avgRating = totalReview / totalStars;
-
-            let previewImage = await Image.findOne({
-                attributes:['url'],
-                where: { previewImage: true, spotId: spot.id },
-            })
-
-            if (previewImage) {
-                spot.dataValues.previewImage = previewImage.dataValues.url
-                spot.dataValues.avgRating = parseFloat(Number(avgRating)).toFixed(1);
-            }
-        }
-
-        console.log(spots);
-
-            return res.json({
-                    "Spots": spots,
-                    "page": page,
-                    "size": size
-                })
-
+    for (let spot of allSpots) {
+        // console.log(spot.toJSON(), "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", spot.Images[0].previewImage)
+        const reviewInfo = await spot.getReviews({
+            attributes: [
+                [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
+            ]
         })
-   
+        let avgRating = reviewInfo[0].dataValues.avgRating
+
+
+        // allSpots[i] = allSpots[i].toJSON()
+
+
+        // let count = await Review.count({
+        //   where: {
+        //     spotId: allSpots[i].id
+        //   }
+        // })
+        // let sum = await Review.sum({
+        //   where: {
+        //     spotId: allSpots[i].id
+        //   }
+        // })
+        // allSpots[i].avgRating = sum / count
+        // console.log(allSpots[i])
+        spot.dataValues.avgRating = parseFloat(Number(avgRating)).toFixed(1);
+        let spotImg = await Image.findOne({
+            where: {
+                previewImage: true,
+                spotId: spot.id
+            },
+        })
+        // console.log(spot.dataValues.previewImage, "       12312     ", spotImg.dataValues.url)
+        if (spotImg) {
+            spot.dataValues.previewImage = spotImg.dataValues.url
+
+        }
+    }
+    let result = {}
+    result.Spots = allSpots
+    result.page = page
+    result.size = size
+
+    res.status(200)
+    res.json(result)
+})
+
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
