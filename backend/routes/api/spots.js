@@ -121,20 +121,20 @@ router.get('/', async (req, res) => {
         pagination.offset = size * (page - 1)
     }
 
-    let where = {}
+    // let where = {}
 
-    if (minLat) {where.lat = {[Op.gte]: parseFloat(minLat)}}
-    if (maxLat) {where.lat = {[Op.lte]: parseFloat(maxLat)}}
-    if (minLng) {where.lng = {[Op.gte]: parseFloat(minLng)}}
-    if (maxLng) {where.lng = {[Op.lte]: parseFloat(maxLng)}}
-    if (minPrice) {where.price = {[Op.gte]: parseFloat(minPrice)}}
-    if (maxPrice) {where.price = {[Op.lte]: parseFloat(maxPrice)}}
+    // if (minLat) {where.lat = {[Op.gte]: parseFloat(minLat)}}
+    // if (maxLat) {where.lat = {[Op.lte]: parseFloat(maxLat)}}
+    // if (minLng) {where.lng = {[Op.gte]: parseFloat(minLng)}}
+    // if (maxLng) {where.lng = {[Op.lte]: parseFloat(maxLng)}}
+    // if (minPrice) {where.price = {[Op.gte]: parseFloat(minPrice)}}
+    // if (maxPrice) {where.price = {[Op.lte]: parseFloat(maxPrice)}}
 
     const spots = await Spot.findAll({
             include: [
                 { model: Review, attributes: [] },
             ],
-            where,
+            // where,
             ...pagination,
     })
     
