@@ -171,7 +171,7 @@ const validatePagination = [
 //         })
    
 //Get All Spots
-router.get('/', ValidatePagination, async (req, res, next) => {
+router.get('/', validatePagination, async (req, res, next) => {
     let { size, page, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
     if (!page) page = 0
     if (!size) size = 20
