@@ -171,7 +171,7 @@ const validatePagination = [
 //         })
    
 //Get All Spots
-router.get('/', validatePagination, async (req, res, next) => {
+router.get('/', ValidatePagination, async (req, res, next) => {
     let { size, page, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
     if (!page) page = 0
     if (!size) size = 20
@@ -272,7 +272,6 @@ router.get('/', validatePagination, async (req, res, next) => {
     res.status(200)
     res.json(result)
 })
-
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
