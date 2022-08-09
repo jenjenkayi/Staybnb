@@ -88,8 +88,8 @@ const validatePagination = [
             } else {
                 return true
             }
-        }),
-        // .withMessage('Maximum price must be greater than or equal to 0.'),
+        })
+        .withMessage('Minimum price must be greater than or equal to 0.'),
     check('maxPrice')
         .optional()
         .isDecimal({ min: 0 })
@@ -99,14 +99,14 @@ const validatePagination = [
             } else {
                 return true
             }
-        }),
-        // .withMessage('Maximum price must be greater than or equal to 0.'),
+        })
+        .withMessage('Maximum price must be greater than or equal to 0.'),
     handleValidationErrors
 ];
 
 // Get all Spots
 // Add Query Filters to Get All Spots
-router.get('/', async (req, res) => {
+router.get('/', validatePagination, async (req, res) => {
     let pagination = {};
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     
@@ -121,20 +121,20 @@ router.get('/', async (req, res) => {
         pagination.offset = size * (page - 1)
     }
 
-    // let where = {}
+    let where = {}
 
-    // if (minLat) {where.lat = {[Op.gte]: parseFloat(minLat)}}
-    // if (maxLat) {where.lat = {[Op.lte]: parseFloat(maxLat)}}
-    // if (minLng) {where.lng = {[Op.gte]: parseFloat(minLng)}}
-    // if (maxLng) {where.lng = {[Op.lte]: parseFloat(maxLng)}}
-    // if (minPrice) {where.price = {[Op.gte]: parseFloat(minPrice)}}
-    // if (maxPrice) {where.price = {[Op.lte]: parseFloat(maxPrice)}}
+    if (minLat) {where.lat = {[Op.gte]: parseFloat(minLat)}}
+    if (maxLat) {where.lat = {[Op.lte]: parseFloat(maxLat)}}
+    if (minLng) {where.lng = {[Op.gte]: parseFloat(minLng)}}
+    if (maxLng) {where.lng = {[Op.lte]: parseFloat(maxLng)}}
+    if (minPrice) {where.price = {[Op.gte]: parseFloat(minPrice)}}
+    if (maxPrice) {where.price = {[Op.lte]: parseFloat(maxPrice)}}
 
     const spots = await Spot.findAll({
             include: [
                 { model: Review, attributes: [] },
             ],
-            // where,
+            where,
             ...pagination,
     })
     
