@@ -157,6 +157,7 @@ router.get('/', async (req, res) => {
                 spot.dataValues.avgRating = parseFloat(parseFloat(Number(avgRating)).toFixed(1));
             }
                 spot.dataValues.lat = parseFloat(parseFloat(spot.dataValues.lat));
+                spot.dataValues.lng = parseFloat(spot.dataValues.lng);
         }
 
 
