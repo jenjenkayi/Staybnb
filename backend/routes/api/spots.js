@@ -209,15 +209,13 @@ router.get('/current', requireAuth, async (req, res) => {
             
         if (previewImage) {
             spot.dataValues.previewImage = previewImage.dataValues.url
-            // spot.dataValues.previewImage = previewImage
         }
         spot.dataValues.lat = parseFloat(spot.dataValues.lat);
         spot.dataValues.lng = parseFloat(spot.dataValues.lng);
+        spot.dataValues.avgRating = parseFloat(parseFloat(spot.dataValues.avgRating).toFixed(1));
     }
-    currentUserSpots.dataValues.avgRating = parseFloat(parseFloat(avgRating).toFixed(1));
     return res.json({Spots: currentUserSpots})
 })
-
 
 // Get details of a Spot from an id
 router.get('/:spotId', async (req, res) => {
