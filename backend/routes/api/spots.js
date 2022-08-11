@@ -211,6 +211,7 @@ router.get('/current', requireAuth, async (req, res) => {
             spot.dataValues.previewImage = previewImage.dataValues.url
             // spot.dataValues.previewImage = previewImage
         }
+        spot.dataValues.avgRating = parseFloat(parseFloat(avgRating).toFixed(1));
         spot.dataValues.lat = parseFloat(spot.dataValues.lat);
         spot.dataValues.lng = parseFloat(spot.dataValues.lng);
     }
