@@ -259,10 +259,10 @@ router.get('/:spotId', async (req, res) => {
 
     spot.dataValues.Images = Images
     spot.dataValues.numReviews = numReviews
-    
+
     spot.dataValues.lat = parseFloat(spot.dataValues.lat);
     spot.dataValues.lng = parseFloat(spot.dataValues.lng);
-    spot.dataValues.avgRating = parseFloat(parseFloat(spot.dataValues.avgRating).toFixed(1));
+    spot.dataValues.avgStarRating = parseFloat(parseFloat(spot.dataValues.avgStarRating).toFixed(1));
     
     return res.json(spot);
     
