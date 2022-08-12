@@ -39,7 +39,6 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: ['id', ['reviewId', 'imageableId'], 'url']
             },
         ],
-        // group: ['Review.id'],
     })
     
     res.status(200);
@@ -147,7 +146,7 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
             "statusCode": 403
         });
     } 
-    
+
     await review.destroy()
     return res.json(
         {
