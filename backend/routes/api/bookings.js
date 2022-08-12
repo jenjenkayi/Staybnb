@@ -15,16 +15,17 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         include: {
             model: Spot,
+            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
         },
         // group: ['Spot.id', 'Booking.id'],
     })
     
-    if (!req.user.id) {
-        res.json({
-            "message": "Authentication required",
-            "statusCode": 401
-        })
-    }
+    // if (!req.user.id) {
+    //     res.json({
+    //         "message": "Authentication required",
+    //         "statusCode": 401
+    //     })
+    // }
     
     for (let i = 0; i < currentUserBookings.length; i++) {
         let  booking = currentUserBookings[i]
