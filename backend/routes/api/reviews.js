@@ -99,8 +99,8 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
 // Edit a Review
 router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
-    const { review, stars } = req.body
     const reviews = await Review.findByPk(req.params.reviewId)
+    const { review, stars } = req.body
 
     if (!reviews) {
         res.status(404)
@@ -110,13 +110,13 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
             })
     }
 
-    if (reviews.userId !== req.user.id) {
-        res.status(403)
-        return res.json({
-            "message": "Forbidden",
-            "statusCode": 403
-        });
-    } 
+    // if (reviews.userId !== req.user.id) {
+    //     res.status(403)
+    //     return res.json({
+    //         "message": "Forbidden",
+    //         "statusCode": 403
+    //     });
+    // } 
 
     reviews.review = review, 
     reviews.stars = stars
