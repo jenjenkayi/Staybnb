@@ -15,9 +15,8 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         include: {
             model: Spot,
-            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+            // attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
         },
-        // group: ['Spot.id', 'Booking.id'],
     })
     
     // if (!req.user.id) {
@@ -32,7 +31,7 @@ router.get('/current', requireAuth, async (req, res) => {
         
         const spot = await Spot.findOne({
             where: { id: booking.spotId},
-            // attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
             });
 
         const previewImage = await Image.findOne({
