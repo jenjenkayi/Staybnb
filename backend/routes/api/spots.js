@@ -419,7 +419,7 @@ router.get('/:spotId/reviews', async (req, res) => {
                 attributes: ['id', ['reviewId', 'imageableId'], 'url']
             },
         ],
-        // group: ['Review.id']
+        group: ['Review.id']
     })
 
     if (!spot) {
