@@ -484,8 +484,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
 router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId);
 
-    
-    const bookings = await Booking.findAll({
+    const userBookings = await Booking.findAll({
         where: {
             spotId: req.params.spotId
         },
@@ -509,7 +508,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
                 "statusCode": 404
             })
     }
-    
+
     if (spot.id === req.user.id) {
         return res.json({Bookings: ownerBookings});
     } else {
