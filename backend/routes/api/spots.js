@@ -576,10 +576,10 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 // })
 
 
-router.post('/:spotId/bookings', restoreUser, requireAuth, async (req, res) => {
-    const spotId = req.params.spotId
+router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const { startDate, endDate } = req.body
-    const spot = await Spot.findByPk(req.params.spotId)
+    const spot = await Spot.findByPk(req.params.spotId);
+
     if (!spot) {
         res.status(404);
         res.json({
@@ -587,7 +587,8 @@ router.post('/:spotId/bookings', restoreUser, requireAuth, async (req, res) => {
             "statusCode": 404
         })
     }
-    if (endDate <= startDate) {
+
+    if (startDate >= endDate) {
         res.status(400)
         res.json({
             "message": "Validation error",
@@ -595,19 +596,19 @@ router.post('/:spotId/bookings', restoreUser, requireAuth, async (req, res) => {
             "errors": {
                 "endDate": "endDate cannot be on or before startDate"
             }
-
         })
     }
 
     const bookings = await Booking.findAll({
         where: {
-            spotId: spotId,
+            spotId: req.params.spotId,
             [Op.and]: [
                 { endDate: { [Op.gte]: startDate } },
                 { startDate: { [Op.lte]: endDate } },
             ],
         },
     });
+
     if (bookings.length >= 1) {
         res.status(403)
         res.json({
@@ -619,14 +620,16 @@ router.post('/:spotId/bookings', restoreUser, requireAuth, async (req, res) => {
             }
         })
     }
-    const createBooking = await Booking.create({
-        spotId: parseInt(spotId),
-        userId: req.user.id,
-        startDate,
-        endDate
-    })
+
+    const newBooking = await Booking.create({
+            spotId: req.params.spotId,
+            userId: req.user.id,
+            startDate,
+            endDate
+        })
+
     res.status(200)
-    res.json(createBooking)
+    res.json(newBooking)
 })
 
 
