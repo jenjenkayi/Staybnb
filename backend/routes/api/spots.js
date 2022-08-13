@@ -546,7 +546,7 @@ router.get('/:spotId/bookings', restoreUser, requireAuth, async (req, res) => {
             "statusCode": 404
         })
     }
-    if (spots.ownerId !== userId) {
+    if (spots.ownerId === userId) {
         res.status(200)
         res.json({ Bookings: usersBookings })
     } else {
