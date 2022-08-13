@@ -535,7 +535,7 @@ router.get('/:spotId/bookings', restoreUser, requireAuth, async (req, res) => {
             spotId: spotId
         },
         attributes: [
-            'id', 'spotId', 'userId', 'startDate', 'endDate'
+            'spotId', 'startDate', 'endDate'
         ]
 
     })
