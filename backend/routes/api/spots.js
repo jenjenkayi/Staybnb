@@ -483,15 +483,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
 // Get all Bookings for a Spot based on the Spot's id
 router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     const spot = await Spot.findByPk(req.params.spotId);
-
     const userBookings = await Booking.findAll({
-        where: {
-            spotId: req.params.spotId
-        },
-        attributes: ['spotId', 'startDate', 'endDate']
-    })
-    
-    const ownerBookings = await Booking.findAll({
         where: {
             spotId: req.params.spotId
         },
@@ -500,6 +492,14 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
             attributes: ['id', 'firstName', 'lastName']
         },
     })
+
+    const bookings = await Booking.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        attributes: ['spotId', 'startDate', 'endDate']
+    })
+    
     
     if (!spot) {
         res.status(404)
@@ -509,8 +509,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
             })
     }
 
-    if (spot.id === req.user.id) {
-        return res.json({Bookings: ownerBookings});
+    if (spot.ownerId !== req.user.id) {
+        return res.json({Bookings: userBookings});
     } else {
         return res.json({Bookings: bookings});
     }
