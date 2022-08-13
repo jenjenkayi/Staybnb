@@ -499,7 +499,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
             attributes: ['spotId', 'startDate', 'endDate']
     })
 
-    const ownerBookings = await Booking.findAll({
+    const userBookings = await Booking.findAll({
         where: {
             spotId: req.params.spotId
         },
@@ -509,8 +509,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
         },
     })
 
-    if (spot.owerId === req.user.id) {
-        return res.json({Bookings: ownerBookings});
+    if (spot.owerId !== req.user.id) {
+        return res.json({Bookings: userBookings});
     } else {
         return res.json({Bookings: bookings});
     }
