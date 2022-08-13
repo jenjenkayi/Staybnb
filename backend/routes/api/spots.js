@@ -509,7 +509,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
         },
     })
 
-    if (spot.id === req.user.id) {
+    if (spot.owerId === req.user.id) {
         return res.json({Bookings: ownerBookings});
     } else {
         return res.json({Bookings: bookings});
