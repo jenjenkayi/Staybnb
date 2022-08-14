@@ -59,12 +59,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         // attributes: ['startDate', 'endDate']
     })
 
-    let count = await Booking.count({
-        where: {
-            id: req.params.bookingId
-        }
-    })
-
     if (!booking) {
         res.status(404)
         return res.json({
