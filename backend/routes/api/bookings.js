@@ -71,40 +71,41 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             //     });
             // }
             
-            const { startDate, endDate } = req.body;
-            booking.startDate = startDate,
-            booking.endDate = endDate
+    const { startDate, endDate } = req.body;
+    booking.startDate = startDate,
+    booking.endDate = endDate
             
-            if (startDate >= endDate) {
-                res.status(400)
-                return res.json({
-                    "message": "Validation error",
-                    "statusCode": 400,
-                    "errors": {
-                        "endDate": "endDate cannot be on or before startDate"
-                    }
-                })
+    if (startDate >= endDate) {
+        res.status(400)
+        return res.json({
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": {
+                "endDate": "endDate cannot be on or before startDate"
             }
+        })
+    }
             
-            const today = new Date();
-            if (endDate <= today) {
-                res.status(403)
-                return res.json({
-                    "message": "Past bookings can't be modified",
-                    "statusCode": 403
-                })
-            }
+    const today = new Date();
+    if (endDate <= today) {
+        res.status(403)
+        return res.json({
+        "message": "Past bookings can't be modified",
+            "statusCode": 403
+        })
+    }
             
-            let bookings = await Booking.findAll({
-                where: { id: req.params.bookingId,
-                [Op.and]: [
-                    { startDate: startDate },
-                    { endDate: endDate }
-                ]
-                }
-            })
-            
-    if (bookings.length > 1) {
+    let bookings = await Booking.findAll({
+        where: { 
+            id: req.params.bookingId,
+            [Op.and]: [
+                { startDate: startDate },
+                { endDate: endDate }
+            ]
+        }
+    })
+
+    if (bookings.length) {
         res.status(403)
         res.json({
             "message": "Sorry, this spot is already booked for the specified dates",
