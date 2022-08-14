@@ -72,8 +72,8 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             // }
             
     const { startDate, endDate } = req.body;
-    // booking.startDate = startDate,
-    // booking.endDate = endDate
+    booking.startDate = startDate,
+    booking.endDate = endDate
             
     if (startDate >= endDate) {
         res.status(400)
@@ -117,7 +117,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
     
-    booking.update({ startDate, endDate })
     await booking.save()
     return res.json(booking)
 })
