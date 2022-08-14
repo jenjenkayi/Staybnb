@@ -55,8 +55,12 @@ router.get('/current', requireAuth, async (req, res) => {
 router.put('/:bookingId', requireAuth, async (req, res) => {
     const booking = await Booking.findByPk(req.params.bookingId);
     let bookings = await Booking.findAll({
-        where: { id: req.params.bookingId },
-        // attributes: ['startDate', 'endDate']
+        where: { id: req.params.bookingId,
+        [Op.and]: [
+            { startDate: startDate },
+            { endDate: endDate }
+        ]
+        }
     })
 
     if (!booking) {
@@ -99,17 +103,17 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
     
-    // if (bookings.length > 1) {
-    //     res.status(403)
-    //     res.json({
-    //         "message": "Sorry, this spot is already booked for the specified dates",
-    //         "statusCode": 403,
-    //         "errors": {
-    //             "startDate": "Start date conflicts with an existing booking",
-    //             "endDate": "End date conflicts with an existing booking"
-    //         }
-    //     })
-    // }
+    if (bookings.length > 1) {
+        res.status(403)
+        res.json({
+            "message": "Sorry, this spot is already booked for the specified dates",
+            "statusCode": 403,
+            "errors": {
+                "startDate": "Start date conflicts with an existing booking",
+                "endDate": "End date conflicts with an existing booking"
+            }
+        })
+    }
     
     await booking.save()
     return res.json(booking)
