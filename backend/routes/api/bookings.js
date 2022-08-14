@@ -54,15 +54,7 @@ router.get('/current', requireAuth, async (req, res) => {
 // Edit a Booking
 router.put('/:bookingId', requireAuth, async (req, res) => {
     const booking = await Booking.findByPk(req.params.bookingId);
-    let bookings = await Booking.findAll({
-        where: { id: req.params.bookingId,
-        [Op.and]: [
-            { startDate: startDate },
-            { endDate: endDate }
-        ]
-        }
-    })
-
+    
     if (!booking) {
         res.status(404)
         return res.json({
@@ -72,37 +64,46 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     }
     
     // if (booking.userId !== req.user.id) {
-    //     res.status(403)
-    //     return res.json({
-    //         "message": "Forbidden",
-    //         "statusCode": 403
-    //     });
-    // }
-
-    const { startDate, endDate } = req.body;
-    booking.startDate = startDate,
-    booking.endDate = endDate
-    
-    if (startDate >= endDate) {
-        res.status(400)
-        return res.json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": {
-                    "endDate": "endDate cannot be on or before startDate"
+        //     res.status(403)
+        //     return res.json({
+            //         "message": "Forbidden",
+            //         "statusCode": 403
+            //     });
+            // }
+            
+            const { startDate, endDate } = req.body;
+            booking.startDate = startDate,
+            booking.endDate = endDate
+            
+            if (startDate >= endDate) {
+                res.status(400)
+                return res.json({
+                    "message": "Validation error",
+                    "statusCode": 400,
+                    "errors": {
+                        "endDate": "endDate cannot be on or before startDate"
+                    }
+                })
+            }
+            
+            const today = new Date();
+            if (endDate <= today) {
+                res.status(403)
+                return res.json({
+                    "message": "Past bookings can't be modified",
+                    "statusCode": 403
+                })
+            }
+            
+            let bookings = await Booking.findAll({
+                where: { id: req.params.bookingId,
+                [Op.and]: [
+                    { startDate: startDate },
+                    { endDate: endDate }
+                ]
                 }
             })
-    }
-    
-    const today = new Date();
-    if (endDate <= today) {
-        res.status(403)
-        return res.json({
-            "message": "Past bookings can't be modified",
-            "statusCode": 403
-        })
-    }
-    
+            
     if (bookings.length > 1) {
         res.status(403)
         res.json({
