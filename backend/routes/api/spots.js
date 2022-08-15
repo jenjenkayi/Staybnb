@@ -70,7 +70,6 @@ const validatePagination = [
         .withMessage('Minimum latitude is invalid.'),
     check('minLng')
         .optional()
-        .exists({ checkFalsy: true })
         .isDecimal()
         .withMessage('Maximum longitude is invalid.'),
     check('maxLng')
