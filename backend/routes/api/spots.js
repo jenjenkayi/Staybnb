@@ -104,7 +104,7 @@ const validatePagination = [
 
 // Get all Spots
 // Add Query Filters to Get All Spots
-router.get('/', async (req, res) => {
+router.get('/', validatePagination, async (req, res) => {
     let pagination = {};
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     
