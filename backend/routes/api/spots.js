@@ -58,7 +58,7 @@ const validatePagination = [
         .withMessage('Page must be greater than or equal to 0.'),
     check('size')
         .exists({ checkFalsy: true })
-        .isInt({ min: 0, max: 10 })
+        .isInt({ min: 0, max: 20 })
         .withMessage('Size must be greater than or equal to 0.'),
     check('maxLat')
         .optional()
