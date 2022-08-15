@@ -191,12 +191,12 @@ router.get('/current', requireAuth, async (req, res) => {
     })
 
 
-    // if (!req.user.id) {
-    //     res.json({
-    //         "message": "Authentication required",
-    //         "statusCode": 401
-    //     })
-    // }
+    if (!req.user.id) {
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    }
 
     for (let i = 0; i < currentUserSpots.length; i++) {
         let spot = currentUserSpots[i]
