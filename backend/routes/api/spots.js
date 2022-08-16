@@ -549,50 +549,18 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         })
     }
 
-    // const bookings = await Booking.findAll({
-    //     where: {
-    //         spotId: req.params.spotId,
-    //         [Op.and]: [
-    //             { endDate: { [Op.gte]: startDate } },
-    //             { startDate: { [Op.lte]: endDate } },
-    //         ],
-    //     },
-    // });
-
-  
-
-    // if (bookings.length >= 1) {
-    //     res.status(403)
-    //     res.json({
-    //         "message": "Sorry, this spot is already booked for the specified dates",
-    //         "statusCode": 403,
-    //         "errors": {
-    //             "startDate": "Start date conflicts with an existing booking",
-    //             "endDate": "End date conflicts with an existing booking"
-    //         }
-    //     })
-    // }
-
-    const bookingconflict = await Booking.findAll({
+    const bookings = await Booking.findAll({
         where: {
+            spotId: req.params.spotId,
             [Op.and]: [
-                { spotId: req.params.spotId },
-                {
-                    [Op.or]: [{
-                        startDate: {
-                            [Op.between]: [startDate, endDate]
-                        }
-                    }, {
-                        endDate: {
-                            [Op.between]: [startDate, endDate]
-                        }
-                    }]
-                }
+                { endDate: { [Op.gte]: startDate } },
+                { startDate: { [Op.lte]: endDate } },
+            ],
+        },
+    });
 
-            ]
-        }
-    })
-    if (bookingconflict.length > 0) {
+    if (bookings.length > 0) {
+        res.status(403)
         res.json({
             "message": "Sorry, this spot is already booked for the specified dates",
             "statusCode": 403,
@@ -601,19 +569,17 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
                 "endDate": "End date conflicts with an existing booking"
             }
         })
-    } else {
-
+    }
 
     const newBooking = await Booking.create({
             spotId: req.params.spotId,
             userId: req.user.id,
             startDate,
             endDate
-        })
-        res.status(200)
-        return res.json(newBooking)
-    }
-    
+    })
+
+    res.status(200)
+    return res.json(newBooking)
 })
 
 
