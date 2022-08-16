@@ -610,10 +610,10 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             startDate,
             endDate
         })
+        res.status(200)
+        return res.json(newBooking)
     }
     
-    res.status(200)
-    return res.json(newBooking)
 })
 
 
