@@ -559,7 +559,9 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         },
     });
 
-    for (let booking of bookings) {
+    let Bookings = await Booking.findAll({ where: { spotId: req.params.spotId }, raw: true });
+
+    for (let booking of Bookings) {
         if (startDate <= booking.endDate && endDate >= booking.startDate) {
             res.status(403)
             res.json({
