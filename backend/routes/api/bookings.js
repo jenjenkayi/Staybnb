@@ -53,6 +53,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // Edit a Booking
 router.put('/:bookingId', requireAuth, async (req, res) => {
+    const { startDate, endDate } = req.body;
     const booking = await Booking.findByPk(req.params.bookingId);
     
     if (!booking) {
@@ -62,19 +63,16 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             "statusCode": 404
         })
     }
+
+    if (req.user.id !== booking.userId) {
+            res.status(403)
+            return res.json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                });
+    }
+            
     
-    // if (booking.userId !== req.user.id) {
-        //     res.status(403)
-        //     return res.json({
-            //         "message": "Forbidden",
-            //         "statusCode": 403
-            //     });
-            // }
-            
-    const { startDate, endDate } = req.body;
-    booking.startDate = startDate,
-    booking.endDate = endDate
-            
     if (startDate >= endDate) {
         res.status(400)
         return res.json({
@@ -85,27 +83,27 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             }
         })
     }
-            
+    
     const today = new Date();
-    if (endDate <= today) {
+    if (booking.dataValues.endDate <= today) {
         res.status(403)
         return res.json({
-        "message": "Past bookings can't be modified",
+            "message": "Past bookings can't be modified",
             "statusCode": 403
         })
     }
-            
+    
     let bookings = await Booking.findAll({
         where: { 
-            id: req.params.bookingId,
+            spotId: booking.spotId,
             [Op.and]: [
                 { startDate: startDate },
                 { endDate: endDate }
             ]
         }
     })
-
-    if (bookings.length) {
+    
+    if (bookings.length > 0) {
         res.status(403)
         res.json({
             "message": "Sorry, this spot is already booked for the specified dates",
@@ -116,6 +114,9 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             }
         })
     }
+    
+    booking.startDate = startDate,
+    booking.endDate = endDate
     
     await booking.save()
     return res.json(booking)
