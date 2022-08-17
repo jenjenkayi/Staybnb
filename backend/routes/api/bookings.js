@@ -117,7 +117,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     
     booking.startDate = startDate,
     booking.endDate = endDate
-    
+
     await booking.save()
     return res.json(booking)
 })
@@ -135,6 +135,16 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
             })
     }
 
+    const spot = await Spot.findOne({ 
+        where: { id: booking.spotId }
+    });
+
+    if (booking.dataValues.userId !== req.user.id && spot.ownerId !== req.user.id) {
+        return res.status(403).json({ 
+            message: 'You do not have permission to delete this booking.', 
+            statusCode: 403 
+    });
+
     // if (booking.userId !== req.user.id) {
     //     res.status(403)
     //     return res.json({
@@ -142,9 +152,17 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
     //         "statusCode": 403
     //     });
     // }
+  let checkUser = booking.toJSON()
+
+    //check if user is deleting not their booking
+    if (req.user.id !== checkUser.userId) {
+        const error = new Error(`Forbidden`)
+        error.status = "403"
+        throw error;
+    }
 
     const today = new Date();
-    if (Booking.startDate <= today) {
+    if (booking.startDate <= today) {
         res.status(404)
         return res.json({
                 "message": "Bookings that have been started can't be deleted",
