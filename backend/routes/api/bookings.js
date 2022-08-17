@@ -126,15 +126,15 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 // Delete a Booking
 router.delete('/:bookingId', requireAuth, async (req, res) => {
     const booking = await Booking.findByPk(req.params.bookingId)
-    const spot = await Spot.findOne({ where: { id: booking.spotId }});
-
+    
     if (!booking) {
-        res.status(404)
-        return res.json({
-                "message": "Booking couldn't be found",
-                "statusCode": 404
-            })
+        return res.status(404).json({
+            "message": "Booking couldn't be found",
+            "statusCode": 404
+        })
     }
+    
+    const spot = await Spot.findOne({ where: { id: booking.spotId }});
 
     if (booking.dataValues.userId !== req.user.id && spot.ownerId !== req.user.id) {
         return res.status(403).json({ 
