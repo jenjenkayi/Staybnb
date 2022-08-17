@@ -143,15 +143,9 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
         return res.status(403).json({ 
             message: 'You do not have permission to delete this booking.', 
             statusCode: 403 
-    });
+        });
+    }
 
-    // if (booking.userId !== req.user.id) {
-    //     res.status(403)
-    //     return res.json({
-    //         "message": "Forbidden",
-    //         "statusCode": 403
-    //     });
-    // }
   let checkUser = booking.toJSON()
 
     //check if user is deleting not their booking
