@@ -146,15 +146,6 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
         });
     }
 
-  let checkUser = booking.toJSON()
-
-    //check if user is deleting not their booking
-    if (req.user.id !== checkUser.userId) {
-        const error = new Error(`Forbidden`)
-        error.status = "403"
-        throw error;
-    }
-
     const today = new Date();
     if (booking.startDate <= today) {
         res.status(404)
