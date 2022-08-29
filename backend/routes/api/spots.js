@@ -202,10 +202,10 @@ router.get('/current', requireAuth, async (req, res) => {
 
         let previewImage = await SpotImage.findOne({
             attributes: ['url'],
-                where: { spotId: currentUserSpots[i].id },
+                where: { spotId: spot.id },
             })
             
-        if (previewImage) {
+       if (previewImage) {
             spot.dataValues.previewImage = previewImage.dataValues.url
         }
         spot.dataValues.lat = parseFloat(spot.dataValues.lat);
