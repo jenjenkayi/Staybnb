@@ -200,9 +200,9 @@ router.get('/current', requireAuth, async (req, res) => {
     for (let i = 0; i < currentUserSpots.length; i++) {
         let spot = currentUserSpots[i]
 
-        let previewImage = await Image.findOne({
+        let previewImage = await SpotImage.findOne({
             attributes: ['url'],
-                where: { previewImage: true, spotId: currentUserSpots[i].id },
+                where: { spotId: currentUserSpots[i].id },
             })
             
         if (previewImage) {
