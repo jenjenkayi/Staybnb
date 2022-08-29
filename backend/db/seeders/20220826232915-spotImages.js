@@ -8,17 +8,17 @@ module.exports = {
     await queryInterface.bulkInsert('SpotImages', [
       {
         spotId: 1,
-        url: 'url',
+        url: 'image url',
         preview: true
       },
       {
         spotId: 2,
-        url: 'url',
+        url: 'image url',
         preview: true
       },
       {
         spotId: 3,
-        url: 'url',
+        url: 'image url',
         preview: true
       },
     ], {});
