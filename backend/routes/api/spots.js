@@ -3,7 +3,7 @@ const router = express.Router();
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Spot, Review, Image, User, Booking, sequelize } = require('../../db/models');
+const { Spot, Review, SpotImage, ReviewImage, User, Booking, sequelize } = require('../../db/models');
 const { Op } = require('sequelize')
 
 const validateSpot = [
@@ -103,7 +103,7 @@ const validatePagination = [
 
 // Get all Spots
 // Add Query Filters to Get All Spots
-router.get('/', validatePagination, async (req, res) => {
+router.get('/', async (req, res) => {
     let pagination = {};
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     
@@ -146,7 +146,7 @@ router.get('/', validatePagination, async (req, res) => {
             });
             let avgRating = totalReview / totalStars;
 
-            let previewImage = await Image.findOne({
+            let previewImage = await SpotImage.findOne({
                 attributes:['url'],
                 where: { previewImage: true, spotId: spot.id },
             })
