@@ -152,7 +152,7 @@ router.get('/', async (req, res) => {
             })
 
             if (previewImage) {
-                spot.dataValues.previewImage = previewImage.dataValues.url
+                spot.dataValues.previewImage = previewImage.url
                 spot.dataValues.avgRating = parseFloat(parseFloat(avgRating).toFixed(1));
             }
                 spot.dataValues.lat = parseFloat(spot.dataValues.lat);
@@ -246,7 +246,7 @@ router.get('/:spotId', async (req, res) => {
         )
     } 
 
-    let Images = await Image.findAll({
+    let Images = await SpotImage.findAll({
         attributes: ['id', ['spotId', 'imageableId'], 'url'],
         where: { spotId: spot.id },
     })
@@ -315,7 +315,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
     const newImage = await SpotImage.create({
         previewImage: previewImage,
-        url: url,       
+        url,       
         spotId: req.params.spotId,
         userId: req.user.id
     })
