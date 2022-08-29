@@ -227,6 +227,10 @@ router.get('/:spotId', async (req, res) => {
                 model: Review,
                 attributes: []
             },
+            {
+                model: SpotImage, as: 'Images',
+                attributes: []
+            }
         ],
         attributes: {
             include: [
