@@ -35,7 +35,7 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
             },
             {
-                model: Image,
+                model: ReviewImage,
                 attributes: ['id', ['reviewId', 'imageableId'], 'url']
             },
         ],
@@ -67,7 +67,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
         const { url, previewImage } = req.body;
 
-        const newImage = await Image.create({
+        const newImage = await ReviewImage.create({
             url,
             previewImage,
             userId: req.user.id,
@@ -75,7 +75,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
             spotId: review.spotId
         })
 
-    let images = await Image.findAll({
+    let images = await ReviewImage.findAll({
         where: { previewImage: true, reviewId: req.params.reviewId },
     })
 

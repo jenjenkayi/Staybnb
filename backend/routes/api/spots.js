@@ -246,7 +246,7 @@ router.get('/:spotId', async (req, res) => {
         )
     } 
 
-    let Images = await SpotImage.findAll({
+    let spotImage = await SpotImage.findAll({
         attributes: ['id', ['spotId', 'imageableId'], 'url'],
         where: { spotId: spot.id },
     })
@@ -255,7 +255,7 @@ router.get('/:spotId', async (req, res) => {
         where: { spotId: spot.id },
     })
 
-    spot.dataValues.Images = Images
+    spot.dataValues.spotImage = spotImage
     spot.dataValues.numReviews = numReviews
 
     spot.dataValues.lat = parseFloat(spot.dataValues.lat);
@@ -314,10 +314,10 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     const { url, previewImage } = req.body;
 
     const newImage = await SpotImage.create({
-        previewImage: previewImage,
+        previewImage,
         url,       
         spotId: req.params.spotId,
-        userId: req.user.id
+        // userId: req.user.id
     })
 
 
@@ -413,7 +413,7 @@ router.get('/:spotId/reviews', async (req, res) => {
                 attributes: ['id', 'firstName', 'lastName']
             },
             {
-                model: Image,
+                model: ReviewImage,
                 attributes: ['id', ['reviewId', 'imageableId'], 'url']
             },
         ],

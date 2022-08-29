@@ -34,9 +34,9 @@ router.get('/current', requireAuth, async (req, res) => {
             attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
             });
 
-        const previewImage = await Image.findOne({
+        const previewImage = await SpotImage.findOne({
             attributes: ['url'],
-            where: { previewImage: true, spotId: booking.spotId },
+            where: { spotId: booking.spotId },
         })
 
         if (previewImage) {
