@@ -165,7 +165,6 @@ router.get('/', async (req, res) => {
                     "page": page,
                     "size": size
                 })
-
         })
    
 
