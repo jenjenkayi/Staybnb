@@ -35,14 +35,42 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
             },
             {
-                model: ReviewImage, as: 'Images',
-                attributes: ['id', ['reviewId', 'imageableId'], 'url']
+                model: ReviewImage,
+                attributes: ['id', 'url']
             },
         ]
     })
 
+    const currentUserSpots = await Spot.findAll({
+        where: { ownerId: req.user.id },
+    })
+
+    for (let i = 0; i < currentUserSpots.length; i++) {
+        let spot = currentUserSpots[i]
+
+        let previewImage = await SpotImage.findOne({
+            where: { spotId: spot.id },
+            attributes: ['url'],
+        })
+
+        if (previewImage) {
+            spot.dataValues.previewImage = previewImage.dataValues.url
+        }
+    }
+
+    for (let i = 0; i < currentUserReviews.length; i++) {
+        let review = currentUserReviews[i]
+
+    let ReviewImages = await ReviewImage.findOne({
+        attributes: ['id', 'url'],
+        where: { reviewId: review.id },
+    })
+    
+    review.dataValues.ReviewImages = ReviewImages
+    }
+
     res.status(200);
-    return res.json({Reviews: currentUserReviews});
+    return res.json({ Reviews: currentUserReviews });
 })
 
 // Add an Image to a Review based on the Review's id
