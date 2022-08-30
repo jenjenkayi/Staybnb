@@ -2,9 +2,9 @@
 
 ## Database Schema Design
 
-![airbnb_dbdiagram](https://user-images.githubusercontent.com/92122927/186997918-7d0084fe-ecfc-4187-b190-bf300853bc09.png)
+![airbnb-dbdiagram]
 
-
+[airbnb-dbdiagram]: ../assets/airbnb_dbdiagram.png
 
 ## API Documentation
 
@@ -346,11 +346,16 @@ Returns the details of a spot specified by its id.
       "updatedAt": "2021-11-19 20:39:36" ,
       "numReviews": 5,
       "avgStarRating": 4.5,
-      "Images": [
+      "SpotImages": [
         {
           "id": 1,
-          "imageableId": 1,
-          "url": "image url"
+          "url": "image url",
+          "preview": true
+        },
+        {
+          "id": 2,
+          "url": "image url",
+          "preview": false
         }
       ],
       "Owner": {
@@ -464,7 +469,7 @@ Create and return a new image for a spot specified by id.
     ```json
     {
       "url": "image url",
-      "previewImage": false/true
+      "preview": true
     }
     ```
 
@@ -477,8 +482,8 @@ Create and return a new image for a spot specified by id.
     ```json
     {
       "id": 1,
-      "imageableId": 1,
       "url": "image url",
+      "preview": true
     }
     ```
 
@@ -664,15 +669,15 @@ Returns all the reviews written by the current user.
             "lat": 37.7645358,
             "lng": -122.4730327,
             "name": "App Academy",
-            "price": 123
+            "price": 123,
+            "previewImage": "image url"
           },
-          "Images": [
+          "ReviewImages": [
             {
               "id": 1,
-              "imageableId": 1,
               "url": "image url"
             }
-          ],
+          ]
         }
       ]
     }
@@ -710,10 +715,9 @@ Returns all the reviews that belong to a spot specified by id.
             "firstName": "John",
             "lastName": "Smith"
           },
-          "Images": [
+          "ReviewImages": [
             {
               "id": 1,
-              "imageableId": 1,
               "url": "image url"
             }
           ],
@@ -830,8 +834,7 @@ Create and return a new image for a review specified by id.
 
     ```json
     {
-      "url": "image url",
-      "previewImage": false/true
+      "url": "image url"
     }
     ```
 
@@ -844,8 +847,7 @@ Create and return a new image for a review specified by id.
     ```json
     {
       "id": 1,
-      "imageableId": 1,
-      "url": "image url",
+      "url": "image url"
     }
     ```
 
@@ -1328,15 +1330,15 @@ Delete an existing booking.
 
 ## IMAGES
 
-### Delete an Image
+### Delete a Spot Image
 
-Delete an existing image.
+Delete an existing image for a Spot.
 
 * Require Authentication: true
-* Require proper authorization: Image must belong to the current user
+* Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /api/images/:imageId
+  * URL: /api/spot-images/:imageId
   * Body: none
 
 * Successful Response
@@ -1352,7 +1354,7 @@ Delete an existing image.
     }
     ```
 
-* Error response: Couldn't find an Image with the specified id
+* Error response: Couldn't find a Spot Image with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -1360,7 +1362,44 @@ Delete an existing image.
 
     ```json
     {
-      "message": "Image couldn't be found",
+      "message": "Spot Image couldn't be found",
+      "statusCode": 404
+    }
+    ```
+
+### Delete a Review Image
+
+Delete an existing image for a Review.
+
+* Require Authentication: true
+* Require proper authorization: Review must belong to the current user
+* Request
+  * Method: DELETE
+  * URL: /api/review-images/:imageId
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Successfully deleted",
+      "statusCode": 200
+    }
+    ```
+
+* Error response: Couldn't find a Review Image with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Review Image couldn't be found",
       "statusCode": 404
     }
     ```
