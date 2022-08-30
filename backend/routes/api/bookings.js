@@ -102,7 +102,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         }
     })
 
-    if (bookings.length) {
+    if (bookings.length > 0) {
         res.status(403)
         res.json({
             "message": "Sorry, this spot is already booked for the specified dates",
