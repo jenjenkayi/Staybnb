@@ -421,8 +421,8 @@ router.get('/:spotId/reviews', async (req, res) => {
                 attributes: ['id', 'firstName', 'lastName']
             },
             {
-                model: ReviewImage, as: 'Images',
-                attributes: ['id', ['reviewId', 'imageableId'], 'url']
+                model: ReviewImage,
+                attributes: ['id', 'url']
             },
         ],
         // group: ['Review.id']
@@ -439,7 +439,7 @@ router.get('/:spotId/reviews', async (req, res) => {
     }
 
     res.status(200);
-    return res.json({ Reviews: reviews});
+    return res.json({ Reviews: [reviews]});
 
 })
 

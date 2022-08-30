@@ -33,6 +33,7 @@ router.get('/current', requireAuth, async (req, res) => {
             {
                 model: Spot,
                 attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+                // attributes: []
             },
             {
                 model: ReviewImage,
@@ -41,32 +42,33 @@ router.get('/current', requireAuth, async (req, res) => {
         ]
     })
 
-    const currentUserSpots = await Spot.findAll({
+    const Spots = await Spot.findAll({
         where: { ownerId: req.user.id },
+        // attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+
     })
 
-    for (let i = 0; i < currentUserSpots.length; i++) {
-        let spot = currentUserSpots[i]
+    for (let i = 0; i < Spots.length; i++) {
+        let spot = Spots[i]
 
         let previewImage = await SpotImage.findOne({
             where: { spotId: spot.id },
             attributes: ['url'],
         })
 
-        if (previewImage) {
-            spot.dataValues.previewImage = previewImage.dataValues.url
-        }
+    spot.dataValues.previewImage = previewImage.dataValues.url
     }
 
     for (let i = 0; i < currentUserReviews.length; i++) {
         let review = currentUserReviews[i]
 
-    let ReviewImages = await ReviewImage.findOne({
-        attributes: ['id', 'url'],
-        where: { reviewId: review.id },
-    })
-    
-    review.dataValues.ReviewImages = ReviewImages
+        let ReviewImages = await ReviewImage.findOne({
+            attributes: ['id', 'url'],
+            where: { reviewId: review.id },
+        })
+
+        review.dataValues.ReviewImages = ReviewImages
+        review.dataValues.Spot = Spots
     }
 
     res.status(200);
