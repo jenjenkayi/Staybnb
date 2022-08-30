@@ -322,11 +322,16 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         // userId: req.user.id
     })
 
-
+    // const response = {
+    //     id: newImage.id,
+    //     imageableId: newImage.spotId,
+    //     url: newImage.url
+    // }
+   
     const response = {
         id: newImage.id,
-        imageableId: newImage.spotId,
-        url: newImage.url
+        url: newImage.url,
+        preview: true
     }
 
     await newImage.save()
