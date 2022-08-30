@@ -246,8 +246,8 @@ router.get('/:spotId', async (req, res) => {
         )
     } 
 
-    let Images = await SpotImage.findAll({
-        attributes: ['id', ['spotId', 'imageableId'], 'url'],
+    let SpotImages = await SpotImage.findAll({
+        attributes: ['id', 'url', 'preview'],
         where: { spotId: spot.id },
     })
 
@@ -255,7 +255,7 @@ router.get('/:spotId', async (req, res) => {
         where: { spotId: spot.id },
     })
 
-    spot.dataValues.Images = Images
+    spot.dataValues.Images = SpotImages
     spot.dataValues.numReviews = numReviews
 
     spot.dataValues.lat = parseFloat(spot.dataValues.lat);
