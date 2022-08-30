@@ -413,7 +413,7 @@ router.get('/:spotId/reviews', async (req, res) => {
                 attributes: ['id', 'firstName', 'lastName']
             },
             {
-                model: ReviewImage,
+                model: ReviewImage, as: 'Images',
                 attributes: ['id', ['reviewId', 'imageableId'], 'url']
             },
         ],
@@ -577,6 +577,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             endDate
     })
 
+    newBooking.spotId = parseFloat(newBooking.spotId)
     res.status(200)
     return res.json(newBooking)
 })
