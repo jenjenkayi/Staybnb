@@ -551,6 +551,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     const bookings = await Booking.findAll({
         where: {
             spotId: req.params.spotId,
+            // raw: true 
             [Op.and]: [
                 { endDate: { [Op.gte]: startDate } },
                 { startDate: { [Op.lte]: endDate } },
