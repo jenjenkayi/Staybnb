@@ -40,7 +40,7 @@ router.get('/current', requireAuth, async (req, res) => {
         })
 
         if (previewImage) {
-            booking.dataValues.Spot = spot
+            // booking.dataValues.Spot = spot
             spot.dataValues.previewImage = previewImage.dataValues.url
             spot.dataValues.lat = parseFloat(spot.dataValues.lat);
             spot.dataValues.lng = parseFloat(spot.dataValues.lng);
@@ -72,7 +72,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
                 });
     }
             
-    
     if (startDate >= endDate) {
         res.status(400)
         return res.json({
@@ -93,7 +92,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         })
     }
     
-    let bookings = await Booking.findAll({
+    const bookings = await Booking.findAll({
         where: { 
             spotId: booking.spotId,
             [Op.and]: [
@@ -102,8 +101,8 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             ]
         }
     })
-    
-    if (bookings.length > 0) {
+
+    if (bookings.length) {
         res.status(403)
         res.json({
             "message": "Sorry, this spot is already booked for the specified dates",
