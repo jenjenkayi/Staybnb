@@ -89,7 +89,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
     let response = {
         id: newImage.id,
-        imageableId: newImage.reviewId,
+        // imageableId: newImage.reviewId,
         url: newImage.url
     }
 
