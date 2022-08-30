@@ -103,7 +103,7 @@ const validatePagination = [
 
 // Get all Spots
 // Add Query Filters to Get All Spots
-router.get('/', async (req, res) => {
+router.get('/', validatePagination, async (req, res) => {
     let pagination = {};
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     
@@ -285,7 +285,9 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
         price
     })
     
-    await newSpot.save()
+    newSpot.dataValues.lat = parseFloat(newSpot.dataValues.lat);
+    newSpot.dataValues.lng = parseFloat(newSpot.dataValues.lng);
+
     res.json(newSpot)
 
 });
