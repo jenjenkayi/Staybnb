@@ -35,14 +35,14 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
             },
             {
-                model: ReviewImage,
+                model: ReviewImage, as: 'Images',
                 attributes: ['id', ['reviewId', 'imageableId'], 'url']
             },
-        ],
+        ]
     })
-    
+
     res.status(200);
-    return res.json({Reviews: currentUserReviews });
+    return res.json({Reviews: currentUserReviews});
 })
 
 // Add an Image to a Review based on the Review's id
@@ -76,7 +76,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         })
 
     let images = await ReviewImage.findAll({
-        where: { previewImage: true, reviewId: req.params.reviewId },
+        where: { reviewId: req.params.reviewId },
     })
 
     if (images.length >= 10) {
@@ -131,12 +131,10 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
 
     if (!review) {
         res.status(404)
-        return res.json(
-            {
+        return res.json({
                 "message": "Review couldn't be found",
                 "statusCode": 404
-            }
-        )
+        })
     }
 
     // if (review.userId !== req.user.id) {
