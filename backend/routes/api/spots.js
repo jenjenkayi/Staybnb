@@ -255,8 +255,9 @@ router.get('/:spotId', async (req, res) => {
         where: { spotId: spot.id },
     })
 
-    spot.dataValues.Images = SpotImages
+    spot.dataValues.SpotImages = SpotImages
     spot.dataValues.numReviews = numReviews
+    // spot.dataValues.SpotImages.preview = true
 
     spot.dataValues.lat = parseFloat(spot.dataValues.lat);
     spot.dataValues.lng = parseFloat(spot.dataValues.lng);
@@ -313,12 +314,12 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     //     });
     // }
     
-    const { url, previewImage } = req.body;
+    const { url, preview } = req.body;
 
     const newImage = await SpotImage.create({
-        previewImage,
         url,       
         spotId: req.params.spotId,
+        preview: true
         // userId: req.user.id
     })
 
