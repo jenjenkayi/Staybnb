@@ -54,7 +54,10 @@ router.get('/current', requireAuth, async (req, res) => {
 // Edit a Booking
 router.put('/:bookingId', requireAuth, async (req, res) => {
     const { startDate, endDate } = req.body;
-    const booking = await Booking.findByPk(req.params.bookingId);
+    // const booking = await Booking.findByPk(req.params.bookingId);
+    const booking = await Booking.findOne({
+        where: { id: req.params.bookingId }
+    })
     
     if (!booking) {
         res.status(404)
@@ -94,6 +97,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     
     const bookings = await Booking.findAll({
         where: { 
+            // spotId: booking.spotId,
             spotId: booking.spotId,
             [Op.and]: [
                 { startDate: startDate },
