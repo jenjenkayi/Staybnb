@@ -7,31 +7,29 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const { Spot, Review, SpotImage, ReviewImage, User, Booking, sequelize } = require('../../db/models');
 
-
-// Delete an Image
+// Delete a Spot Image
 router.delete('/:imageId', requireAuth, async (req, res) => {
-    const image = await Image.findByPk(req.params.imageId)
-        // where: { req.user.id }
+    const spotImage = await SpotImage.findByPk(req.params.imageId)
+    // where: { req.user.id }
 
-    if (!image) {
+    if (!spotImage) {
         res.status(404)
         return res.json({
-            "message": "Image couldn't be found",
+            "message": "Spot Image couldn't be found",
             "statusCode": 404
         })
     }
 
-    if (image.userId !== req.user.id) {
-        res.status(403)
-        return res.json({
-            "message": "Forbidden",
-            "statusCode": 403
-        });
-    }
+    // if (spotImage.userId !== req.user.id) {
+    //     res.status(403)
+    //     return res.json({
+    //         "message": "Forbidden",
+    //         "statusCode": 403
+    //     });
+    // }
 
-    await image.destroy()
-    return res.json(
-        {
+    await spotImage.destroy()
+    return res.json({
             "message": "Successfully deleted",
             "statusCode": 200
         })
