@@ -15,45 +15,48 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         include: {
             model: Spot,
-            // attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+            // attributes: []
         },
     })
     
-    let spotId = currentUserBookings[0].dataValues.spotId
+    // let spotId = currentUserBookings[0].dataValues.spotId
 
-    const spot = await Spot.findOne({
-        where: { id: spotId },
-        attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
-    })
+    // let spot = await Spot.findOne({
+    //     where: { id: spotId },
+    //     // attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+    // })
 
-    let previewImage = await SpotImage.findOne({
-        where: { spotId: spotId },
-        attributes: ['url'],
-    })
+    // let previewImage = await SpotImage.findOne({
+    //     where: { spotId: spotId },
+    //     attributes: ['url'],
+    // })
 
-    spot.dataValues.previewImage = previewImage.dataValues.url
-    spot.dataValues.lat = parseFloat(spot.dataValues.lat);
-    spot.dataValues.lng = parseFloat(spot.dataValues.lng);
-    
+    // spot.dataValues.previewImage = previewImage.dataValues.url
+    // spot.dataValues.lat = parseFloat(spot.dataValues.lat);
+    // spot.dataValues.lng = parseFloat(spot.dataValues.lng);
+
+    // console.log(spot)
+    // review.dataValues.Spot = spot
     for (let i = 0; i < currentUserBookings.length; i++) {
         let  booking = currentUserBookings[i]
         
         const spot = await Spot.findOne({
-            where: { id: booking.spotId},
+            where: { id: booking.dataValues.spotId},
             attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
-            });
+        });
 
         const previewImage = await SpotImage.findOne({
+            where: { spotId: booking.dataValues.spotId },
             attributes: ['url'],
-            where: { spotId: booking.spotId },
         })
 
         if (previewImage) {
-            // booking.dataValues.Spot = spot
+    //         // booking.dataValues.Spot = spot
             spot.dataValues.previewImage = previewImage.dataValues.url
-            spot.dataValues.lat = parseFloat(spot.dataValues.lat);
-            spot.dataValues.lng = parseFloat(spot.dataValues.lng);
         }
+        spot.dataValues.lat = parseFloat(spot.dataValues.lat);
+        spot.dataValues.lng = parseFloat(spot.dataValues.lng);
     }
 
     return res.json({ Bookings: currentUserBookings });
