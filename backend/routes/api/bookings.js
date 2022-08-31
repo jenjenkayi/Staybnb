@@ -36,11 +36,11 @@ router.get('/current', requireAuth, async (req, res) => {
     spot.dataValues.lat = parseFloat(spot.dataValues.lat);
     spot.dataValues.lng = parseFloat(spot.dataValues.lng);
 
-     for (let i = 0; i < currentUserBookings.length; i++) {
-        let  booking = currentUserBookings[i]
+    //  for (let i = 0; i < currentUserBookings.length; i++) {
+    //     let  booking = currentUserBookings[i]
 
-        booking.dataValues.Spot = spot
-    }
+    //     booking.dataValues.Spot = spot
+    // }
 
     return res.json({ Bookings: currentUserBookings });
 })
