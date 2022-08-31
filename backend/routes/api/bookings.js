@@ -19,28 +19,56 @@ router.get('/current', requireAuth, async (req, res) => {
             attributes: []
         },
     })
-    
-    // let spotId = currentUserBookings[0].dataValues.spotId
 
-    let spot = await Spot.findOne({
-        where: { id: currentUserBookings.spotId },
-        attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
-    })
+    for (let i = 0; i < currentUserBookings.length; i++) {
+        let booking = currentUserBookings[i]
+
+    
+        const currentUserSpots = await Spot.findAll({
+            where: { id: booking.dataValues.spotId },
+            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+        })
+
+        for (let i = 0; i < currentUserSpots.length; i++) {
+            let spot = currentUserSpots[i]
+
+            let previewImage = await SpotImage.findOne({
+                attributes: ['url'],
+                where: { spotId: spot.id },
+            })
+
+            if (previewImage) {
+                spot.dataValues.previewImage = previewImage.dataValues.url
+            }
+        }
+            
+        booking.dataValues.Spot = currentUserSpots
+    }
+    // let spotId = currentUserBookings[0].dataValues.spotId
+    // let id = Spot.id
+    // let spot = await Spot.findOne({
+    //     where: { id: spotId },
+    //     attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+    // })
+
+    // let spot = await Spot.findOne({
+    //     where: { id: req.params.spotId}
+    // })
 
     // let previewImage = await SpotImage.findOne({
-    //     where: { spotId: spotId },
+    //     where: { spotId: spot.id },
     //     attributes: ['url'],
     // })
 
-    spot.dataValues.previewImage = previewImage.dataValues.url
-    spot.dataValues.lat = parseFloat(spot.dataValues.lat);
-    spot.dataValues.lng = parseFloat(spot.dataValues.lng);
+    // console.log(spot.id)
+    // console.log(currentUserBookings.dataValues.spotId)
+    // console.log(spotId) //4
 
-    //  for (let i = 0; i < currentUserBookings.length; i++) {
-    //     let  booking = currentUserBookings[i]
+    // spot.dataValues.previewImage = previewImage.dataValues.url
+    // spot.dataValues.lat = parseFloat(spot.dataValues.lat);
+    // spot.dataValues.lng = parseFloat(spot.dataValues.lng);
 
-    //     booking.dataValues.Spot = spot
-    // }
+
 
     return res.json({ Bookings: currentUserBookings });
 })
