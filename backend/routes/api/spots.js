@@ -189,14 +189,6 @@ router.get('/current', requireAuth, async (req, res) => {
         group: ['Spot.id']
     })
 
-
-    // if (!req.user.id) {
-    //     res.json({
-    //         "message": "Authentication required",
-    //         "statusCode": 401
-    //     })
-    // }
-
     for (let i = 0; i < currentUserSpots.length; i++) {
         let spot = currentUserSpots[i]
 
@@ -306,13 +298,6 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
             })
     }
 
-    // if (spot.ownerId !== req.user.id) {
-    //     res.status(403)
-    //     return res.json({
-    //         "message": "Forbidden",
-    //         "statusCode": 403
-    //     });
-    // }
     
     const { url, preview } = req.body;
 
@@ -521,7 +506,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
         return res.json({Bookings: bookings});
     }
 })
-
 
 
 // Create a Booking from a Spot based on the Spot's id
