@@ -62,9 +62,9 @@ router.get('/current', requireAuth, async (req, res) => {
     for (let i = 0; i < currentUserReviews.length; i++) {
         let review = currentUserReviews[i]
 
-        let ReviewImages = await ReviewImage.findOne({
-            attributes: ['id', 'url'],
+        let ReviewImages = await ReviewImage.findAll({
             where: { reviewId: review.id },
+            attributes: ['id', 'url'],
         })
 
         review.dataValues.ReviewImages = ReviewImages
