@@ -19,13 +19,6 @@ router.get('/current', requireAuth, async (req, res) => {
         },
     })
     
-    // if (!req.user.id) {
-    //     res.json({
-    //         "message": "Authentication required",
-    //         "statusCode": 401
-    //     })
-    // }
-    
     for (let i = 0; i < currentUserBookings.length; i++) {
         let  booking = currentUserBookings[i]
         

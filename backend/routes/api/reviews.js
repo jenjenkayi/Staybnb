@@ -32,8 +32,8 @@ router.get('/current', requireAuth, async (req, res) => {
             },
             {
                 model: Spot,
-                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
-                // attributes: []
+                // attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+                attributes: []
             },
             {
                 model: ReviewImage,
@@ -42,22 +42,21 @@ router.get('/current', requireAuth, async (req, res) => {
         ]
     })
 
-    const Spots = await Spot.findAll({
-        where: { ownerId: req.user.id },
-        // attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+    let spotId = currentUserReviews[0].dataValues.spotId
+
+    const spot = await Spot.findOne({
+        where: { id: spotId },
+        attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
 
     })
 
-    for (let i = 0; i < Spots.length; i++) {
-        let spot = Spots[i]
-
-        let previewImage = await SpotImage.findOne({
-            where: { spotId: spot.id },
+    let previewImage = await SpotImage.findOne({
+            where: { spotId: spotId },
             attributes: ['url'],
         })
 
     spot.dataValues.previewImage = previewImage.dataValues.url
-    }
+    
 
     for (let i = 0; i < currentUserReviews.length; i++) {
         let review = currentUserReviews[i]
@@ -68,7 +67,7 @@ router.get('/current', requireAuth, async (req, res) => {
         })
 
         review.dataValues.ReviewImages = ReviewImages
-        review.dataValues.Spot = Spots
+        review.dataValues.Spot = spot
     }
 
     res.status(200);
