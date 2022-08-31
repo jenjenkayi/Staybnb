@@ -10,9 +10,7 @@ const { Spot, Review, SpotImage, ReviewImage, User, Booking, sequelize } = requi
 // Get all of the Current User's Bookings
 router.get('/current', requireAuth, async (req, res) => {
     const currentUserBookings = await Booking.findAll({
-        where: {
-            userId: req.user.id
-        },
+        where: { userId: req.user.id },
         include: {
             model: Spot,
             attributes: []
@@ -22,7 +20,6 @@ router.get('/current', requireAuth, async (req, res) => {
     for (let i = 0; i < currentUserBookings.length; i++) {
         let booking = currentUserBookings[i]
 
-    
         const currentUserSpots = await Spot.findAll({
             where: { id: booking.dataValues.spotId },
             attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
@@ -39,38 +36,13 @@ router.get('/current', requireAuth, async (req, res) => {
             if (previewImage) {
                 spot.dataValues.previewImage = previewImage.dataValues.url
             }
+            
             spot.dataValues.lat = parseFloat(spot.dataValues.lat);
             spot.dataValues.lng = parseFloat(spot.dataValues.lng);
         }
             
         booking.dataValues.Spot = currentUserSpots
-
     }
-    // let spotId = currentUserBookings[0].dataValues.spotId
-    // let id = Spot.id
-    // let spot = await Spot.findOne({
-    //     where: { id: spotId },
-    //     attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
-    // })
-
-    // let spot = await Spot.findOne({
-    //     where: { id: req.params.spotId}
-    // })
-
-    // let previewImage = await SpotImage.findOne({
-    //     where: { spotId: spot.id },
-    //     attributes: ['url'],
-    // })
-
-    // console.log(spot.id)
-    // console.log(currentUserBookings.dataValues.spotId)
-    // console.log(spotId) //4
-
-    // spot.dataValues.previewImage = previewImage.dataValues.url
-    // spot.dataValues.lat = parseFloat(spot.dataValues.lat);
-    // spot.dataValues.lng = parseFloat(spot.dataValues.lng);
-
-
 
     return res.json({ Bookings: currentUserBookings });
 })
