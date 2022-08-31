@@ -52,14 +52,14 @@ const validateReview = [
 ];
 
 const validatePagination = [
-    check('page')
-        .exists({ checkFalsy: true })
-        .isInt({ min: 0, max: 10 })
-        .withMessage('Page must be greater than or equal to 0.'),
-    check('size')
-        .exists({ checkFalsy: true })
-        .isInt({ min: 0, max: 20 })
-        .withMessage('Size must be greater than or equal to 0.'),
+    // check('page')
+    //     .exists({ checkFalsy: true })
+    //     .isInt({ min: 0, max: 10 })
+    //     .withMessage('Page must be greater than or equal to 0.'),
+    // check('size')
+    //     .exists({ checkFalsy: true })
+    //     .isInt({ min: 0, max: 20 })
+    //     .withMessage('Size must be greater than or equal to 0.'),
     check('maxLat')
         .optional()
         .isDecimal()
@@ -116,8 +116,16 @@ router.get('/', validatePagination, async (req, res) => {
     if (page >= 1 && size >= 1) {
         pagination.limit = size,
         pagination.offset = size * (page - 1)
-    }
-
+    } else {
+    res.status(400).json({
+        message: "Validation Error",
+        statusCode: 400,
+        errors: {
+            page: "Page must be greater than 0",
+            size: "Size must be greater than 0"
+        }
+    });
+}
     let where = {}
 
     if (minLat) {where.lat = {[Op.gte]: parseFloat(minLat)}}
