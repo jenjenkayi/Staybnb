@@ -40,9 +40,12 @@ router.get('/current', requireAuth, async (req, res) => {
             if (previewImage) {
                 spot.dataValues.previewImage = previewImage.dataValues.url
             }
+            spot.dataValues.lat = parseFloat(spot.dataValues.lat);
+            spot.dataValues.lng = parseFloat(spot.dataValues.lng);
         }
             
         booking.dataValues.Spot = currentUserSpots
+
     }
     // let spotId = currentUserBookings[0].dataValues.spotId
     // let id = Spot.id
