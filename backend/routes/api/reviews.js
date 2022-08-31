@@ -56,7 +56,8 @@ router.get('/current', requireAuth, async (req, res) => {
         })
 
     spot.dataValues.previewImage = previewImage.dataValues.url
-    
+    spot.dataValues.lat = parseFloat(spot.dataValues.lat);
+    spot.dataValues.lng = parseFloat(spot.dataValues.lng);
 
     for (let i = 0; i < currentUserReviews.length; i++) {
         let review = currentUserReviews[i]
