@@ -67,7 +67,7 @@ router.get('/current', requireAuth, async (req, res) => {
             where: { reviewId: review.id },
         })
 
-        review.dataValues.ReviewImages = ReviewImages
+        review.dataValues.ReviewImages = [ReviewImages]
         review.dataValues.Spot = spot
     }
 
