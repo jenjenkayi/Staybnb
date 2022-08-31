@@ -202,8 +202,7 @@ router.get('/current', requireAuth, async (req, res) => {
         }
         spot.dataValues.lat = parseFloat(spot.dataValues.lat);
         spot.dataValues.lng = parseFloat(spot.dataValues.lng);
-        // spot.dataValues.avgRating = Number.parseFloat(spot.dataValues.avgRating).toFixed(1);
-        spot.dataValues.avgRating = Number(spot.dataValues.avgRating).toFixed(1);
+        spot.dataValues.avgRating = Number.parseFloat(spot.dataValues.avgRating).toFixed(1);
     }
     return res.json({Spots: currentUserSpots})
 })
