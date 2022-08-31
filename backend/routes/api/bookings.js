@@ -15,8 +15,7 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         include: {
             model: Spot,
-            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
-            // attributes: []
+            attributes: []
         },
     })
 
@@ -26,7 +25,7 @@ router.get('/current', requireAuth, async (req, res) => {
     
         const currentUserSpots = await Spot.findAll({
             where: { id: booking.dataValues.spotId },
-            // attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
         })
 
         for (let i = 0; i < currentUserSpots.length; i++) {
