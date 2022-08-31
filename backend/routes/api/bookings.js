@@ -20,10 +20,10 @@ router.get('/current', requireAuth, async (req, res) => {
         },
     })
     
-    // let spotId = currentUserBookings[0].dataValues.spotId
+    let spotId = currentUserBookings[0].dataValues.spotId
 
     let spot = await Spot.findOne({
-        where: { id: req.params.spotId },
+        where: { id: spotId },
         attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
     })
 
