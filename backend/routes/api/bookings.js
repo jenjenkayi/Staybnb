@@ -41,27 +41,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
         booking.dataValues.Spot = spot
     }
-    
-    // for (let i = 0; i < currentUserBookings.length; i++) {
-    //     let  booking = currentUserBookings[i]
-        
-    //     const spot = await Spot.findOne({
-    //         where: { id: booking.dataValues.spotId},
-    //         attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
-    //     });
-
-    //     const previewImage = await SpotImage.findOne({
-    //         where: { spotId: booking.dataValues.spotId },
-    //         attributes: ['url'],
-    //     })
-
-    //     if (previewImage) {
-    //         spot.dataValues.previewImage = previewImage.dataValues.url
-    //     }
-        
-    //     spot.dataValues.lat = parseFloat(spot.dataValues.lat);
-    //     spot.dataValues.lng = parseFloat(spot.dataValues.lng);
-    // }
 
     return res.json({ Bookings: currentUserBookings });
 })
