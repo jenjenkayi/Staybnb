@@ -54,12 +54,12 @@ const validateReview = [
 const validatePagination = [
     check('page')
         .optional()
-        .isInt({ min: 0, max: 10 })
-        .withMessage('Page must be greater than or equal to 0.'),
+        .isInt({ min: 1, max: 10 })
+        .withMessage('Page must be greater than 0.'),
     check('size')
         .optional()
-        .isInt({ min: 0, max: 20 })
-        .withMessage('Size must be greater than or equal to 0.'),
+        .isInt({ min: 1, max: 20 })
+        .withMessage('Size must be greater than 0.'),
     check('maxLat')
         .optional()
         .isDecimal()
@@ -110,7 +110,7 @@ router.get('/', validatePagination, async (req, res) => {
     page = parseInt(page);
     size = parseInt(size);
     
-    if (!page) page = 0;
+    if (!page) page = 1;
     if (!size) size = 20;
     
     if (page >= 1 && size >= 1) {
