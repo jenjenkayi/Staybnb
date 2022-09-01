@@ -254,7 +254,7 @@ router.get('/:spotId', async (req, res) => {
 
     spot.dataValues.lat = parseFloat(spot.dataValues.lat);
     spot.dataValues.lng = parseFloat(spot.dataValues.lng);
-    spot.dataValues.avgStarRating = parseFloat(parseFloat(spot.dataValues.avgStarRating).toFixed(1));
+    spot.dataValues.avgStarRating = parseFloat(spot.dataValues.avgStarRating).toFixed(1);
     
     return res.json(spot);
     
@@ -298,6 +298,14 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
                 "statusCode": 404
             })
     }
+
+    // if (spot.ownerId !== req.user.id) {
+    //     res.status(403)
+    //     return res.json({
+    //         "message": "Forbidden",
+    //         "statusCode": 403
+    //     });
+    // }
 
     const { url, preview } = req.body;
 
