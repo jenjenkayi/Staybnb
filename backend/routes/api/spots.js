@@ -360,7 +360,6 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     
     await spot.save()
     return res.json(spot)
-    
 })
 
 // Delete a Spot
