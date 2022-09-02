@@ -278,7 +278,6 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
     newSpot.dataValues.lng = parseFloat(newSpot.dataValues.lng);
 
     res.json(newSpot)
-
 });
 
 
