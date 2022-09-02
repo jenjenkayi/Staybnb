@@ -233,8 +233,7 @@ router.get('/:spotId', async (req, res) => {
         return res.json({
                 "message": "Spot couldn't be found",
                 "statusCode": 404
-            }
-        )
+            })
     } 
 
     let SpotImages = await SpotImage.findAll({
