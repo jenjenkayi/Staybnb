@@ -247,7 +247,6 @@ router.get('/:spotId', async (req, res) => {
 
     spot.dataValues.SpotImages = SpotImages
     spot.dataValues.numReviews = numReviews
-    // spot.dataValues.SpotImages.preview = true
 
     spot.dataValues.lat = parseFloat(spot.dataValues.lat);
     spot.dataValues.lng = parseFloat(spot.dataValues.lng);
