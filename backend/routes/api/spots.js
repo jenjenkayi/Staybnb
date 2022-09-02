@@ -159,7 +159,7 @@ router.get('/', validatePagination, async (req, res) => {
                 spot.dataValues.lng = parseFloat(spot.dataValues.lng);
         }
 
-            return res.json({
+        return res.json({
                     "Spots": spots,
                     "page": page,
                     "size": size
