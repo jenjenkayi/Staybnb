@@ -253,7 +253,6 @@ router.get('/:spotId', async (req, res) => {
     spot.dataValues.avgStarRating = parseFloat(spot.dataValues.avgStarRating).toFixed(1);
     
     return res.json(spot);
-    
 })
 
 
