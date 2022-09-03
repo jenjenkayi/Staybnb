@@ -371,8 +371,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
         return res.json({
                 "message": "Spot couldn't be found",
                 "statusCode": 404
-            }
-        )
+            })
     }
 
     // if (spot.ownerId !== req.user.id) {
