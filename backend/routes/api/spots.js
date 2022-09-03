@@ -435,8 +435,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
         return res.json({
                 "message": "Spot couldn't be found",
                 "statusCode": 404
-            }
-        )
+            })
     }
     
     const { review, stars } = req.body;
