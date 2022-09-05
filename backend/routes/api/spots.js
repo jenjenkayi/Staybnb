@@ -456,7 +456,6 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
                 "statusCode": 403
             })
         }
-    
 })
 
 
