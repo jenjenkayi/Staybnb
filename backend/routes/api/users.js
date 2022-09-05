@@ -38,8 +38,7 @@ router.post('/', validateSignup, async (req, res) => {
     user.token = tokenCookie
 
     return res.json(user);
-    }
-);
+});
 
 
 module.exports = router;
