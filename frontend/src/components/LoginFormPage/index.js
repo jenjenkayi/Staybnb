@@ -17,8 +17,9 @@ function LoginFormPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let userObj = {credential, password}
     setErrors([]);
-    return dispatch(sessionActions.login({ credential, password }))
+    return dispatch(sessionActions.login(userObj))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
@@ -48,7 +49,8 @@ function LoginFormPage() {
           required
         />
       </label>
-      <button type="submit">Log In</button>
+      <button type="submit" onClick={() => set}>Log In</button>
+      <button type="submit">Demo User</button>
     </form>
   );
 }
