@@ -1,33 +1,39 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { updateSpotThunk } from '../../store/spots';
 
-const CreateSpotForm = ({ }) => {
+const UpdateSpotForm = ({ spot }) => {
+  //   const { spotId } = useParams();
+  // const spots = useSelector(state => {
+  //   return state.spots.map(spotId => state.spot[spotId]);
+  // });
     const history = useHistory();
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [country, setCountry] = useState('');
-    const [lat, setLat] = useState('');
-    const [lng, setLng] = useState('');
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0);
-    const [imageUrl, setImageUrl] = useState('');
+    const dispatch = useDispatch();
+
+    const [address, setAddress] = useState(spot.address);
+    const [city, setCity] = useState(spot.city);
+    const [country, setCountry] = useState(spot.country);
+    const [lat, setLat] = useState(spot.lat);
+    const [lng, setLng] = useState(spot.lng);
+    const [name, setName] = useState(spot.name);
+    const [description, setDescription] = useState(spot.description);
+    const [price, setPrice] = useState(spot.price);
+    const [imageUrl, setImageUrl] = useState(spot.imageUrl);
     const [validationErrors, setValidationErrors] = useState([]);
 
+    const updateAddress = (e) => setAddress(e.target.value);
+    const updateCity = (e) => setCity(e.target.value);
+    const updateCountry = (e) => setCountry(e.target.value);
+    const updateLat = (e) => setLat(e.target.value);
+    const updateLng = (e) => setLng(e.target.value);
+    const updateName = (e) => setName(e.target.value);
+    const updateDescription = (e) => setDescription(e.target.value);
+    const updatePrice = (e) => setPrice(e.target.value);
+    const updateImageUrl = (e) => setImageUrl(e.target.value);
+
     useEffect(() => {
-    const errors = [];
-
-    if (!address.length) errors.push('Please provide an address');
-    if (!city.length) errors.push('Please provide a city');
-    if (!country.length) errors.push('Please provide a country');
-    if (!lat) errors.push('Please provide a lat');
-    if (!lng) errors.push('Please provide a lng');
-    if (name.length < 0) errors.push('Name must be 1 or more characters');
-    if (!description) errors.push('Please provide a description');
-    if (price < 0 ) errors.push('Price must be 1 or higher');
-
-    setValidationErrors(errors);
+      const errors = [];
   }, [address, city, country, lat, lng, name, description, price, imageUrl]);
 
   const submitHandler = (e) => {
@@ -139,4 +145,4 @@ const CreateSpotForm = ({ }) => {
   );
 }
 
-export default CreateSpotForm;
+export default UpdateSpotForm;

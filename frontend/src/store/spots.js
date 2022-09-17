@@ -37,18 +37,9 @@ export const createSpotThunk = (data) => async (dispatch) => {
 
   if(response.ok){
     const spot = await response.json()
-    const response = await fetch('/api/spot', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    body: JSON.stringify(imageUrl)
-  });
     dispatch(createSpot(spot))
     return spot
-  } else {
-    return response
-  }
+  } 
 }
 
 export const getAllSpotsThunk = () => async (dispatch) => {
