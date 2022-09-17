@@ -10,7 +10,8 @@ function LoginFormPage() {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
-
+  const [demoUser, setDemoUser] = useState('');
+  
   if (sessionUser) return (
     <Redirect to="/" />
   );
@@ -49,8 +50,8 @@ function LoginFormPage() {
           required
         />
       </label>
-      <button type="submit" onClick={() => set}>Log In</button>
-      <button type="submit">Demo User</button>
+      <button type="submit" onClick={() => setDemoUser(false)}>Log In</button>
+      <button type="submit" onClick={() => setDemoUser(true)}>Demo User</button>
     </form>
   );
 }
