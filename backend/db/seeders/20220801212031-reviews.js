@@ -24,6 +24,48 @@ module.exports = {
         review: "This place was dirty!",
         stars: 1
       },
+      {
+        userId: 4,
+        spotId: 4,
+        review: "This place was clean!",
+        stars: 4
+      },
+      {
+        userId: 5,
+        spotId: 5,
+        review: "This was an awesome spot!!",
+        stars: 5
+      },
+      {
+        userId: 6,
+        spotId: 6,
+        review: "This place was dirty!",
+        stars: 1
+      },
+      {
+        userId: 7,
+        spotId: 7,
+        review: "This was an awesome spot!",
+        stars: 5
+      },
+      {
+        userId: 8,
+        spotId: 8,
+        review: "This place was good!",
+        stars: 3
+      },
+      {
+        userId: 9,
+        spotId: 9,
+        review: "This was an awesome spot!",
+        stars: 5
+      },
+      {
+        userId: 10,
+        spotId: 10,
+        review: "This place was dirty!",
+        stars: 1
+      },
     ], {});
   },
 

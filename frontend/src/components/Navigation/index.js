@@ -17,17 +17,19 @@ function Navigation({ isLoaded }){
       <>
         <NavLink to="/login">Log In</NavLink>
         <NavLink to="/signup">Sign Up</NavLink>
+        <NavLink to="/api/spots">Become a Host</NavLink>
       </>
     );
   }
 
   return (
-    <ul>
-      <li>
+    <div className='NavContainer'>
+      <div className='NavBar'>
         <NavLink exact to="/">Home</NavLink>
+        <div className='NavBarRight'></div>
         {isLoaded && sessionLinks}
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 }
 

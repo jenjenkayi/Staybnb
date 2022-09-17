@@ -1,0 +1,5 @@
+.NavBar {
+    display: flex;
+    justify-content: space-between;
+    font-family: sans-serif;
+}

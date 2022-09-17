@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+// TYPES
+>>>>>>> dev
 const CREATE = 'spots/create'
 const READ = 'spots/READ'
 const UPDATE = 'spots/UPDATE'
@@ -26,10 +30,17 @@ export const deleteSpot = (spot) => ({
 })
 
 // THUNKS
+<<<<<<< HEAD
 export const createSpotThunk = () => async (dispatch) => {
   const response = await fetch('/api/spot', {
       method: 'post',
       headers: {
+=======
+export const createSpotThunk = (data) => async (dispatch) => {
+  const response = await fetch('/api/spots', {
+    method: 'post',
+    headers: {
+>>>>>>> dev
         'Content-Type': 'application/json'
       },
     body: JSON.stringify(data)
@@ -81,19 +92,32 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
   }
 }
 
+<<<<<<< HEAD
 
 export const DeleteSpotThunk = (spot) => async (dispatch) => {
   const response = await fetch(`/api/spots/${spot.id}`, {
+=======
+export const DeleteSpotThunk = (spotId) => async (dispatch) => {
+  const response = await fetch(`/api/spots/${spotId}`, {
+>>>>>>> dev
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
     },
+<<<<<<< HEAD
     body: JSON.stringify(spot)
+=======
+    body: JSON.stringify(spotId)
+>>>>>>> dev
   });
 
   if(response.ok){
     const spot = await response.json()
+<<<<<<< HEAD
     dispatch(deleteSpot(spot))
+=======
+    dispatch(deleteSpot(spotId))
+>>>>>>> dev
     return spot
   } else {
     return response
