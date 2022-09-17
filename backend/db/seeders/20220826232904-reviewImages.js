@@ -41,7 +41,7 @@ module.exports = {
       },
       {
         reviewId: 9,
-        url: 'https://www.explorefairbanks.com/places-to-stay/lodges/'',
+        url: 'https://www.explorefairbanks.com/places-to-stay/lodges/',
       },
       {
         reviewId: 10,

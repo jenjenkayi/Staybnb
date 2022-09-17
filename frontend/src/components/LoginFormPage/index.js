@@ -19,6 +19,12 @@ function LoginFormPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let userObj = {credential, password}
+    if (demoUser) {
+      userObj = {
+        credential: 'new@user.io',
+        password: 'password'
+      }
+    }
     setErrors([]);
     return dispatch(sessionActions.login(userObj))
       .catch(async (res) => {
