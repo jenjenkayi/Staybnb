@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import CreateSpotForm from "./components/CreateSpotForm";
+import EditSpotForm from "./components/EditSpotForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,12 @@ function App() {
           <Route path="/api/spots">
             <CreateSpotForm />
           </Route>
+          <Route path="/api/spots/:spotId">
+            <EditSpotForm />
+          </Route>
+          {/* <Route path="/api/reviews">
+            <GetAllReviews />
+          </Route> */}
         </Switch>
       )}
     </>
