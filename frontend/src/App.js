@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import CreateSpotForm from "./components/CreateSpotForm";
 import EditSpotForm from "./components/EditSpotForm";
 import GetAllSpots from "./components/GetAllSpots";
+import GetSpotById from "./components/GetSpotById";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,19 +22,22 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          {/* <Route path="/login">
-            <LoginFormPage />
-          </Route> */}
-          <Route path="/">
-            <GetAllSpots />
-          </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/" >
+            <GetAllSpots />
           </Route>
           <Route path="/api/spots">
             <CreateSpotForm />
           </Route>
           <Route path="/api/spots/:spotId">
+            <GetSpotById />
+          </Route>
+          <Route path="/api/createSpot">
+            <CreateSpotForm />
+          </Route>
+          <Route path="/api/editSpot/:spotId">
             <EditSpotForm />
           </Route>
           {/* <Route path="/api/reviews">

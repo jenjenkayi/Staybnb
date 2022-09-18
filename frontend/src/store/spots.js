@@ -1,5 +1,3 @@
-
-
 // TYPES
 const CREATE = 'spots/create'
 const READ = 'spots/READ'
@@ -22,35 +20,50 @@ export const updateSpot = (spot) => ({
     payload: spot
 })
 
-export const deleteSpot = (spot) => ({
+export const deleteSpot = (spotId) => ({
     type: DELETE,
-    payload: spot
+    payload: spotId
 })
 
 // THUNKS
-export const createSpotThunk = (data) => async (dispatch) => {
+export const createSpotThunk = (spot) => async (dispatch) => {
   const response = await fetch('/api/spots', {
-    method: 'post',
+    method: 'POST',
     headers: {
         'Content-Type': 'application/json'
       },
-    body: JSON.stringify(data)
+    body: JSON.stringify(spot)
   });
 
   if(response.ok){
-    const spot = await response.json()
-    dispatch(createSpot(spot))
-    return spot
-  } 
+    const data = await response.json()
+    const imgRes = await fetch(`api/spots/${spot.id}/images`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        url: spot.url,
+        previewImage: spot.previewImage
+      })
+    })
+    
+    if(imgRes.ok){
+    const imgData = await imgRes.json()
+    data.previewImage = imgData.url;
+    dispatch(createSpot(data))
+    } 
+  }
 }
 
 export const getAllSpotsThunk = () => async (dispatch) => {
   const response = await fetch('/api/spots')
 
   if(response.ok){
-    const spots = await response.json()
-    dispatch(getAllSpots(spots))
-    return spots
+    const data = await response.json()
+    console.log('data from thunkRead: ', data)
+    dispatch(getAllSpots(data))
+    return data
   } else {
     return response
   }
@@ -58,7 +71,7 @@ export const getAllSpotsThunk = () => async (dispatch) => {
 
 export const updateSpotThunk = (spot) => async (dispatch) => {
   const response = await fetch(`/api/spots/${spot.id}`, {
-    method: 'put',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -66,8 +79,8 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
   });
 
   if(response.ok){
-    const spot = await response.json()
-    dispatch(createSpot(spot))
+    const data = await response.json()
+    dispatch(createSpot(data))
     return spot
   } else {
     return response
@@ -76,32 +89,29 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
 
 export const DeleteSpotThunk = (spotId) => async (dispatch) => {
   const response = await fetch(`/api/spots/${spotId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(spotId)
+    method: 'DELETE'
   });
 
   if(response.ok){
-    const spot = await response.json()
+    const data = await response.json()
     dispatch(deleteSpot(spotId))
-    return spot
+    return data
   } else {
     return response
   }
 }
 
 // reducers
-export default function spotsReducer(state, action){
+const initialState = {};
+export default function spotsReducer(state = initialState, action){
   const newState = { ...state }
   switch(action.type){
     case READ:
       const normalize = {}
-      action.payload.allSpots.forEach(spot => {
+      action.payload.spots.forEach(spot => {
         normalize[spot.id] = spot
       });
-      return
+      return 
     case CREATE:
       newState[action.payload.id] = action.payload
       return newState
