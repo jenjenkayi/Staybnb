@@ -38,7 +38,7 @@ export const createReviewThunk = (data) => async (dispatch) => {
       headers: {
         'Content-Type': 'application/json'
       },
-    body: JSON.stringify(imageUrl)
+    // body: JSON.stringify(imageUrl)
   });
     dispatch(createReview(review))
     return review
@@ -78,7 +78,7 @@ export const DeleteReviewThunk = (ReviewId) => async (dispatch) => {
 }
 
 // reducers
-export default function ReviewsReducer(state, action){
+export default function reviewsReducer(state, action){
   const newState = { ...state }
   switch(action.type){
     case READ:

@@ -5,10 +5,10 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import CreateSpotForm from "./components/CreateSpotForm";
-import EditSpotForm from "./components/EditSpotForm";
-import GetAllSpots from "./components/GetAllSpots";
-import GetSpotById from "./components/GetSpotById";
+import GetAllSpots from "./components/GetAllSpots/GetAllSpots";
+import CreateSpotForm from "./components/CreateSpotForm/CreateSpotForm";
+import GetSpotById from "./components/GetSpotById/GetSpotById";
+import UpdateSpotForm from "./components/UpdateSpotForm/UpdateSpotForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,17 +28,14 @@ function App() {
           <Route exact path="/" >
             <GetAllSpots />
           </Route>
-          <Route path="/api/spots">
-            <CreateSpotForm />
-          </Route>
           <Route path="/api/spots/:spotId">
-            <GetSpotById />
+            <GetSpotById/>
           </Route>
           <Route path="/api/createSpot">
             <CreateSpotForm />
           </Route>
-          <Route path="/api/editSpot/:spotId">
-            <EditSpotForm />
+          <Route path="/api/updateSpot/:spotId">
+            <UpdateSpotForm />
           </Route>
           {/* <Route path="/api/reviews">
             <GetAllReviews />

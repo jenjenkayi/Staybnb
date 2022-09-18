@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { createSpotThunk } from '../../store/spots';
 
 const CreateSpotForm = ({ }) => {
     const history = useHistory();
@@ -14,6 +15,16 @@ const CreateSpotForm = ({ }) => {
     const [price, setPrice] = useState(0);
     const [imageUrl, setImageUrl] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
+
+    const updateAddress = (e) => setAddress(e.target.value);
+    const updateCity = (e) => setCity(e.target.value);
+    const updateCountry = (e) => setCountry(e.target.value);
+    const updateLat = (e) => setLat(e.target.value);
+    const updateLng = (e) => setLng(e.target.value);
+    const updateName = (e) => setName(e.target.value);
+    const updateDescription = (e) => setDescription(e.target.value);
+    const updatePrice = (e) => setPrice(e.target.value);
+    const updateImageUrl = (e) => setImageUrl(e.target.value);
 
     useEffect(() => {
     const errors = [];
@@ -34,10 +45,14 @@ const CreateSpotForm = ({ }) => {
     e.preventDefault();
 
     console.log({ address, city, country, lat, lng, name, description, price, imageUrl });
-
-    history.push('/');
+    
   };
-
+  
+  // let createdSpot = dispatch(createSpotThunk(payload));
+  // if (createdSpot) {
+  //   history.push(`/api/spots/${spot.id}`);
+  // }
+  
   return (
     <form
       className="create-spot-form"

@@ -1,5 +1,5 @@
 // TYPES
-const CREATE = 'spots/create'
+const CREATE = 'spots/CREATE'
 const READ = 'spots/READ'
 const UPDATE = 'spots/UPDATE'
 const DELETE = 'spots/DELETE'
@@ -61,7 +61,6 @@ export const getAllSpotsThunk = () => async (dispatch) => {
 
   if(response.ok){
     const data = await response.json()
-    console.log('data from thunkRead: ', data)
     dispatch(getAllSpots(data))
     return data
   } else {
@@ -106,22 +105,23 @@ const initialState = {};
 export default function spotsReducer(state = initialState, action){
   const newState = { ...state }
   switch(action.type){
-    case READ:
-      const normalize = {}
-      action.payload.spots.forEach(spot => {
-        normalize[spot.id] = spot
-      });
-      return 
     case CREATE:
       newState[action.payload.id] = action.payload
       return newState
+    // case READ:
+    //   const allSpots = {}
+    //   action.payload.forEach(spot => {
+    //     allSpots[spot.id] = spot
+    //   });
+    //   return allSpots
     case UPDATE:
       newState[action.payload.id] = { ...state[action.payload.id], ...action.payload }
       return newState
     case DELETE:
-      delete newState[action.anythingId]
+      delete newState[action.SpotId]
       return newState
     default:
       return state
   }
 }
+

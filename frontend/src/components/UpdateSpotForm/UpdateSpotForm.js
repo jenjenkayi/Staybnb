@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { updateSpotThunk } from '../../store/spots';
+import { UpdateSpotThunk } from '../../store/spots';
 
 const UpdateSpotForm = ({ spot }) => {
   //   const { spotId } = useParams();
