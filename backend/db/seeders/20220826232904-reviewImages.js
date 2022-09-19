@@ -9,43 +9,43 @@ module.exports = {
     await queryInterface.bulkInsert('ReviewImages', [
       {
         reviewId: 1,
-        url: 'https://insidethemagic.net/2019/01/ba1-sofia-the-first-hotel-tokyo-disney/',
+        url: 'https://cdn.pixabay.com/photo/2016/06/24/11/46/architecture-1477099_1280.jpg',
       },
       {
         reviewId: 2,
-        url: 'https://www.disneytouristblog.com/mickeys-penthouse-suite-ambassador-hotel-tokyo-disney/',
+        url: 'https://cdn.pixabay.com/photo/2016/06/24/11/45/architecture-1477098_1280.jpg',
       },
       {
         reviewId: 3,
-        url: 'https://soranews24.com/2012/12/04/love-disney-these-adorable-mickey-and-minnie-hotel-rooms-are-for-you/',
+        url: 'https://cdn.pixabay.com/photo/2019/08/19/14/36/hotel-4416612_1280.jpg',
       },
       {
         reviewId: 4,
-        url: 'https://www.architecturaldigest.com/gallery/how-to-decorate-your-guesthouse',
+        url: 'https://cdn.pixabay.com/photo/2019/10/17/02/39/villa-4555824_1280.jpg',
       },
       {
         reviewId: 5,
-        url: 'https://www.nytimes.com/2019/05/03/travel/Nobu-Ryokan-Malibu.html',
+        url: 'https://cdn.pixabay.com/photo/2020/01/30/13/28/villa-4805428_1280.jpg',
       },
       {
         reviewId: 6,
-        url: 'https://www.cntraveler.com/galleries/2014-10-20/top-25-resorts-in-hawaii',
+        url: 'https://cdn.pixabay.com/photo/2021/12/18/06/00/room-6878004_1280.jpg',
       },
       {
         reviewId: 7,
-        url: 'https://allears.net/2020/12/13/preview-the-guest-rooms-at-the-walt-disney-world-swan-reserve-hotel-opening-july-2021/',
+        url: 'https://cdn.pixabay.com/photo/2019/10/17/02/39/villa-4555818_1280.jpg',
       },
       {
         reviewId: 8,
-        url: 'https://mountain-view-lodge-pretoria.booked.net/',
+        url: 'https://cdn.pixabay.com/photo/2016/04/15/11/46/hotel-1330846_1280.jpg',
       },
       {
         reviewId: 9,
-        url: 'https://www.explorefairbanks.com/places-to-stay/lodges/',
+        url: 'https://cdn.pixabay.com/photo/2014/09/26/04/59/holiday-complex-461633_1280.jpg',
       },
       {
         reviewId: 10,
-        url: 'https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/329701207.jpg?k=abd5ff56e15cbe6c7a303664d506e91df2d139c55b4e89cfbd52c766ed505504&o=',
+        url: 'https://cdn.pixabay.com/photo/2016/06/24/11/47/architecture-1477100_1280.jpg',
       },
    ], { });
   },
