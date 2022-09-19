@@ -1,13 +1,16 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
+import SignupFormPage from '../SignupFormPage';
 import './Navigation.css';
 
-function Navigation({ isLoaded }){
+export default function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const history = useHistory();
+  const [showMenu, setShowMenu] = useState(false);
 
   let sessionLinks;
   if (sessionUser) {
@@ -17,28 +20,59 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
-        <LoginFormModal />
-        {/* <NavLink to="/login">Log In</NavLink> */}
-        <NavLink to="/signup">Sign Up</NavLink>
-        <NavLink to="/api/spots">Become a Host</NavLink>
+        {/* <LoginFormModal /> */}
+        {/* <NavLink to="/signup">Sign Up</NavLink>
+        <NavLink to="/api/spots">Become a Host</NavLink> */}
       </>
     );
   }
 
-  return (
-    <div className='NavContainer'>
-      {/* <img className='logo' src='https://www.refinery29.com/en-us/2014/07/71366/airbnb-logo-rebrand'
-      alt="logo"
-      onClick={() => history.push('/')}
-      >
-      </img> */}
-      <div className='NavBar'>
-        <NavLink exact to="/">Home</NavLink>
-        <div className='NavBarRight'></div>
-        {isLoaded && sessionLinks}
-      </div>
-    </div>
-  );
-}
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+  
+  useEffect(() => {
+    if (!showMenu) return;
 
-export default Navigation;
+    const closeMenu = () => {
+      setShowMenu(false);
+    };
+
+    document.addEventListener('click', closeMenu);
+  
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  return (
+      <div className='nav-container'>
+        <img
+          className='logo'
+          src="https://en.logodownload.org/airbnb-logo/"
+          alt="airbnb"
+          onClick={() => history.push('/')}
+          >
+          </img>
+          <div className='nav-host'
+            onClick={() => history.push("/api/createSpot")}
+          >
+            Become a Host
+          </div>
+          <div className='nav-menu-button'>{isLoaded && sessionLinks}</div>
+            <button onClick={openMenu}>
+              <i className="fa-solid fa-bars"/>
+              <i className="fa-solid fa-user"/>
+            {showMenu && (
+              <ul className="menu-dropdown">
+                <li>
+                  <button onClick={() => history.push('/login')}>Log In</button>
+                </li>
+                <li>
+                  <button onClick={() => history.push('/signup')}>Sign Up</button>
+                </li>
+              </ul>
+            )}
+            </button>
+      </div>
+  )
+}

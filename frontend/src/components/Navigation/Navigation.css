@@ -1,5 +1,11 @@
-.NavBar {
+.nav-container {
     display: flex;
     justify-content: space-between;
+    font-family: sans-serif;
+}
+
+.nav-host {
+    align-self: flex-end;
+    justify-content:end;
     font-family: sans-serif;
 }

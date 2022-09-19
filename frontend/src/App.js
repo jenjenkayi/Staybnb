@@ -9,6 +9,8 @@ import GetAllSpots from "./components/GetAllSpots/GetAllSpots";
 import CreateSpotForm from "./components/CreateSpotForm/CreateSpotForm";
 import GetSpotById from "./components/GetSpotById/GetSpotById";
 import UpdateSpotForm from "./components/UpdateSpotForm/UpdateSpotForm";
+import Home from './components/Home/home';
+import LoginFormModal from "./components/LoginFormModal";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +24,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route path="/login">
+            <LoginFormPage />
+          </Route>
           <Route path="/signup">
             <SignupFormPage />
           </Route>

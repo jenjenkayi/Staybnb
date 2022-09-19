@@ -25,6 +25,11 @@ export const deleteSpot = (spotId) => ({
     payload: spotId
 })
 
+// export const getUserSpots = (spots) => ({
+//     type:
+//     payload: spots
+// })
+
 // THUNKS
 export const createSpotThunk = (spot) => async (dispatch) => {
   const response = await fetch('/api/spots', {
@@ -99,6 +104,18 @@ export const DeleteSpotThunk = (spotId) => async (dispatch) => {
     return response
   }
 }
+
+// export const getCurrentUserSpots = () => async (dispatch) => {
+//   const response = await fetch(`api/spots/current`);
+
+//   if(response.ok){
+//     const data = await response.json()
+//     dispatch(getUserSpots(data))
+//     return data
+//   } else {
+//     return response
+//   }
+// }
 
 // reducers
 const initialState = {};

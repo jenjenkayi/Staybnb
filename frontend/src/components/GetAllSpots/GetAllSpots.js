@@ -7,12 +7,7 @@ import  GetSpotById from '../GetSpotById/GetSpotById';
 
 const GetAllSpots = () => {
   const dispatch = useDispatch();
-  const { spotId } = useParams();
-  const spots = useSelector(state => {
-    return state.spots.map(spotId => state.spots[spotId]);
-  });
-
-  console.log("these are spots", spots)
+  const spots = useSelector(state => state.spots);
 
   useEffect(() => {
     dispatch(getAllSpotsThunk());
@@ -23,23 +18,7 @@ const GetAllSpots = () => {
   }
 
   return (
-    <div className="header">
-         <img className="header-logo"
-              src=''
-              alt=""
-         />
-         {/* <div className="spot-list">
-                {spots.map(spot =>
-                <GetSpotById
-                    key={spot.id}
-                    spot={spot} */}
-                        {/* // isSelected={selectedSpot && selectedSpot.id === spot.id}
-                        // onClick={() => setSelectedSpot(spot)} */}
-                {/* />
-                )}
-            </div> */}
-        {/* </div> */}
-    </div>
+    <h5>spots</h5>
   );
 };
 
