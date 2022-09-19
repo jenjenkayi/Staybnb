@@ -1,6 +1,7 @@
 // TYPES
 const CREATE = 'spots/CREATE'
-const READ = 'spots/READ'
+const READALLSPOTS = 'spots/READALLSPOTS'
+const READONESPOT = 'spots/READONESPOT'
 const UPDATE = 'spots/UPDATE'
 const DELETE = 'spots/DELETE'
 
@@ -11,7 +12,7 @@ export const createSpot = (spot) => ({
 })
 
 export const getAllSpots = (spots) => ({
-    type: READ,
+    type: READALLSPOTS,
     payload: spots
 })
 
