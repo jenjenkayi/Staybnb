@@ -67,11 +67,13 @@ export const getAllSpotsThunk = () => async (dispatch) => {
 
   if(response.ok){
     const data = await response.json()
-    dispatch(getAllSpots(data))
+    dispatch(getAllSpots(data.Spots))
+    console.log('data', data)
     return data
-  } else {
-    return response
   }
+  // } else {
+  //   return response
+  // }
 }
 
 export const updateSpotThunk = (spot) => async (dispatch) => {
@@ -126,12 +128,15 @@ export default function spotsReducer(state = initialState, action){
     case CREATE:
       newState[action.payload.id] = action.payload
       return newState
-    // case READ:
-    //   const allSpots = {}
-    //   action.payload.forEach(spot => {
-    //     allSpots[spot.id] = spot
-    //   });
-    //   return allSpots
+    case READALLSPOTS:
+      const allSpots = {...state}
+      console.log('reducers', action.payload)
+      allSpots.spots = action.payload
+      // action.payload.forEach(spot => {
+      //   allSpots[spot.id] = spot
+      // });
+      console.log('action', allSpots)
+      return allSpots
     case UPDATE:
       newState[action.payload.id] = { ...state[action.payload.id], ...action.payload }
       return newState
