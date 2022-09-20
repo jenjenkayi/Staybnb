@@ -1,13 +1,15 @@
+import { csrfFetch } from './csrf';
+
 // TYPES
-const CREATE = 'spots/CREATE'
+const CREATESPOT = 'spots/CREATESPOT'
 const READALLSPOTS = 'spots/READALLSPOTS'
 const READONESPOT = 'spots/READONESPOT'
-const UPDATE = 'spots/UPDATE'
-const DELETE = 'spots/DELETE'
+const UPDATESPOT = 'spots/UPDATESPOT'
+const DELETESPOT = 'spots/DELETESPOT'
 
 // ACTION CREATORS
 export const createSpot = (spot) => ({
-    type: CREATE,
+    type: CREATESPOT,
     payload: spot
 })
 
@@ -16,13 +18,18 @@ export const getAllSpots = (spots) => ({
     payload: spots
 })
 
+export const getOneSpot = (spotId) => ({
+    type: READONESPOT,
+    payload: spotId
+})
+
 export const updateSpot = (spot) => ({
-    type: UPDATE,
+    type: UPDATESPOT,
     payload: spot
 })
 
 export const deleteSpot = (spotId) => ({
-    type: DELETE,
+    type: DELETESPOT,
     payload: spotId
 })
 
@@ -33,7 +40,7 @@ export const deleteSpot = (spotId) => ({
 
 // THUNKS
 export const createSpotThunk = (spot) => async (dispatch) => {
-  const response = await fetch('/api/spots', {
+  const response = await csrfFetch('/api/spots', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -43,7 +50,7 @@ export const createSpotThunk = (spot) => async (dispatch) => {
 
   if(response.ok){
     const data = await response.json()
-    const imgRes = await fetch(`api/spots/${spot.id}/images`, {
+    const imgRes = await csrfFetch(`api/spots/${spot.id}/images`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -63,21 +70,27 @@ export const createSpotThunk = (spot) => async (dispatch) => {
 }
 
 export const getAllSpotsThunk = () => async (dispatch) => {
-  const response = await fetch('/api/spots')
+  const response = await csrfFetch('/api/spots')
 
   if(response.ok){
     const data = await response.json()
     dispatch(getAllSpots(data.Spots))
-    console.log('data', data)
     return data
   }
-  // } else {
-  //   return response
-  // }
+}
+
+export const getOneSpotThunk = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`)
+
+  if(response.ok){
+    const data = await response.json()
+    dispatch(getOneSpot(data))
+    return data
+  }
 }
 
 export const updateSpotThunk = (spot) => async (dispatch) => {
-  const response = await fetch(`/api/spots/${spot.id}`, {
+  const response = await csrfFetch(`/api/spots/${spot.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -95,8 +108,8 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
 }
 
 export const DeleteSpotThunk = (spotId) => async (dispatch) => {
-  const response = await fetch(`/api/spots/${spotId}`, {
-    method: 'DELETE'
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: 'DELETESPOT'
   });
 
   if(response.ok){
@@ -109,7 +122,7 @@ export const DeleteSpotThunk = (spotId) => async (dispatch) => {
 }
 
 // export const getCurrentUserSpots = () => async (dispatch) => {
-//   const response = await fetch(`api/spots/current`);
+//   const response = await csrfFetch(`api/spots/current`);
 
 //   if(response.ok){
 //     const data = await response.json()
@@ -125,22 +138,21 @@ const initialState = {};
 export default function spotsReducer(state = initialState, action){
   const newState = { ...state }
   switch(action.type){
-    case CREATE:
+    case CREATESPOT:
       newState[action.payload.id] = action.payload
       return newState
     case READALLSPOTS:
       const allSpots = {...state}
-      console.log('reducers', action.payload)
       allSpots.spots = action.payload
-      // action.payload.forEach(spot => {
-      //   allSpots[spot.id] = spot
-      // });
-      console.log('action', allSpots)
       return allSpots
-    case UPDATE:
+    case READONESPOT:
+      const oneSpot = {...state}
+      oneSpot.spots = action.payload
+      return oneSpot
+    case UPDATESPOT:
       newState[action.payload.id] = { ...state[action.payload.id], ...action.payload }
       return newState
-    case DELETE:
+    case DELETESPOT:
       delete newState[action.SpotId]
       return newState
     default:

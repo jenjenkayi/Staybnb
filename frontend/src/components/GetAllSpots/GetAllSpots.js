@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { getAllSpotsThunk } from '../../store/spots';
-import CreateSpotForm from '../CreateSpotForm/CreateSpotForm'
-import  GetSpotById from '../GetSpotById/GetSpotById';
 import './GetAllSpots.css';
 
 const GetAllSpots = () => {
@@ -23,7 +21,6 @@ const GetAllSpots = () => {
 
   return (
     <>
-    <h2>Spots</h2>
       <div className="spots_cards_container">
         {spotsArr[0] && spotsArr[0].map((spot) => {
           return (

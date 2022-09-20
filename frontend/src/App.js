@@ -7,9 +7,8 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import GetAllSpots from "./components/GetAllSpots/GetAllSpots";
 import CreateSpotForm from "./components/CreateSpotForm/CreateSpotForm";
-import GetSpotById from "./components/GetSpotById/GetSpotById";
+import GetOneSpot from "./components/GetOneSpot/GetOneSpot";
 import UpdateSpotForm from "./components/UpdateSpotForm/UpdateSpotForm";
-import Home from './components/Home/home';
 import LoginFormModal from "./components/LoginFormModal";
 
 function App() {
@@ -33,13 +32,13 @@ function App() {
           <Route exact path="/" >
             <GetAllSpots />
           </Route>
-          <Route path="/api/spots/:spotId">
-            <GetSpotById/>
+          <Route exact path="/spots/:spotId">
+            <GetOneSpot />
           </Route>
-          <Route path="/api/createSpot">
+          <Route path="/createSpot">
             <CreateSpotForm />
           </Route>
-          <Route path="/api/updateSpot/:spotId">
+          <Route path="/updateSpot/:spotId">
             <UpdateSpotForm />
           </Route>
           {/* <Route path="/api/reviews">

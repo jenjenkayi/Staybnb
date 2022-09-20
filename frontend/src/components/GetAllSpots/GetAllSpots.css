@@ -1,10 +1,17 @@
 .spots_cards_container {
     justify-content: space-between;
-    display: grid;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    vertical-align: bottom;
+    font-family: inherit;
+    border: 10px;
+    box-sizing: border-box;
 }
 
 .spot_img {
-
+    width: 400px;
+    height: 350px;
 }
 
 .spot_location {
@@ -12,9 +19,20 @@
 }
 
 .spot_price {
-                 
+       
 }
 
 .spot_rating {
 
 }
+
+.spot_name {
+    font-size: 40px;
+    font-family: sans-serif;
+}
+
+.spot_description {
+    font-size: 30px;
+    font-family: sans-serif;
+}
+
