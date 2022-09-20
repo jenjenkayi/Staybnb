@@ -4,6 +4,7 @@ import { csrfFetch } from './csrf';
 const CREATE_SPOT = 'spots/CREATE_SPOT'
 const READ_ALL_SPOTS = 'spots/READ_ALL_SPOTS'
 const READ_ONE_SPOT = 'spots/READ_ONE_SPOT'
+const READ_CURRENT_SPOTS = 'spots/READ_CURRENT_SPOTS'
 const UPDATE_SPOT = 'spots/UPDATE_SPOT'
 const DELETE_SPOT = 'spots/DELETE_SPOT'
 
@@ -23,6 +24,11 @@ export const getOneSpot = (spot) => ({
     payload: spot
 })
 
+export const getCurrentSpots = (spots) => ({
+    type: READ_CURRENT_SPOTS,
+    payload: spots
+})
+
 export const updateSpot = (spot) => ({
     type: UPDATE_SPOT,
     payload: spot
@@ -33,10 +39,6 @@ export const deleteSpot = (spotId) => ({
     payload: spotId
 })
 
-// export const getUserSpots = (spots) => ({
-//     type:
-//     payload: spots
-// })
 
 // THUNKS
 export const createSpotThunk = (data) => async (dispatch) => {
@@ -89,6 +91,17 @@ export const getOneSpotThunk = (spotId) => async (dispatch) => {
   }
 }
 
+export const getCurrentSpotsThunk = () => async (dispatch) => {
+  const response = await csrfFetch(`api/spots/current`);
+
+  if(response.ok){
+    console.log("currentRes", response)
+    const data = await response.json()
+    dispatch(getCurrentSpots(data.Spots))
+    return data
+  } 
+}
+
 export const updateSpotThunk = (spot) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spot.id}`, {
     method: 'PUT',
@@ -119,17 +132,6 @@ export const DeleteSpotThunk = (spotId) => async (dispatch) => {
   } 
 }
 
-// export const getCurrentUserSpots = () => async (dispatch) => {
-//   const response = await csrfFetch(`api/spots/current`);
-
-//   if(response.ok){
-//     const data = await response.json()
-//     dispatch(getUserSpots(data))
-//     return data
-//   } else {
-//     return response
-//   }
-// }
 
 // reducers
 const initialState = {allSpots:{}, singleSpot:{}};
@@ -138,12 +140,7 @@ export default function spotsReducer(state = initialState, action){
     case CREATE_SPOT: {
       const newState = {...state}
       newState[action.payload.id] = action.payload
-      // const spotList = newSpot.payload.map(id => newSpot[id]);
-      // spotList.push(action.payload);
-      // console.log('spotList', spotList);
-      // newSpot.payload = spotList;
       return newState;
-      // newState[action.payload.id] = action.payload
     }
     case READ_ALL_SPOTS: {
       const newState = {...state, allSpots:{...state.allSpots}}
@@ -155,6 +152,13 @@ export default function spotsReducer(state = initialState, action){
     case READ_ONE_SPOT: {
       const newState = {...state, singleSpot:{...state.singleSpot}}
       newState.singleSpot = action.payload
+      return newState
+    }
+    case READ_CURRENT_SPOTS: {
+      const newState = {...state, allSpots:{...state.allSpots}}
+      action.payload.forEach(spot => {
+        newState.allSpots[spot.id] = spot
+      })
       return newState
     }
     case UPDATE_SPOT:{

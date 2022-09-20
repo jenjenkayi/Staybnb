@@ -53,9 +53,9 @@ const CreateSpotForm = () => {
     
   // };
 
-  useEffect(() => {
-      dispatch(getAllSpots());
-    }, [dispatch])
+  // useEffect(() => {
+  //     dispatch(getAllSpots());
+  //   }, [dispatch])
 
   const submitHandler = async (e) => {
     e.preventDefault();

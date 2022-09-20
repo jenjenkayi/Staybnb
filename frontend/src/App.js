@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import GetAllSpots from "./components/GetAllSpots/GetAllSpots";
+import GetCurrentSpots from "./components/GetCurrentSpots/GetCurrentSpots";
 import CreateSpotForm from "./components/CreateSpotForm/CreateSpotForm";
 import GetOneSpot from "./components/GetOneSpot/GetOneSpot";
 import UpdateSpotForm from "./components/UpdateSpotForm/UpdateSpotForm";
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route exact path="/" >
             <GetAllSpots />
+          </Route>
+          <Route exact path="/current" >
+            <GetCurrentSpots />
           </Route>
           <Route exact path="/spots/:spotId">
             <GetOneSpot />

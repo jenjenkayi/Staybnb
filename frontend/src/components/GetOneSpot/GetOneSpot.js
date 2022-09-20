@@ -8,13 +8,12 @@ const GetOneSpot = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots.singleSpot);
-  console.log('spot', spot);
 
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
   }, [dispatch, spotId]);
   
-  if (!spot) {
+  if (Object.keys(spot).length === 0) {
     return null;
   }
 
