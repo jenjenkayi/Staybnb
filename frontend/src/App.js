@@ -35,7 +35,7 @@ function App() {
           <Route exact path="/spots/:spotId">
             <GetOneSpot />
           </Route>
-          <Route path="/createSpot">
+          <Route exact path="/api/createSpot">
             <CreateSpotForm />
           </Route>
           <Route path="/updateSpot/:spotId">

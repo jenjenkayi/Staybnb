@@ -1,38 +1,53 @@
 .spots_cards_container {
     justify-content: space-between;
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     height: 100%;
+    padding: 10px;
     vertical-align: bottom;
     font-family: inherit;
-    border: 10px;
-    box-sizing: border-box;
+    border: 20px;
+    row-gap: 15px;
+    border-radius: 20px;
 }
 
-.spot_img {
-    width: 400px;
-    height: 350px;
+.spots_img {
+    width: 290px;
+    height: 275px;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 5px 5px 5px 5px;
+    padding: 2px;
+    vertical-align: bottom;
+    border: 20px;
+    row-gap: 15px;
+    border-radius: 20px;
 }
 
-.spot_location {
-
+.spots_location {
+    border: 5px;
+    padding: 5px;
 }
 
-.spot_price {
-       
+.spots_price {
+    border: 5px;
+    padding: 5px;
 }
 
-.spot_rating {
-
+.spots_rating {
+    border: 5px;
+    padding: 5px;
 }
 
-.spot_name {
-    font-size: 40px;
+.spots_name {
+    font-size: 26px;
     font-family: sans-serif;
 }
 
-.spot_description {
-    font-size: 30px;
+.spots_description {
+    font-size: 22px;
     font-family: sans-serif;
 }
-

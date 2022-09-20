@@ -21,7 +21,6 @@ const GetOneSpot = () => {
   return (
     <>
       <div className="spot_cards_container">
-        <br></br>
         {spotArr && spotArr.map((spot) => {
           return (
             <><div className="spot_name">{spot.name}</div>
@@ -29,11 +28,15 @@ const GetOneSpot = () => {
               <i className="fa-solid fa-star"></i>
               {spot.avgStarRating} · {spot.numReviews} reviews · {spot.city}, {spot.state}, {spot.country} ${spot.price} night
             </div>
-             <img className='spot_img'
-              src={spot.SpotImages[0].url}
-              alt=""
-              />
+            <div className='spot_image'>
+             <img src={spot.SpotImages[0].url} alt=""></img>
+            </div>
             <div className="spot_description">{spot.description}</div>
+            <div className="border_box">
+              <span className="border_box_left">${spot.price} night</span>
+              <span className="border_box_right">
+              <i className="fa-solid fa-star"></i>{spot.avgStarRating} {spot.numReviews} reviews</span>
+              </div>
               </>
           )
                })}
