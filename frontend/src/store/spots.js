@@ -1,35 +1,35 @@
 import { csrfFetch } from './csrf';
 
 // TYPES
-const CREATESPOT = 'spots/CREATESPOT'
-const READALLSPOTS = 'spots/READALLSPOTS'
-const READONESPOT = 'spots/READONESPOT'
-const UPDATESPOT = 'spots/UPDATESPOT'
-const DELETESPOT = 'spots/DELETESPOT'
+const CREATE_SPOT = 'spots/CREATE_SPOT'
+const READ_ALL_SPOTS = 'spots/READ_ALL_SPOTS'
+const READ_ONE_SPOT = 'spots/READ_ONE_SPOT'
+const UPDATE_SPOT = 'spots/UPDATE_SPOT'
+const DELETE_SPOT = 'spots/DELETE_SPOT'
 
 // ACTION CREATORS
 export const createSpot = (spot) => ({
-    type: CREATESPOT,
+    type: CREATE_SPOT,
     payload: spot
 })
 
 export const getAllSpots = (spots) => ({
-    type: READALLSPOTS,
+    type: READ_ALL_SPOTS,
     payload: spots
 })
 
 export const getOneSpot = (spotId) => ({
-    type: READONESPOT,
+    type: READ_ONE_SPOT,
     payload: spotId
 })
 
 export const updateSpot = (spot) => ({
-    type: UPDATESPOT,
+    type: UPDATE_SPOT,
     payload: spot
 })
 
 export const deleteSpot = (spotId) => ({
-    type: DELETESPOT,
+    type: DELETE_SPOT,
     payload: spotId
 })
 
@@ -39,33 +39,36 @@ export const deleteSpot = (spotId) => ({
 // })
 
 // THUNKS
-export const createSpotThunk = (spot) => async (dispatch) => {
+export const createSpotThunk = (data) => async (dispatch) => {
   const response = await csrfFetch('/api/spots', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
       },
-    body: JSON.stringify(spot)
+    body: JSON.stringify(data)
   });
 
   if(response.ok){
     const data = await response.json()
-    const imgRes = await csrfFetch(`api/spots/${spot.id}/images`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        url: spot.url,
-        previewImage: spot.previewImage
-      })
-    })
-    
-    if(imgRes.ok){
-    const imgData = await imgRes.json()
-    data.previewImage = imgData.url;
     dispatch(createSpot(data))
-    } 
+    console.log(data);
+    return data;
+    // const imgRes = await csrfFetch(`api/spots/${spot.id}/images`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     url: spot.url,
+    //     previewImage: spot.previewImage
+    //   })
+    // })
+    
+    // if(imgRes.ok){
+    // const imgData = await imgRes.json()
+    // data.previewImage = imgData.url;
+    // dispatch(createSpot(data))
+    // } 
   }
 }
 
@@ -109,7 +112,7 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
 
 export const DeleteSpotThunk = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}`, {
-    method: 'DELETESPOT'
+    method: 'DELETE_SPOT'
   });
 
   if(response.ok){
@@ -138,21 +141,27 @@ const initialState = {};
 export default function spotsReducer(state = initialState, action){
   const newState = { ...state }
   switch(action.type){
-    case CREATESPOT:
-      newState[action.payload.id] = action.payload
-      return newState
-    case READALLSPOTS:
+    case CREATE_SPOT:
+      const newSpot = {...state}
+      newSpot[action.payload.id] = action.payload
+      const spotList = newSpot.payload.map(id => newSpot[id]);
+      spotList.push(action.payload);
+      newSpot.payload = spotList;
+      console.log('newSpot', action.payload)
+      return newSpot;
+      // newState[action.payload.id] = action.payload
+    case READ_ALL_SPOTS:
       const allSpots = {...state}
       allSpots.spots = action.payload
       return allSpots
-    case READONESPOT:
+    case READ_ONE_SPOT:
       const oneSpot = {...state}
       oneSpot.spots = action.payload
       return oneSpot
-    case UPDATESPOT:
+    case UPDATE_SPOT:
       newState[action.payload.id] = { ...state[action.payload.id], ...action.payload }
       return newState
-    case DELETESPOT:
+    case DELETE_SPOT:
       delete newState[action.SpotId]
       return newState
     default:

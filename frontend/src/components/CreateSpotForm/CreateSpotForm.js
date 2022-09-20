@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { createSpotThunk } from '../../store/spots';
 
-const CreateSpotForm = ({ }) => {
+import { createSpotThunk, getAllSpots } from '../../store/spots';
+import './CreateSpotForm.css';
+
+const CreateSpotForm = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
+
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
@@ -14,7 +18,6 @@ const CreateSpotForm = ({ }) => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [imageUrl, setImageUrl] = useState('');
-    const [validationErrors, setValidationErrors] = useState([]);
 
     const updateAddress = (e) => setAddress(e.target.value);
     const updateCity = (e) => setCity(e.target.value);
@@ -25,132 +28,99 @@ const CreateSpotForm = ({ }) => {
     const updateDescription = (e) => setDescription(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updateImageUrl = (e) => setImageUrl(e.target.value);
-
+    
     useEffect(() => {
-    const errors = [];
+      dispatch(getAllSpots());
+    }, [dispatch])
 
-    if (!address.length) errors.push('Please provide an address');
-    if (!city.length) errors.push('Please provide a city');
-    if (!country.length) errors.push('Please provide a country');
-    if (!lat) errors.push('Please provide a lat');
-    if (!lng) errors.push('Please provide a lng');
-    if (name.length < 0) errors.push('Name must be 1 or more characters');
-    if (!description) errors.push('Please provide a description');
-    if (price < 0 ) errors.push('Price must be 1 or higher');
-
-    setValidationErrors(errors);
-  }, [address, city, country, lat, lng, name, description, price, imageUrl]);
-
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log({ address, city, country, lat, lng, name, description, price, imageUrl });
-    
+    const payload = {
+      address,
+      city,
+      country,
+      lat,
+      lng,
+      name,
+      description,
+      price,
+      imageUrl
+    };
+  
+  let createdSpot = dispatch(createSpotThunk(payload));
+  if (createdSpot) {
+    history.push(`/api/spots/${createdSpot.id}`);
+  }
+}
+
+  const cancelHandler = (e) => {
+    e.preventDefault();
   };
-  
-  // let createdSpot = dispatch(createSpotThunk(payload));
-  // if (createdSpot) {
-  //   history.push(`/api/spots/${spot.id}`);
-  // }
-  
+
   return (
-    <form
-      className="create-spot-form"
-      onSubmit={submitHandler}
-    >
+    <>
+    <form className="create-spot-form" onSubmit={submitHandler}>
       <h2>Create A Spot</h2>
-      <ul className="errors">
-        {validationErrors.length > 0 &&
-          validationErrors.map((error) => <li key={error}>{error}</li>)}
-      </ul>
-      <label>
-        Address
-        <input
+      <input
           type="text"
-          address="address"
-          onChange={(e) => setAddress(e.target.value)}
+          placeholder='Address'
           value={address}
-        />
-      </label>
-      <label>
-        City
-        <input
+          required
+          onChange={updateAddress} />
+      <input
           type="text"
-          address="city"
-          onChange={(e) => setCity(e.target.value)}
+          placeholder="City"
           value={city}
-        />
-      </label>
-      <label>
-        Country
-        <input
+          required
+          onChange={updateCity} />
+      <input
           type="text"
-          name="country"
+          placeholder="Country"
           value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        />
-      </label>
-     <label>
-        Lat
-        <input
+          required
+          onChange={updateCountry} />
+      <input
           type="number"
-          name="lat"
+          placeholder="Lat"
           value={lat}
-          onChange={(e) => setLat(e.target.value)}
-        />
-      </label>
-     <label>
-        Lng
+          required
+          onChange={updateLat} />
         <input
           type="number"
-          name="lng"
+          placeholder="Lng"
           value={lng}
-          onChange={(e) => setLng(e.target.value)}
-        />
-      </label>
-      <label>
-        Name
+          required
+          onChange={updateLng} />
         <input
           type="text"
-          name="name"
-          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
           value={name}
-        />
-        </label>
-      <label>
-        Description
+          required
+          onChange={updateName} />
         <input
           type="text"
-          name="description"
-          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Description"
           value={description}
-        />
-        </label>
-      <label>
-        Price
+          required
+          onChange={updateDescription} />
         <input
           type="number"
-          name="price"
-          onChange={(e) => setPrice(e.target.value)}
+          placeholder="Price"
           value={price}
-        />
-        </label>
-      <label>
-        ImageUrl
+          required
+          min='0'
+          onChange={updatePrice} />
         <input
           type="text"
-          name="imageUrl"
-          onChange={(e) => setImageUrl(e.target.value)}
+          placeholder="Image URL"
           value={imageUrl}
-        />
-        </label>
-      <button
-        type="submit"
-        disabled={!!validationErrors.length}
-      >
-        Submit
-      </button>
+          required
+          onChange={updateImageUrl} />
+      <button type="submit">Create Spot</button>
+      <button type="button" onClick={cancelHandler}>Cancel</button>
     </form>
+    </>
   );
 }
 
