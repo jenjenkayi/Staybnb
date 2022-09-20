@@ -9,7 +9,8 @@ const GetOneSpot = () => {
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots);
   const spotArr = Object.values(spot);
-
+  console.log("spotArr", spotArr)
+  
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
   }, [dispatch, spotId]);
@@ -19,7 +20,7 @@ const GetOneSpot = () => {
   }
 
   return (
-    <>
+     <section>
       <div className="spot_cards_container">
         {spotArr && spotArr.map((spot) => {
           return (
@@ -41,7 +42,7 @@ const GetOneSpot = () => {
           )
                })}
       </div>
-  </>
+   </section>
   );
 };
 

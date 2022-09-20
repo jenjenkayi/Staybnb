@@ -11,6 +11,8 @@ const GetAllSpots = () => {
   console.log('spots', spots)
   console.log('arr', spotsArr[0])
 
+
+
   useEffect(() => {
     dispatch(getAllSpotsThunk())
   }, [dispatch]);

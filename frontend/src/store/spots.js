@@ -51,7 +51,6 @@ export const createSpotThunk = (data) => async (dispatch) => {
   if(response.ok){
     const data = await response.json()
     dispatch(createSpot(data))
-    console.log(data);
     return data;
     // const imgRes = await csrfFetch(`api/spots/${spot.id}/images`, {
     //   method: 'POST',
@@ -78,7 +77,6 @@ export const getAllSpotsThunk = () => async (dispatch) => {
   if(response.ok){
     const data = await response.json()
     dispatch(getAllSpots(data.Spots))
-    return data
   }
 }
 
@@ -88,7 +86,6 @@ export const getOneSpotThunk = (spotId) => async (dispatch) => {
   if(response.ok){
     const data = await response.json()
     dispatch(getOneSpot(data))
-    return data
   }
 }
 
@@ -119,9 +116,7 @@ export const DeleteSpotThunk = (spotId) => async (dispatch) => {
     const data = await response.json()
     dispatch(deleteSpot(spotId))
     return data
-  } else {
-    return response
-  }
+  } 
 }
 
 // export const getCurrentUserSpots = () => async (dispatch) => {
@@ -144,10 +139,13 @@ export default function spotsReducer(state = initialState, action){
     case CREATE_SPOT:
       const newSpot = {...state}
       newSpot[action.payload.id] = action.payload
-      const spotList = newSpot.payload.map(id => newSpot[id]);
-      spotList.push(action.payload);
-      newSpot.payload = spotList;
-      console.log('newSpot', action.payload)
+      console.log("newSpot", newSpot)
+      console.log("action payload", action.payload)
+
+      // const spotList = newSpot.payload.map(id => newSpot[id]);
+      // spotList.push(action.payload);
+      // console.log('spotList', spotList);
+      // newSpot.payload = spotList;
       return newSpot;
       // newState[action.payload.id] = action.payload
     case READ_ALL_SPOTS:
