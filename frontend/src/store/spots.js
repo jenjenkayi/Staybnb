@@ -18,9 +18,9 @@ export const getAllSpots = (spots) => ({
     payload: spots
 })
 
-export const getOneSpot = (spotId) => ({
+export const getOneSpot = (spot) => ({
     type: READ_ONE_SPOT,
-    payload: spotId
+    payload: spot
 })
 
 export const updateSpot = (spot) => ({
@@ -132,33 +132,41 @@ export const DeleteSpotThunk = (spotId) => async (dispatch) => {
 // }
 
 // reducers
-const initialState = {};
+const initialState = {allSpots:{}, singleSpot:{}};
 export default function spotsReducer(state = initialState, action){
-  const newState = { ...state }
   switch(action.type){
-    case CREATE_SPOT:
-      const newSpot = {...state}
-      newSpot[action.payload.id] = action.payload
+    case CREATE_SPOT: {
+      const newState = {...state}
+      newState[action.payload.id] = action.payload
       // const spotList = newSpot.payload.map(id => newSpot[id]);
       // spotList.push(action.payload);
       // console.log('spotList', spotList);
       // newSpot.payload = spotList;
-      return newSpot;
+      return newState;
       // newState[action.payload.id] = action.payload
-    case READ_ALL_SPOTS:
-      const allSpots = {...state}
-      allSpots.spots = action.payload
-      return allSpots
-    case READ_ONE_SPOT:
-      const oneSpot = {...state}
-      oneSpot.spots = action.payload
-      return oneSpot
-    case UPDATE_SPOT:
+    }
+    case READ_ALL_SPOTS: {
+      const newState = {...state, allSpots:{...state.allSpots}}
+      action.payload.forEach(spot => {
+        newState.allSpots[spot.id] = spot
+      })
+      return newState
+    }
+    case READ_ONE_SPOT: {
+      const newState = {...state, singleSpot:{...state.singleSpot}}
+      newState.singleSpot = action.payload
+      return newState
+    }
+    case UPDATE_SPOT:{
+      const newState = {...state}
       newState[action.payload.id] = { ...state[action.payload.id], ...action.payload }
       return newState
-    case DELETE_SPOT:
+    }
+    case DELETE_SPOT:{
+      const newState = {...state}
       delete newState[action.SpotId]
       return newState
+    }
     default:
       return state
   }

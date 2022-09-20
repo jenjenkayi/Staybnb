@@ -6,12 +6,10 @@ import './GetAllSpots.css';
 
 const GetAllSpots = () => {
   const dispatch = useDispatch();
-  const spots = useSelector(state => state.spots);
+  const spots = useSelector(state => state.spots.allSpots);
   const spotsArr = Object.values(spots);
   console.log('spots', spots)
-  console.log('arr', spotsArr[0])
-
-
+  console.log('arr', spotsArr)
 
   useEffect(() => {
     dispatch(getAllSpotsThunk())
@@ -25,7 +23,7 @@ const GetAllSpots = () => {
     <>
       <div className="spots_cards_container">
         <br></br>
-        {spotsArr[0] && spotsArr[0].map((spot) => {
+        {spotsArr && spotsArr.map((spot) => {
           return (
             <NavLink key={spot.id} to={`/spots/${spot.id}`}>
               <img className='spots_img'

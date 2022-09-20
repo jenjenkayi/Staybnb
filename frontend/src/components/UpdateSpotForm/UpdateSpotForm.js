@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { UpdateSpotThunk } from '../../store/spots';
+import { updateSpotThunk } from '../../store/spots';
 
 const UpdateSpotForm = ({ spot }) => {
-  //   const { spotId } = useParams();
+    // const { spotId } = useParams();
   // const spots = useSelector(state => {
   //   return state.spots.map(spotId => state.spot[spotId]);
   // });
@@ -35,7 +35,7 @@ const UpdateSpotForm = ({ spot }) => {
     const updateImageUrl = (e) => setImageUrl(e.target.value);
 
    useEffect(() => {
-      dispatch(());
+      dispatch(updateSpotThunk());
     }, [dispatch])
 
   const submitHandler = async (e) => {
@@ -56,7 +56,7 @@ const UpdateSpotForm = ({ spot }) => {
   
   let createdSpot; 
   
-  createdSpot = await dispatch(createSpotThunk(payload));
+  createdSpot = await dispatch(updateSpotThunk(payload));
   console.log("createdSpot", createdSpot)
   if (createdSpot) {
     history.push(`/api/spots/${createdSpot.id}`);
@@ -70,7 +70,7 @@ const UpdateSpotForm = ({ spot }) => {
   return (
     <section>
       <form className="create-spot-form" onSubmit={submitHandler}>
-        <h2>Create A Spot</h2>
+        <h2>Edit A Spot</h2>
         <input
             type="text"
             placeholder='Address'

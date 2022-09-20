@@ -76,7 +76,6 @@ const CreateSpotForm = () => {
   let createdSpot; 
   
   createdSpot = await dispatch(createSpotThunk(payload));
-  console.log("createdSpot", createdSpot)
   if (createdSpot) {
     history.push(`/api/spots/${createdSpot.id}`);
   }
