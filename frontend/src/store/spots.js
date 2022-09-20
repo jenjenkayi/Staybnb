@@ -139,9 +139,6 @@ export default function spotsReducer(state = initialState, action){
     case CREATE_SPOT:
       const newSpot = {...state}
       newSpot[action.payload.id] = action.payload
-      console.log("newSpot", newSpot)
-      console.log("action payload", action.payload)
-
       // const spotList = newSpot.payload.map(id => newSpot[id]);
       // spotList.push(action.payload);
       // console.log('spotList', spotList);

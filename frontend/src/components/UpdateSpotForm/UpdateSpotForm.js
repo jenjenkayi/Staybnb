@@ -13,6 +13,7 @@ const UpdateSpotForm = ({ spot }) => {
 
     const [address, setAddress] = useState(spot.address);
     const [city, setCity] = useState(spot.city);
+    const [state, setState] = useState('');
     const [country, setCountry] = useState(spot.country);
     const [lat, setLat] = useState(spot.lat);
     const [lng, setLng] = useState(spot.lng);
@@ -24,6 +25,7 @@ const UpdateSpotForm = ({ spot }) => {
 
     const updateAddress = (e) => setAddress(e.target.value);
     const updateCity = (e) => setCity(e.target.value);
+    const updateState = (e) => setState(e.target.value);
     const updateCountry = (e) => setCountry(e.target.value);
     const updateLat = (e) => setLat(e.target.value);
     const updateLng = (e) => setLng(e.target.value);
@@ -32,116 +34,108 @@ const UpdateSpotForm = ({ spot }) => {
     const updatePrice = (e) => setPrice(e.target.value);
     const updateImageUrl = (e) => setImageUrl(e.target.value);
 
-    useEffect(() => {
-      const errors = [];
-  }, [address, city, country, lat, lng, name, description, price, imageUrl]);
+   useEffect(() => {
+      dispatch(());
+    }, [dispatch])
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log({ address, city, country, lat, lng, name, description, price, imageUrl });
+    const payload = {
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      description,
+      price,
+      imageUrl
+    };
+  
+  let createdSpot; 
+  
+  createdSpot = await dispatch(createSpotThunk(payload));
+  console.log("createdSpot", createdSpot)
+  if (createdSpot) {
+    history.push(`/api/spots/${createdSpot.id}`);
+  }
+}
 
-    history.push('/');
+  const cancelHandler = (e) => {
+    e.preventDefault();
   };
 
   return (
-    <form
-      className="create-spot-form"
-      onSubmit={submitHandler}
-    >
-      <h2>Create A Spot</h2>
-      <ul className="errors">
-        {validationErrors.length > 0 &&
-          validationErrors.map((error) => <li key={error}>{error}</li>)}
-      </ul>
-      <label>
-        Address
+    <section>
+      <form className="create-spot-form" onSubmit={submitHandler}>
+        <h2>Create A Spot</h2>
         <input
-          type="text"
-          address="address"
-          onChange={(e) => setAddress(e.target.value)}
-          value={address}
-        />
-      </label>
-      <label>
-        City
+            type="text"
+            placeholder='Address'
+            value={address}
+            required
+            onChange={updateAddress} />
         <input
-          type="text"
-          address="city"
-          onChange={(e) => setCity(e.target.value)}
-          value={city}
-        />
-      </label>
-      <label>
-        Country
+            type="text"
+            placeholder="City"
+            value={city}
+            required
+            onChange={updateCity} />
         <input
-          type="text"
-          name="country"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        />
-      </label>
-     <label>
-        Lat
+            type="text"
+            placeholder="State"
+            value={state}
+            required
+            onChange={updateState} />
         <input
-          type="number"
-          name="lat"
-          value={lat}
-          onChange={(e) => setLat(e.target.value)}
-        />
-      </label>
-     <label>
-        Lng
+            type="text"
+            placeholder="Country"
+            value={country}
+            required
+            onChange={updateCountry} />
         <input
-          type="number"
-          name="lng"
-          value={lng}
-          onChange={(e) => setLng(e.target.value)}
-        />
-      </label>
-      <label>
-        Name
-        <input
-          type="text"
-          name="name"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-        />
-        </label>
-      <label>
-        Description
-        <input
-          type="text"
-          name="description"
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-        />
-        </label>
-      <label>
-        Price
-        <input
-          type="number"
-          name="price"
-          onChange={(e) => setPrice(e.target.value)}
-          value={price}
-        />
-        </label>
-      <label>
-        ImageUrl
-        <input
-          type="text"
-          name="imageUrl"
-          onChange={(e) => setImageUrl(e.target.value)}
-          value={imageUrl}
-        />
-        </label>
-      <button
-        type="submit"
-        disabled={!!validationErrors.length}
-      >
-        Submit
-      </button>
-    </form>
+            type="number"
+            placeholder="Lat"
+            value={lat}
+            required
+            onChange={updateLat} />
+          <input
+            type="number"
+            placeholder="Lng"
+            value={lng}
+            required
+            onChange={updateLng} />
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            required
+            onChange={updateName} />
+          <input
+            type="text"
+            placeholder="Description"
+            value={description}
+            required
+            onChange={updateDescription} />
+          <input
+            type="number"
+            placeholder="Price"
+            value={price}
+            required
+            min='0'
+            onChange={updatePrice} />
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={imageUrl}
+            required
+            onChange={updateImageUrl} />
+        <button type="submit">Create Spot</button>
+        <button type="button" onClick={cancelHandler}>Cancel</button>
+      </form>
+    </section>
   );
 }
 

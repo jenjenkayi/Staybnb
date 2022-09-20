@@ -9,7 +9,9 @@ const GetOneSpot = () => {
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots);
   const spotArr = Object.values(spot);
+
   console.log("spotArr", spotArr)
+  // console.log("oneSpotImg", spotArr[0].SpotImages.url)
   
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
@@ -30,7 +32,9 @@ const GetOneSpot = () => {
               {spot.avgStarRating} · {spot.numReviews} reviews · {spot.city}, {spot.state}, {spot.country} ${spot.price} night
             </div>
             <div className='spot_image'>
-             <img src={spot.SpotImages[0].url} alt=""></img>
+              {spot.SpotImages.map((image) => {
+              return <img src={image.url} alt=""></img>
+              })}
             </div>
             <div className="spot_description">{spot.description}</div>
             <div className="border_box">
