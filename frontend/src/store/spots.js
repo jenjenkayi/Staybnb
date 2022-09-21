@@ -51,25 +51,24 @@ export const createSpotThunk = (data) => async (dispatch) => {
   });
 
   if(response.ok){
-    const data = await response.json()
-    console.log("data", data)
-    const imgRes = await csrfFetch(`api/spots/${data.id}/images`, {
+    const spotData = await response.json()  //new created spot
+    console.log("data", spotData)
+    const imgRes = await csrfFetch(`api/spots/${spotData.id}/images`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        previewImage: data.url,
+        url: data.imageUrl,
+        spotId: spotData.id,
+        // preview: data.preview
       })
     })
 
-    console.log("imgRes", imgRes)
-
     if(imgRes.ok){
     const imgData = await imgRes.json()
-    console.log("imagdata",imgData )
-    data.previewImage = imgData.url;
-    dispatch(createSpot(data))
+    spotData.previewImage = imgData.url;
+    dispatch(createSpot(spotData))
     } 
   }
 }
@@ -120,9 +119,11 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
 }
 
 export const deleteSpotThunk = (spotId) => async (dispatch) => {
+  console.log("deletedThunk", spotId)
   const response = await csrfFetch(`/api/spots/${spotId}`, {
     method: 'DELETE'
   });
+  console.log('deleteresponse', response)
 
   if(response.ok){
     const data = await response.json()
@@ -164,11 +165,11 @@ export default function spotsReducer(state = initialState, action){
       newState[action.payload.id] = action.payload
       return newState
     }
-    case DELETE_SPOT:{
-      const newState = {...state}
-      delete newState[action.SpotId]
-      return newState
-    }
+    // case DELETE_SPOT:{
+    //   const newState = {...state, singleSpot:{...state.singleSpot}}
+    //   delete newState.singleSpots[action.payload]
+    //   return newState
+    // }
     default:
       return state
   }

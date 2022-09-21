@@ -19,6 +19,7 @@ const CreateSpotForm = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [imageUrl, setImageUrl] = useState('');
+    // const [preview, setPreview] = useState(true);
     // const [validationErrors, setValidationErrors] = useState([]);
 
     const updateAddress = (e) => setAddress(e.target.value);
@@ -31,6 +32,7 @@ const CreateSpotForm = () => {
     const updateDescription = (e) => setDescription(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updateImageUrl = (e) => setImageUrl(e.target.value);
+    // const updatePreview = (e) => setPreview(e.target.value);
     
   //   useEffect(() => {
   //   const errors = [];
@@ -71,7 +73,8 @@ const CreateSpotForm = () => {
       name,
       description,
       price,
-      imageUrl
+      imageUrl,
+      // preview,
     };
   
   let createdSpot; 

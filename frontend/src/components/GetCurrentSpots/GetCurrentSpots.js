@@ -7,10 +7,11 @@ import './GetCurrentSpots.css';
 const GetCurrentSpots = () => {
   const { spotId } = useParams();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
   const currentSpots = useSelector(state => state.spots.allSpots);
   const spotsArr = Object.values(currentSpots);
   const history = useHistory();
-  
+
   useEffect(() => {
     dispatch(getCurrentSpotsThunk())
   }, [dispatch]);
@@ -19,20 +20,10 @@ const GetCurrentSpots = () => {
     return null;
   }
 
-  // useEffect(() => {
-  //   dispatch(deleteSpotThunk(spotId))
-  // }, [dispatch, spotId])
-  
-  // const deleteHandler = async (e) => {
-  //     e.preventDefault();
-  
-  //   let deletedSpot;
-  //   deletedSpot = await dispatch(deleteSpotThunk(spotId));
-    
-  //   if (deletedSpot) {
-  //     history.push(`/currentSpots`)
-  //   }
-  // }
+  const deleteHandler = async (spotId) => {
+      await dispatch(deleteSpotThunk(spotId));
+      // history.push("/currentSpots");
+  }
 
   return (
      <>
@@ -53,7 +44,8 @@ const GetCurrentSpots = () => {
               <button className="edit-button">Edit Spot</button>
              </NavLink>
              {/* <button type="submit">Delete Spot</button> */}
-              {/* <button onClick={deleteSpot(spot.id)} className="delete_button"></button> */}
+              {/* <button key={spot.id} onClick={deleteHandler(spot.id)} className="delete_button">Delete Spot</button> */}
+              <button onClick={()=>deleteHandler(spot.id)}>Delete Spot</button>
             </>
             )
          })}
