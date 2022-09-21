@@ -33,19 +33,19 @@ function App() {
           <Route exact path="/" >
             <GetAllSpots />
           </Route>
-          <Route exact path="/current" >
+          <Route path="/currentSpots" >
             <GetCurrentSpots />
           </Route>
           <Route exact path="/spots/:spotId">
             <GetOneSpot />
           </Route>
-          <Route exact path="/api/createSpot">
+          <Route exact path="/createSpot">
             <CreateSpotForm />
           </Route>
           <Route path="/updateSpot/:spotId">
             <UpdateSpotForm />
           </Route>
-          {/* <Route path="/api/reviews">
+          {/* <Route path="/currentReviews">
             <GetAllReviews />
           </Route> */}
         </Switch>

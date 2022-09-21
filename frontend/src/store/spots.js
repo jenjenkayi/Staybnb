@@ -95,7 +95,6 @@ export const getCurrentSpotsThunk = () => async (dispatch) => {
   const response = await csrfFetch(`api/spots/current`);
 
   if(response.ok){
-    console.log("currentRes", response)
     const data = await response.json()
     dispatch(getCurrentSpots(data.Spots))
     return data

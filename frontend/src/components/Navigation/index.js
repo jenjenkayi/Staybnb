@@ -20,9 +20,8 @@ export default function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
-        {/* <LoginFormModal /> */}
-        {/* <NavLink to="/signup">Sign Up</NavLink>
-        <NavLink to="/api/spots">Become a Host</NavLink> */}
+        <LoginFormModal />
+        <NavLink to="/signup">Sign Up</NavLink>
       </>
     );
   }
@@ -54,15 +53,16 @@ export default function Navigation({ isLoaded }){
           >
           </img>
           <div className='nav-host'
-            onClick={() => history.push("/api/createSpot")}
-          >
+            onClick={() => history.push("/createSpot")}
+            >
             Become a Host
           </div>
-          <div className='nav-menu-button'>{isLoaded && sessionLinks}</div>
-            <button onClick={openMenu}>
+            {isLoaded && sessionLinks}
+          {/* <div className='nav-menu-button'>{isLoaded && sessionLinks}</div> */}
+            {/* <button onClick={openMenu}>
               <i className="fa-solid fa-bars"/>
-              <i className="fa-solid fa-user"/>
-            {showMenu && (
+              <i className="fa-solid fa-user"/> */}
+            {/* {showMenu && (
               <ul className="menu-dropdown">
                 <li>
                   <button onClick={() => history.push('/login')}>Log In</button>
@@ -70,9 +70,9 @@ export default function Navigation({ isLoaded }){
                 <li>
                   <button onClick={() => history.push('/signup')}>Sign Up</button>
                 </li>
-              </ul>
-            )}
-            </button>
+              </ul> */}
+            {/* )} */}
+            {/* </button> */}
       </div>
   )
 }

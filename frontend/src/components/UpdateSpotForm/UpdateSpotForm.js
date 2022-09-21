@@ -4,10 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { updateSpotThunk } from '../../store/spots';
 
 const UpdateSpotForm = ({ spot }) => {
-    // const { spotId } = useParams();
-  // const spots = useSelector(state => {
-  //   return state.spots.map(spotId => state.spot[spotId]);
-  // });
+    const currentSpots = useSelector(state => state.spots.allSpots);
+
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -54,12 +52,11 @@ const UpdateSpotForm = ({ spot }) => {
       imageUrl
     };
   
-  let createdSpot; 
-  
-  createdSpot = await dispatch(updateSpotThunk(payload));
-  console.log("createdSpot", createdSpot)
-  if (createdSpot) {
-    history.push(`/api/spots/${createdSpot.id}`);
+  let updatedSpot; 
+  updatedSpot = await dispatch(updateSpotThunk(payload));
+
+  if (updatedSpot) {
+    history.push(`/spots/${updatedSpot.id}`);
   }
 }
 
@@ -69,7 +66,7 @@ const UpdateSpotForm = ({ spot }) => {
 
   return (
     <section>
-      <form className="create-spot-form" onSubmit={submitHandler}>
+      <form className="update-spot-form" onSubmit={submitHandler}>
         <h2>Edit A Spot</h2>
         <input
             type="text"
@@ -132,7 +129,7 @@ const UpdateSpotForm = ({ spot }) => {
             value={imageUrl}
             required
             onChange={updateImageUrl} />
-        <button type="submit">Create Spot</button>
+        <button type="submit">Submit</button>
         <button type="button" onClick={cancelHandler}>Cancel</button>
       </form>
     </section>
