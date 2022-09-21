@@ -32,8 +32,12 @@ const GetCurrentSpots = () => {
               <img src={spot.previewImage} alt=""></img>
             </div>
             <div className="spot_description">{spot.description}</div>
-             <button onClick={() => history.push(`/updateSpot/${spot.id}`)}>Edit Spot</button>
+             {/* <button onClick={() => history.push(`/updateSpot/${spot.id}`)}>Edit Spot</button> */}
+             <NavLink to={`/updateSpot/${spot.id}`}>
+              <button className="edit-button">Edit Spot</button>
+             </NavLink>
              <button type="submit">Delete Spot</button>
+              {/* <button onClick={deleteSpot(spot.id)} className="delete_button"></button> */}
             </>
             )
          })}

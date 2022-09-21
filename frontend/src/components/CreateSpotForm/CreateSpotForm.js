@@ -60,7 +60,7 @@ const CreateSpotForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const payload = {
+  const payload = {
       address,
       city,
       state,

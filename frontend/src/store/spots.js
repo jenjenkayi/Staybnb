@@ -55,6 +55,7 @@ export const createSpotThunk = (data) => async (dispatch) => {
     dispatch(createSpot(data))
     return data;
   }
+}
 //   if(response.ok){
 //     const data = await response.json();
 //     const response = await fetch(`/api/images/${data.id}`, {
@@ -71,26 +72,28 @@ export const createSpotThunk = (data) => async (dispatch) => {
 //     return response
 //   }
 // }
-  
-  const imgRes = await csrfFetch(`api/spots/${data.id}/images`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        url: data.url,
-        previewImage: data.previewImage
-      })
-    })
+
+// export const createImageThunk = (data) => async (dispatch) => {
+//   const imgRes = await csrfFetch(`api/spots/${data.id}/images`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({
+//         url: data.url,
+//         previewImage: data.previewImage
+//       })
+//     })
     
-    console.log("imgRes", imgRes);
-    if(imgRes.ok){
-    const imgData = await imgRes.json()
-    data.previewImage = imgData.url;
-    dispatch(createSpot(data))
-    return imgData
-    } 
-}
+//     console.log("imgRes", imgRes);
+
+//     if(imgRes.ok){
+//     const imgData = await imgRes.json()
+//     data.previewImage = imgData.url;
+//     dispatch(createSpot(data))
+//     return imgData
+//     } 
+// }
 
 export const getAllSpotsThunk = () => async (dispatch) => {
   const response = await csrfFetch('/api/spots')
@@ -151,7 +154,6 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
   } 
 }
 
-
 // reducers
 const initialState = {allSpots:{}, singleSpot:{}};
 export default function spotsReducer(state = initialState, action){
@@ -181,15 +183,9 @@ export default function spotsReducer(state = initialState, action){
       return newState
     }
     case UPDATE_SPOT: {
-      const newState = {...state, singleSpot:{...state.singleSpot}}
-      newState.singleSpot = action.payload
+      const newState = {...state}
+      newState[action.payload.id] = action.payload
       return newState
-      // const newState = {...state, allSpots:{...state.allSpots}}
-      // action.payload.forEach(spot => {
-      //   newState.allSpots[spot.id] = spot
-      // newState[action.payload.id] = { ...state[action.payload.id], ...action.payload }
-    // })
-    // return newState
     }
     case DELETE_SPOT:{
       const newState = {...state}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import GetCurrentSpots from '../GetCurrentSpots/GetCurrentSpots';
 
@@ -45,7 +45,10 @@ function ProfileButton({ user }) {
           <div>
           <button onClick={logout}>Log Out</button>
           <br></br>
-          <button onClick={() => history.push('/currentSpots')}>My Spots</button>
+          {/* <button onClick={() => history.push('/currentSpots')}>My Spots</button> */}
+          <NavLink to={'/currentSpots'}>
+              <button className="my-spots-button">My Spots</button>
+             </NavLink>
           <br></br>
           <button onClick={() => history.push('/currentReviews')}>My Reviews</button>
           </div>
