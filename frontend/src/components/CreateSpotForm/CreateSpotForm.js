@@ -19,6 +19,7 @@ const CreateSpotForm = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [imageUrl, setImageUrl] = useState('');
+    // const [validationErrors, setValidationErrors] = useState([]);
 
     const updateAddress = (e) => setAddress(e.target.value);
     const updateCity = (e) => setCity(e.target.value);

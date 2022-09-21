@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, NavLink, useHistory } from "react-router-dom";
-import { getCurrentSpotsThunk } from '../../store/spots';
+import { getCurrentSpotsThunk, deleteSpotThunk } from '../../store/spots';
 import './GetCurrentSpots.css';
 
 const GetCurrentSpots = () => {
+  const { spotId } = useParams();
   const dispatch = useDispatch();
   const currentSpots = useSelector(state => state.spots.allSpots);
   const spotsArr = Object.values(currentSpots);
   const history = useHistory();
-
+  
   useEffect(() => {
     dispatch(getCurrentSpotsThunk())
   }, [dispatch]);
@@ -17,6 +18,21 @@ const GetCurrentSpots = () => {
  if (Object.keys(spotsArr).length === 0) {
     return null;
   }
+
+  // useEffect(() => {
+  //   dispatch(deleteSpotThunk(spotId))
+  // }, [dispatch, spotId])
+  
+  // const deleteHandler = async (e) => {
+  //     e.preventDefault();
+  
+  //   let deletedSpot;
+  //   deletedSpot = await dispatch(deleteSpotThunk(spotId));
+    
+  //   if (deletedSpot) {
+  //     history.push(`/currentSpots`)
+  //   }
+  // }
 
   return (
      <>
@@ -36,7 +52,7 @@ const GetCurrentSpots = () => {
              <NavLink to={`/updateSpot/${spot.id}`}>
               <button className="edit-button">Edit Spot</button>
              </NavLink>
-             <button type="submit">Delete Spot</button>
+             {/* <button type="submit">Delete Spot</button> */}
               {/* <button onClick={deleteSpot(spot.id)} className="delete_button"></button> */}
             </>
             )

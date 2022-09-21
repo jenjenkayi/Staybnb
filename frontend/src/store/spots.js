@@ -52,48 +52,27 @@ export const createSpotThunk = (data) => async (dispatch) => {
 
   if(response.ok){
     const data = await response.json()
+    console.log("data", data)
+    const imgRes = await csrfFetch(`api/spots/${data.id}/images`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        previewImage: data.url,
+      })
+    })
+
+    console.log("imgRes", imgRes)
+
+    if(imgRes.ok){
+    const imgData = await imgRes.json()
+    console.log("imagdata",imgData )
+    data.previewImage = imgData.url;
     dispatch(createSpot(data))
-    return data;
+    } 
   }
 }
-//   if(response.ok){
-//     const data = await response.json();
-//     const response = await fetch(`/api/images/${data.id}`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(data)
-//     })    
-//     console.log('data from thunkRead: ', data)
-//     dispatch(createSpot(data))
-//     return data
-//   } else {
-//     return response
-//   }
-// }
-
-// export const createImageThunk = (data) => async (dispatch) => {
-//   const imgRes = await csrfFetch(`api/spots/${data.id}/images`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({
-//         url: data.url,
-//         previewImage: data.previewImage
-//       })
-//     })
-    
-//     console.log("imgRes", imgRes);
-
-//     if(imgRes.ok){
-//     const imgData = await imgRes.json()
-//     data.previewImage = imgData.url;
-//     dispatch(createSpot(data))
-//     return imgData
-//     } 
-// }
 
 export const getAllSpotsThunk = () => async (dispatch) => {
   const response = await csrfFetch('/api/spots')
@@ -131,8 +110,6 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
     },
     body: JSON.stringify(spot)
   });
-
-  console.log("updateSpotRes", response)
 
   if(response.ok){
     const data = await response.json()
