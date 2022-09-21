@@ -33,7 +33,7 @@ function App() {
           <Route exact path="/" >
             <GetAllSpots />
           </Route>
-          <Route path="/currentSpots" >
+          <Route exact path="/currentSpots" >
             <GetCurrentSpots />
           </Route>
           <Route exact path="/spots/:spotId">
@@ -42,7 +42,7 @@ function App() {
           <Route exact path="/createSpot">
             <CreateSpotForm />
           </Route>
-          <Route path="/updateSpot/:spotId">
+          <Route exact path="/updateSpot/:spotId">
             <UpdateSpotForm />
           </Route>
           {/* <Route path="/currentReviews">

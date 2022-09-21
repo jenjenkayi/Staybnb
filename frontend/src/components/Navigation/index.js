@@ -58,21 +58,6 @@ export default function Navigation({ isLoaded }){
             Become a Host
           </div>
             {isLoaded && sessionLinks}
-          {/* <div className='nav-menu-button'>{isLoaded && sessionLinks}</div> */}
-            {/* <button onClick={openMenu}>
-              <i className="fa-solid fa-bars"/>
-              <i className="fa-solid fa-user"/> */}
-            {/* {showMenu && (
-              <ul className="menu-dropdown">
-                <li>
-                  <button onClick={() => history.push('/login')}>Log In</button>
-                </li>
-                <li>
-                  <button onClick={() => history.push('/signup')}>Sign Up</button>
-                </li>
-              </ul> */}
-            {/* )} */}
-            {/* </button> */}
       </div>
   )
 }
