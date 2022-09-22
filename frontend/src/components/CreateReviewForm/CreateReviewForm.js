@@ -15,7 +15,6 @@ const CreateReviewForm = ({spotId}) => {
     const currentSpots = useSelector(state => state.spots.allSpots);
     const currentSpotsArr = Object.values(currentSpots);
     const currentSpot = reviewsArr.find(spot => spot.id == spotId)
-    const id = currentSpot.review
 
     // console.log("currentReviewArr", reviewsArr)
     // console.log("currentSpots", currentSpots)

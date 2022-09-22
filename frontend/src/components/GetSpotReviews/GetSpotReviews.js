@@ -11,8 +11,8 @@ const GetSpotReviews = () => {
   const reviews = useSelector(state => state.reviews.spotReviews);
   const reviewsArr = Object.values(reviews);
 
-//   console.log('reviews', reviews)
-//   console.log('reviewarr', reviewsArr)
+  console.log('reviews', reviews)
+  console.log('reviewarr', reviewsArr)
 
   useEffect(() => {
     dispatch(getSpotReviewsThunk(spotId))

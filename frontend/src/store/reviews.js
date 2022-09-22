@@ -2,7 +2,7 @@ import { csrfFetch } from './csrf';
 
 // TYPES
 const CREATE_REVIEWS = 'reviews/CREATE_REVIEWS'
-const READ__SPOT_REVIEWS = 'reviews/READ__SPOT_REVIEWS'
+const READ_ALL_SPOT_REVIEWS = 'reviews/READ_ALL_SPOT_REVIEWS'
 const READ_USER_REVIEWS = 'reviews/READ_USER_REVIEWS'
 const DELETE_REVIEWS = 'reviews/DELETE_REVIEWS'
 
@@ -13,7 +13,7 @@ export const createReview = (review) => ({
 })
 
 export const getSpotReviews = (reviews) => ({
-    type: READ__SPOT_REVIEWS,
+    type: READ_ALL_SPOT_REVIEWS,
     payload: reviews
 })
 
@@ -85,14 +85,17 @@ export default function reviewsReducer(state=initialState, action){
       newState[action.payload.id] = action.payload
       return newState
   }
-    case READ__SPOT_REVIEWS: {
+    case READ_ALL_SPOT_REVIEWS: {
       const newState = { ...state, spotReviews:{...state.spotReviews} }
-      newState.spotReviews = action.payload
+      console.log("action", action.payload)
+       action.payload.Reviews.forEach(review => {
+        newState.spotReviews[review.id] = review
+       })
       return newState;
     }
     case READ_USER_REVIEWS: {
     const newState = { ...state, userReviews:{...state.userReviews} }
-      action.payload.userReviewsR.forEach(review => {
+      action.payload.userReviews.forEach(review => {
         newState.userReviews[review.id] = review
       });
       return newState;
