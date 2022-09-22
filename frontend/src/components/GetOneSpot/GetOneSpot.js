@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getOneSpotThunk } from '../../store/spots';
+import  GetSpotReviews from "../../components/GetSpotReviews/GetSpotReviews";
 import './GetOneSpot.css';
 
 const GetOneSpot = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots.singleSpot);
+  const reviews = useSelector(state => state.reviews.spotReviews);
 
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
-  }, [dispatch, spotId]);
+  }, [dispatch, spotId, reviews]);
   
   if (Object.keys(spot).length === 0) {
     return null;
@@ -36,7 +38,8 @@ const GetOneSpot = () => {
               <span className="border_box_left">${spot.price} night</span>
               <span className="border_box_right">
               <i className="fa-solid fa-star"></i>{spot.avgStarRating} {spot.numReviews} reviews</span>
-              </div>
+            </div>
+            <GetSpotReviews />
               </>
       </div>
    </section>
