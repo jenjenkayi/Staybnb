@@ -43,8 +43,6 @@ const GetCurrentSpots = () => {
              <NavLink to={`/updateSpot/${spot.id}`}>
               <button className="edit-button">Edit Spot</button>
              </NavLink>
-             {/* <button type="submit">Delete Spot</button> */}
-              {/* <button key={spot.id} onClick={deleteHandler(spot.id)} className="delete_button">Delete Spot</button> */}
               <button onClick={()=>deleteHandler(spot.id)}>Delete Spot</button>
             </>
             )
