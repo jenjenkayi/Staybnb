@@ -47,8 +47,8 @@ export default function Navigation({ isLoaded }){
       <div className='nav-container'>
         <img
           className='logo'
-          src="https://en.logodownload.org/airbnb-logo/"
-          alt="airbnb"
+          src=''
+          alt=""
           onClick={() => history.push('/')}
           >
           </img>

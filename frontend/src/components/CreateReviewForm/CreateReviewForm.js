@@ -4,20 +4,23 @@ import { useHistory, useParams } from 'react-router-dom';
 import { createReviewThunk } from '../../store/reviews';
 import './CreateReviewForm.css';
 
-const CreateReviewForm = ({reviewId}) => {
-    const { spotId } = useParams();
+const CreateReviewForm = ({spotId}) => {
+    // const { spotId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
     
     const reviews = useSelector(state => state.reviews.spotReviews);
+    const reviewsArr = Object.values(reviews);
 
     const currentSpots = useSelector(state => state.spots.allSpots);
     const currentSpotsArr = Object.values(currentSpots);
-    const currentSpot = currentSpotsArr.find(spot => spot.id === spotId)
+    const currentSpot = reviewsArr.find(spot => spot.id == spotId)
+    const id = currentSpot.review
 
-    console.log("currentSpots", currentSpots)
-    console.log("currentSpotsArr", currentSpotsArr)
-    console.log("currentSpot", currentSpot)
+    // console.log("currentReviewArr", reviewsArr)
+    // console.log("currentSpots", currentSpots)
+    // console.log("currentSpot", currentSpot)
+    // console.log("spotId", id)
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState('');
@@ -27,11 +30,9 @@ const CreateReviewForm = ({reviewId}) => {
     const updateStars = (e) => setStars(e.target.value);
     const updateErrors = (e) => setStars(e.target.value);
 
-    const submitHandler = async (e) => {
-    e.preventDefault();
-    setErrors();
+    const submitHandler = async (spotId) => {
 
-  const payload = {
+    const payload = {
       review,
       stars
     };
@@ -40,7 +41,7 @@ const CreateReviewForm = ({reviewId}) => {
 
   let createdReview; 
   
-  createdReview = await dispatch(createReviewThunk(payload));
+  createdReview = await dispatch(createReviewThunk(spotId, payload));
   
   if (createdReview) {
     history.push(`/spots/${spotId}`);
@@ -56,7 +57,7 @@ const CreateReviewForm = ({reviewId}) => {
   return (
     <section>
       <form className="create-review-form" onSubmit={submitHandler}>
-        <h2>Create A Review</h2>
+        <div className='create-a-review'>Create A Review</div>
         <input
             type="text"
             placeholder='Write your review'
@@ -71,7 +72,7 @@ const CreateReviewForm = ({reviewId}) => {
             min="1"
             max="5"
             onChange={updateStars} />
-        <button type="submit">Create A Review</button>
+        <button type="submit">Submit</button>
         <button type="button" onClick={cancelHandler}>Cancel</button>
       </form>
     </section>
