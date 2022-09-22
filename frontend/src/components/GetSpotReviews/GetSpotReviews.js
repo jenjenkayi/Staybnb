@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getSpotReviewsThunk } from '../../store/reviews';
 import './GetSpotReviews.css';
 
@@ -8,10 +8,10 @@ const GetSpotReviews = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
 
-  const reviews = useSelector(state => state.reviews.spotReviews.Reviews);
+  const reviews = useSelector(state => state.reviews.spotReviews);
   const reviewsArr = Object.values(reviews);
 
-  console.log('review', reviews)
+  console.log('reviews', reviews)
   console.log('reviewarr', reviewsArr)
 
   useEffect(() => {
@@ -33,9 +33,8 @@ const GetSpotReviews = () => {
             <br></br>
         {reviewsArr && reviewsArr.map((review) => {
           return (
-            // <NavLink key={review.id} to={`/review/${review.id}`}>
             <div className="review_details">
-              <div className="review_creator">Review By: {review.User.firstName}</div>
+              {/* <div className="review_creator">Review By: {review.User.firstName}</div> */}
               <div className="review_date">{review.createdAt}</div>
               <div className="review_rating">
                 <i className="fa-solid fa-star"></i>
@@ -43,8 +42,7 @@ const GetSpotReviews = () => {
               </div>
               <div className="review_description">{review.review}</div>
               </div>
-            // </NavLink>
-                )
+            )
         })}
       </div>
   </>

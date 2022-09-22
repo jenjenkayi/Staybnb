@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { getOneSpotThunk } from '../../store/spots';
 import  GetSpotReviews from "../../components/GetSpotReviews/GetSpotReviews";
+import CreateReviewForm from "../CreateReviewForm/CreateReviewForm";
 import './GetOneSpot.css';
 
 const GetOneSpot = () => {
@@ -10,6 +11,7 @@ const GetOneSpot = () => {
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots.singleSpot);
   const reviews = useSelector(state => state.reviews.spotReviews);
+  console.log("reviews", reviews)
 
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
@@ -33,6 +35,7 @@ const GetOneSpot = () => {
               })} 
               {/* <img src={spot.previewImage} alt=""></img> */}
             </div>
+            {/* <div className="spot_owner">{spot.Owner.firstName}</div> */}
             <div className="spot_description">{spot.description}</div>
             <div className="border_box">
               <span className="border_box_left">${spot.price} night</span>
@@ -40,7 +43,10 @@ const GetOneSpot = () => {
               <i className="fa-solid fa-star"></i>{spot.avgStarRating} {spot.numReviews} reviews</span>
             </div>
             <GetSpotReviews />
-              </>
+            <NavLink to={'/createReview'}>
+              <button className="create-review-button">Create a Review</button>
+            </NavLink>
+            </>
       </div>
    </section>
   );

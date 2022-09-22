@@ -21,8 +21,8 @@ const UpdateSpotForm = ({ spot }) => {
     const [name, setName] = useState(currentSpot.name);
     const [description, setDescription] = useState(currentSpot.description);
     const [price, setPrice] = useState(currentSpot.price);
-    const [imageUrl, setImageUrl] = useState(currentSpot.imageUrl);
-    const [validationErrors, setValidationErrors] = useState([]);
+    // const [imageUrl, setImageUrl] = useState(currentSpot.imageUrl);
+    const [errors, setErrors] = useState([]);
 
     const updateAddress = (e) => setAddress(e.target.value);
     const updateCity = (e) => setCity(e.target.value);
@@ -33,7 +33,7 @@ const UpdateSpotForm = ({ spot }) => {
     const updateName = (e) => setName(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
-    const updateImageUrl = (e) => setImageUrl(e.target.value);
+    // const updateImageUrl = (e) => setImageUrl(e.target.value);
 
    useEffect(() => {
       dispatch(updateSpotThunk());
@@ -41,6 +41,7 @@ const UpdateSpotForm = ({ spot }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setErrors();
 
     const payload = {
       id: spotId,
@@ -53,9 +54,11 @@ const UpdateSpotForm = ({ spot }) => {
       name,
       description,
       price,
-      imageUrl
+      // imageUrl
     };
   
+    // if (!) return setErrors("Please")
+
   let updatedSpot; 
   updatedSpot = await dispatch(updateSpotThunk(payload));
 
@@ -66,7 +69,8 @@ const UpdateSpotForm = ({ spot }) => {
 
   const cancelHandler = (e) => {
     e.preventDefault();
-    history.push('/currentSpots');
+    setErrors();
+    history.push(`/spots/${spotId}`);
   };
 
 
@@ -127,14 +131,14 @@ const UpdateSpotForm = ({ spot }) => {
             placeholder="Price"
             value={price}
             required
-            min='0'
+            min='1'
             onChange={updatePrice} />
-          <input
+          {/* <input
             type="text"
             placeholder="Image URL"
             value={imageUrl}
             required
-            onChange={updateImageUrl} />
+            onChange={updateImageUrl} /> */}
         <button type="submit">Submit</button>
         <button type="button" onClick={cancelHandler}>Cancel</button>
       </form>

@@ -17,7 +17,7 @@ export const getSpotReviews = (reviews) => ({
     payload: reviews
 })
 
-export const getCurrentReviews = (reviews) => ({
+export const getUserReviews = (reviews) => ({
     type: READ_USER_REVIEWS,
     payload: reviews
 })
@@ -28,15 +28,15 @@ export const deleteReview = (reviewId) => ({
 })
 
 // THUNKS
-export const createReviewThunk = (data) => async (dispatch) => {
-  const response = await csrfFetch('/api/reviews', {
+export const createReviewThunk = (data, spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: 'post',
     headers: {
         'Content-Type': 'application/json'
       },
     body: JSON.stringify(data)
   });
-
+console.log('createReviewthunk', response)
   if(response.ok){
     const review = await response.json()
     dispatch(createReview(review))
@@ -54,7 +54,7 @@ export const getSpotReviewsThunk = (id) => async (dispatch) => {
   }
 }
 
-export const getCurrentReviewsThunk = () => async (dispatch) => {
+export const getUserReviewsThunk = () => async (dispatch) => {
   const response = await csrfFetch('/api/reviews/current')
 
   if(response.ok){
@@ -91,9 +91,9 @@ export default function reviewsReducer(state=initialState, action){
       return newState;
     }
     case READ_USER_REVIEWS: {
-    const newState = { ...state }
-      action.payload.allReviews.forEach(review => {
-        newState[review.id] = review
+    const newState = { ...state, userReviews:{...state.userReviews} }
+      action.payload.userReviewsR.forEach(review => {
+        newState.userReviews[review.id] = review
       });
       return newState;
     }

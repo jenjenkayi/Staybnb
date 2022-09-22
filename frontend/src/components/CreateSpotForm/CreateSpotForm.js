@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { createSpotThunk, getAllSpots } from '../../store/spots';
+import { createSpotThunk } from '../../store/spots';
 import './CreateSpotForm.css';
 
 const CreateSpotForm = () => {
@@ -19,8 +19,7 @@ const CreateSpotForm = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [imageUrl, setImageUrl] = useState('');
-    // const [preview, setPreview] = useState(true);
-    // const [validationErrors, setValidationErrors] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     const updateAddress = (e) => setAddress(e.target.value);
     const updateCity = (e) => setCity(e.target.value);
@@ -32,7 +31,6 @@ const CreateSpotForm = () => {
     const updateDescription = (e) => setDescription(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updateImageUrl = (e) => setImageUrl(e.target.value);
-    // const updatePreview = (e) => setPreview(e.target.value);
     
   //   useEffect(() => {
   //   const errors = [];
@@ -62,6 +60,7 @@ const CreateSpotForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setErrors();
 
   const payload = {
       address,
@@ -74,19 +73,23 @@ const CreateSpotForm = () => {
       description,
       price,
       imageUrl,
-      // preview,
     };
   
+    // if (!) return setErrors("Please")
+
   let createdSpot; 
   
   createdSpot = await dispatch(createSpotThunk(payload));
   if (createdSpot) {
     history.push(`/spots/${createdSpot.id}`);
+    history.push('/');
   }
 }
 
   const cancelHandler = (e) => {
     e.preventDefault();
+    setErrors();
+    history.push('/');
   };
 
   return (
@@ -146,7 +149,7 @@ const CreateSpotForm = () => {
             placeholder="Price"
             value={price}
             required
-            min='0'
+            min='1'
             onChange={updatePrice} />
           <input
             type="text"

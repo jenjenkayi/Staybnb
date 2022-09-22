@@ -13,6 +13,7 @@ import UpdateSpotForm from "./components/UpdateSpotForm/UpdateSpotForm";
 import GetSpotReviews from "./components/GetSpotReviews/GetSpotReviews";
 import GetUserReviews from "./components/GetUserReviews/GetUserReviews";
 import LoginFormModal from "./components/LoginFormModal";
+import CreateReviewForm from "./components/CreateReviewForm/CreateReviewForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +50,9 @@ function App() {
           </Route>
           <Route path="/spotReviews">
             <GetSpotReviews />
+          </Route> 
+          <Route path="/createReview">
+            <CreateReviewForm />
           </Route> 
           <Route path="/userReviews">
             <GetUserReviews />
