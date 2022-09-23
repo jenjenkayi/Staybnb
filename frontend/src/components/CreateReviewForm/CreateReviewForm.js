@@ -11,8 +11,8 @@ const CreateReviewForm = ({spotId}) => {
     const user = useSelector(state => state.session.user);
     const userId = user.id
 
-    const reviews = useSelector(state => state.reviews.spotReviews);
-    const reviewsArr = Object.values(reviews);
+    // const reviews = useSelector(state => state.reviews.spotReviews);
+    // const reviewsArr = Object.values(reviews);
 
     const currentSpot = useSelector(state => state.spots.singleSpot);
     const currentSpotId = currentSpot.id

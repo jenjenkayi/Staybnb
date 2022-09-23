@@ -154,7 +154,7 @@ export default function spotsReducer(state = initialState, action){
       return newState
     }
     case READ_USER_SPOTS: {
-      const newState = {...state, allSpots:{...state.allSpots}}
+      const newState = {...state, allSpots:{...state.singleSpot}}
       action.payload.forEach(spot => {
         newState.allSpots[spot.id] = spot
       })

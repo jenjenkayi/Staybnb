@@ -32,31 +32,22 @@ const CreateSpotForm = () => {
     const updatePrice = (e) => setPrice(e.target.value);
     const updateImageUrl = (e) => setImageUrl(e.target.value);
     
-  //   useEffect(() => {
-  //   const errors = [];
+    useEffect(() => {
+    const errors = [];
 
-  //   if (!address.length) errors.push('Please provide an address');
-  //   if (!city.length) errors.push('Please provide a city');
-  //   if (!country.length) errors.push('Please provide a country');
-  //   if (!lat) errors.push('Please provide a lat');
-  //   if (!lng) errors.push('Please provide a lng');
-  //   if (name.length < 0) errors.push('Name must be 1 or more characters');
-  //   if (!description) errors.push('Please provide a description');
-  //   if (price < 0 ) errors.push('Price must be 1 or higher');
+    if (!address.length) errors.push('Please provide an address');
+    if (!city.length) errors.push('Please provide a city');
+    if (!country.length) errors.push('Please provide a country');
+    if (!lat) errors.push('Please provide a lat');
+    if (!lng) errors.push('Please provide a lng');
+    if (name.length < 0) errors.push('Name must be 1 or more characters');
+    if (!description) errors.push('Please provide a description');
+    if (price < 0 ) errors.push('Price must be 1 or higher');
 
-  //   setValidationErrors(errors);
-  // }, [address, city, country, lat, lng, name, description, price, imageUrl]);
+    setErrors(errors);
+    }, [address, city, country, lat, lng, name, description, price, imageUrl]);
 
-  // const submitHandler = (e) => {
-  //   e.preventDefault();
-
-  //   console.log({ address, city, country, lat, lng, name, description, price, imageUrl });
-    
-  // };
-
-  // useEffect(() => {
-  //     dispatch(getAllSpots());
-  //   }, [dispatch])
+    console.log({ address, city, country, lat, lng, name, description, price, imageUrl });
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -84,18 +75,22 @@ const CreateSpotForm = () => {
     history.push('/');
     // history.push(`/spots/${createdSpot.id}`);
   }
+  
 }
-
   const cancelHandler = (e) => {
     e.preventDefault();
     setErrors();
     history.push('/');
-  };
+  };  
 
   return (
     <section>
       <form className="create-spot-form" onSubmit={submitHandler}>
         <h2>Create A Spot</h2>
+        <ul className="errors">
+        {errors.length > 0 &&
+        errors.map((error) => <li key={error}>{error}</li>)}
+      </ul>
         <input
             type="text"
             placeholder='Address'
@@ -157,7 +152,7 @@ const CreateSpotForm = () => {
             value={imageUrl}
             required
             onChange={updateImageUrl} />
-        <button type="submit">Create Spot</button>
+        <button type="submit" disabled={!!errors.length}>Create Spot</button>
         <button type="button" onClick={cancelHandler}>Cancel</button>
       </form>
     </section>

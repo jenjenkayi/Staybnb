@@ -59,6 +59,7 @@ export const getUserReviewsThunk = () => async (dispatch) => {
 
   if(response.ok){
     const reviews = await response.json()
+    console.log("reviewsThunk", reviews)
     dispatch(getSpotReviews(reviews))
     return reviews
   }

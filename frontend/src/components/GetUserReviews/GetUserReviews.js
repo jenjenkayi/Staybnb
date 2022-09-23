@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getUserReviewsThunk, deleteReviewThunk } from '../../store/reviews';
 import './GetUserReviews.css';
 
 const GetUserReviews = () => {
-  const { reviewId } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const user = useSelector((state) => state.session.user);
 
@@ -14,8 +14,8 @@ const GetUserReviews = () => {
   const reviewsArr = Object.values(reviews);
 
   console.log('reviews', reviews)
-  console.log('reviewarr', reviewsArr)
-  console.log("user", user)
+  // console.log('reviewarr', reviewsArr)
+  // console.log("user", user)
   
   useEffect(() => {
     dispatch(getUserReviewsThunk())
@@ -27,7 +27,7 @@ const GetUserReviews = () => {
 
    const deleteHandler = async (reviewId) => {
       await dispatch(deleteReviewThunk(reviewId));
-      // history.push("/currentSpots");
+      history.push("/");
   }
 
   return (
@@ -42,7 +42,7 @@ const GetUserReviews = () => {
         {reviewsArr && reviewsArr.map((review) => {
           return (
             <><div className="review_details">
-              <div className="review_location">Location: {review.Spot.name}</div>
+              {/* <div className="review_location">Location: {review.Spot.name}</div> */}
               <div className="review_creator">Review by: {review.User.firstName}</div>
               {/* <div className="review_date">{review.createdAt}</div> */}
               <div className="review_rating">

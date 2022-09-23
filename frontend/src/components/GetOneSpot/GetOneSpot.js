@@ -24,7 +24,7 @@ const GetOneSpot = () => {
   return (
      <section>
       <div className="spot_cards_container">
-            <><div className="spot_name">{spot.name}</div>
+            <><h1 className="spot_name">{spot.name}</h1>
             <div className="spot_rating">
               <i className="fa-solid fa-star"></i>
               {spot.avgStarRating} · {spot.numReviews} reviews · {spot.city}, {spot.state}, {spot.country} ${spot.price} night
