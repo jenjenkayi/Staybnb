@@ -23,32 +23,33 @@ const GetOneSpot = () => {
 
   return (
      <section>
-      <div className="spot_cards_container">
-            <><h1 className="spot_name">{spot.name}</h1>
-            <div className="spot_rating">
-              <i className="fa-solid fa-star"></i>
-              {spot.avgStarRating} · {spot.numReviews} reviews · {spot.city}, {spot.state}, {spot.country} ${spot.price} night
+        <div className="spot_header">
+            <h1 className="spot_name">{spot.name}</h1>
+            <div className="spot_details">
+              <div className="spot_rating">
+                <i className="fa-solid fa-star"></i>
+                {spot.avgStarRating} · {spot.numReviews} reviews · {spot.city}, {spot.state}, {spot.country} ${spot.price} night
+              </div>
             </div>
+        </div>
             <div className='spot_image'>
               {spot.SpotImages.map((image) => {
               return <img src={image.url} alt=""></img>
               })} 
-              {/* <img src={spot.previewImage} alt=""></img> */}
             </div>
-            {/* <div className="spot_owner">{spot.Owner.firstName}</div> */}
-            <div className="spot_details">Entire house hosted by {spot.owner}</div>
+        <div className="spot_details2">
+              <h2 className="spot_host">Entire house hosted by {spot.Owner.firstName}</h2>
               <div className="spot_description">{spot.description}</div>
-              <div className="border_box">
+        <div className="border_box">
               <span className="border_box_left">${spot.price} night</span>
               <span className="border_box_right">
               <i className="fa-solid fa-star"></i>{spot.avgStarRating} {spot.numReviews} reviews</span>
-            </div>
-            <GetSpotReviews />
+        </div>
+        <GetSpotReviews />
             <NavLink to={'/createReview'}>
               <button className="create-review-button">Create a Review</button>
             </NavLink>
-            </>
-      </div>
+        </div>
    </section>
   );
 };

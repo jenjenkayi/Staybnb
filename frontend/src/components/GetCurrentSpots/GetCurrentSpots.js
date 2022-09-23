@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link, NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { getCurrentSpotsThunk, deleteSpotThunk } from '../../store/spots';
 import './GetCurrentSpots.css';
 
-const GetCurrentSpots = () => {
-  const { spotId } = useParams();
-  
+const GetCurrentSpots = () => {  
   const dispatch = useDispatch();
   const history = useHistory();
 
   const user = useSelector((state) => state.session.user);
-  const currentSpots = useSelector(state => state.spots.allSpots);
+  const currentSpots = useSelector(state => state.spots.singleSpot);
   const spotsArr = Object.values(currentSpots);
 
+  console.log('currentSpots', currentSpots)
+  
   useEffect(() => {
     dispatch(getCurrentSpotsThunk())
   }, [dispatch]);

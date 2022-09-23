@@ -10,7 +10,8 @@ const GetSpotReviews = () => {
 
   const reviews = useSelector(state => state.reviews.spotReviews);
   const reviewsArr = Object.values(reviews);
-
+  console.log("reviews", reviews)
+  
   useEffect(() => {
     dispatch(getSpotReviewsThunk(spotId))
   }, [dispatch, spotId]);
@@ -32,7 +33,7 @@ const GetSpotReviews = () => {
           return (
             <div className="review_details">
               <div className="review_creator">{review.User.firstName}</div>
-              <div className="review_date">{review.createdAt}</div>
+              <div className="review_date">{review.createdAt.slice(0, 10)}</div>
               <div className="review_rating">
                 <i className="fa-solid fa-star"></i>
                 {review.stars}

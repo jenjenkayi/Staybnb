@@ -10,7 +10,7 @@ const GetUserReviews = () => {
 
   const user = useSelector((state) => state.session.user);
 
-  const reviews = useSelector(state => state.reviews.spotReviews);
+  const reviews = useSelector(state => state.reviews.userReviews);
   const reviewsArr = Object.values(reviews);
 
   console.log('reviews', reviews)
@@ -34,7 +34,7 @@ const GetUserReviews = () => {
     <>
       <div className="reviews_cards_container">
            <div className="reviews_headers">
-            {reviewsArr.length} Review
+            {reviewsArr.length} Reviews
             {/* <i className="fa-solid fa-star"></i>
             {reviewsArr.stars} */}
         </div>
@@ -42,7 +42,7 @@ const GetUserReviews = () => {
         {reviewsArr && reviewsArr.map((review) => {
           return (
             <><div className="review_details">
-              {/* <div className="review_location">Location: {review.Spot.name}</div> */}
+              <div className="review_location">Location: {review.Spot.name}</div>
               <div className="review_creator">Review by: {review.User.firstName}</div>
               {/* <div className="review_date">{review.createdAt}</div> */}
               <div className="review_rating">

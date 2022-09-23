@@ -37,6 +37,7 @@ const CreateSpotForm = () => {
 
     if (!address.length) errors.push('Please provide an address');
     if (!city.length) errors.push('Please provide a city');
+    if (!state.length) errors.push('Please provide a state');
     if (!country.length) errors.push('Please provide a country');
     if (!lat) errors.push('Please provide a lat');
     if (!lng) errors.push('Please provide a lng');
@@ -45,9 +46,9 @@ const CreateSpotForm = () => {
     if (price < 0 ) errors.push('Price must be 1 or higher');
 
     setErrors(errors);
-    }, [address, city, country, lat, lng, name, description, price, imageUrl]);
+    }, [address, city, state, country, lat, lng, name, description, price, imageUrl]);
 
-    console.log({ address, city, country, lat, lng, name, description, price, imageUrl });
+    // console.log({ address, city, country, lat, lng, name, description, price, imageUrl });
 
   const submitHandler = async (e) => {
     e.preventDefault();
