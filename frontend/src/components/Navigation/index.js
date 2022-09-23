@@ -46,15 +46,15 @@ function Navigation({ isLoaded }){
   }, [showMenu]);
 
   return (
-      <div className='nav-container'>
+      <div className='nav_container'>
         <img
           className='logo'
-          src='https://user-images.githubusercontent.com/92122927/191890801-0f925610-8fbe-4e0d-a63f-330cf6fed796.png'
+          src='https://user-images.githubusercontent.com/92122927/191908093-f94f94f2-c679-4e28-94e5-4d0ac62f8ba6.png'
           alt=""
           onClick={() => history.push('/')}
           >
           </img>
-          <div className='nav-host'
+          <div className='nav_host'
             onClick={() => history.push("/createSpot")}
             >
             Become a Host
