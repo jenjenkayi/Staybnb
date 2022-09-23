@@ -42,37 +42,49 @@ router.get('/current', requireAuth, async (req, res) => {
         ]
     })
 
-    let spotId = currentUserReviews[0].dataValues.spotId
+    // let spotId = currentUserReviews[0].dataValues.spotId
+    // for (let i = 0; i < currentUserReviews.length; i++) {
+    //     let review = currentUserReviews[i]
 
-    const spot = await Spot.findOne({
-        where: { id: spotId },
-        attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+    //     const spot = await Spot.findOne({
+    //         where: { id: spot.id },
+    //         attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
 
-    })
+    //     })
 
-    let previewImage = await SpotImage.findOne({
-            where: { spotId: spotId },
-            attributes: ['url'],
-        })
+    //     let previewImage = await SpotImage.findOne({
+    //         where: { spotId: spot.id },
+    //         attributes: ['url'],
+    //     })
 
-    spot.dataValues.previewImage = previewImage.dataValues.url
-    spot.dataValues.lat = parseFloat(spot.dataValues.lat);
-    spot.dataValues.lng = parseFloat(spot.dataValues.lng);
+    // spot.dataValues.previewImage = previewImage.dataValues.url
+    // spot.dataValues.lat = parseFloat(spot.dataValues.lat);
+    // spot.dataValues.lng = parseFloat(spot.dataValues.lng);
 
+    // for (let i = 0; i < currentUserReviews.length; i++) {
+    //     let review = currentUserReviews[i]
+
+    //     let ReviewImages = await ReviewImage.findAll({
+    //         where: { reviewId: review.id },
+    //         attributes: ['id', 'url'],
+    //     })
+
+    //     review.dataValues.ReviewImages = ReviewImages
+    //     review.dataValues.Spot = spot
+    // }
+
+    // res.status(200);
+    // return res.json({ Reviews: currentUserReviews });
     for (let i = 0; i < currentUserReviews.length; i++) {
-        let review = currentUserReviews[i]
+        let review = currentUserReviews[i].toJSON();
+        let previewImage = review.Spot.SpotImages[0]
 
-        let ReviewImages = await ReviewImage.findAll({
-            where: { reviewId: review.id },
-            attributes: ['id', 'url'],
-        })
+        if (previewImage) {
+            review.Spot.previewImage = previewImage.url
+        } 
+    };
 
-        review.dataValues.ReviewImages = ReviewImages
-        review.dataValues.Spot = spot
-    }
-
-    res.status(200);
-    return res.json({ Reviews: currentUserReviews });
+    return res.json({ Reviews: currentUserReviews })
 })
 
 // Add an Image to a Review based on the Review's id

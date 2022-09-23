@@ -271,7 +271,7 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
         lng,
         name,
         description,
-        price
+        price,
     })
     
     newSpot.dataValues.lat = parseFloat(newSpot.dataValues.lat);
