@@ -8,8 +8,8 @@ const GetUserReviews = () => {
  const dispatch = useDispatch();
   const { spotId } = useParams();
 
-  const reviews = useSelector(state => state.reviews.spotReviews);
-  const reviewsArr = Object.values(reviews.Reviews);
+  const reviews = useSelector(state => state.reviews.userReviews);
+  const reviewsArr = Object.values(reviews);
 
   console.log('review', reviews)
   console.log('reviewarr', reviewsArr)
@@ -24,6 +24,7 @@ const GetUserReviews = () => {
 
   return (
     <>
+    <h2>Hello</h2>
       <div className="reviews_cards_container">
            <div className="reviews_headers">
             {reviewsArr.length} Review
@@ -35,7 +36,7 @@ const GetUserReviews = () => {
           return (
             // <NavLink key={review.id} to={`/review/${review.id}`}>
             <div className="review_details">
-              <div className="review_creator">Review By: {review.User.firstName}</div>
+              <div className="review_creator">{review.User.firstName}</div>
               <div className="review_date">{review.createdAt}</div>
               <div className="review_rating">
                 <i className="fa-solid fa-star"></i>

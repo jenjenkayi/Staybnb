@@ -4,7 +4,7 @@ import { csrfFetch } from './csrf';
 const CREATE_SPOT = 'spots/CREATE_SPOT'
 const READ_ALL_SPOTS = 'spots/READ_ALL_SPOTS'
 const READ_ONE_SPOT = 'spots/READ_ONE_SPOT'
-const READ_CURRENT_SPOTS = 'spots/READ_CURRENT_SPOTS'
+const READ_USER_SPOTS = 'spots/READ_USER_SPOTS'
 const UPDATE_SPOT = 'spots/UPDATE_SPOT'
 const DELETE_SPOT = 'spots/DELETE_SPOT'
 
@@ -25,7 +25,7 @@ export const getOneSpot = (spot) => ({
 })
 
 export const getCurrentSpots = (spots) => ({
-    type: READ_CURRENT_SPOTS,
+    type: READ_USER_SPOTS,
     payload: spots
 })
 
@@ -153,7 +153,7 @@ export default function spotsReducer(state = initialState, action){
       newState.singleSpot = action.payload
       return newState
     }
-    case READ_CURRENT_SPOTS: {
+    case READ_USER_SPOTS: {
       const newState = {...state, allSpots:{...state.allSpots}}
       action.payload.forEach(spot => {
         newState.allSpots[spot.id] = spot

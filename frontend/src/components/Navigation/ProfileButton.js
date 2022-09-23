@@ -50,7 +50,7 @@ function ProfileButton({ user }) {
               <button className="my-spots-button">My Spots</button>
              </NavLink>
           <br></br>
-          <button onClick={() => history.push('/currentReviews')}>My Reviews</button>
+          <button onClick={() => history.push('/userReviews')}>My Reviews</button>
           </div>
         </div>
       )}

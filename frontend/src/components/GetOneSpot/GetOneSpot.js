@@ -36,8 +36,9 @@ const GetOneSpot = () => {
               {/* <img src={spot.previewImage} alt=""></img> */}
             </div>
             {/* <div className="spot_owner">{spot.Owner.firstName}</div> */}
-            <div className="spot_description">{spot.description}</div>
-            <div className="border_box">
+            <div className="spot_details">Host by {spot.owner}</div>
+              <div className="spot_description">{spot.description}</div>
+              <div className="border_box">
               <span className="border_box_left">${spot.price} night</span>
               <span className="border_box_right">
               <i className="fa-solid fa-star"></i>{spot.avgStarRating} {spot.numReviews} reviews</span>
@@ -46,6 +47,7 @@ const GetOneSpot = () => {
             <NavLink to={'/createReview'}>
               <button className="create-review-button">Create a Review</button>
             </NavLink>
+            <CreateReviewForm />
             </>
       </div>
    </section>

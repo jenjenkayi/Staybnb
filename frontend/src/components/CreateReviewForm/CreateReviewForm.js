@@ -8,18 +8,17 @@ const CreateReviewForm = ({spotId}) => {
     // const { spotId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
-    
+    const user = useSelector(state => state.session.user);
+    const userId = user.id
+
     const reviews = useSelector(state => state.reviews.spotReviews);
     const reviewsArr = Object.values(reviews);
 
-    const currentSpots = useSelector(state => state.spots.allSpots);
-    const currentSpotsArr = Object.values(currentSpots);
-    const currentSpot = reviewsArr.find(spot => spot.id == spotId)
+    const currentSpot = useSelector(state => state.spots.singleSpot);
+    const currentSpotId = currentSpot.id
+    // const currentSpotsArr = Object.values(currentSpot);
 
-    // console.log("currentReviewArr", reviewsArr)
-    // console.log("currentSpots", currentSpots)
-    // console.log("currentSpot", currentSpot)
-    // console.log("spotId", id)
+    console.log("currentSpot", currentSpotId)
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState('');
@@ -29,9 +28,11 @@ const CreateReviewForm = ({spotId}) => {
     const updateStars = (e) => setStars(e.target.value);
     const updateErrors = (e) => setStars(e.target.value);
 
-    const submitHandler = async (spotId) => {
+    const submitHandler = async (currentSpotId) => {
 
     const payload = {
+      userId: userId,
+      spotId: currentSpotId,
       review,
       stars
     };
@@ -40,17 +41,17 @@ const CreateReviewForm = ({spotId}) => {
 
   let createdReview; 
   
-  createdReview = await dispatch(createReviewThunk(spotId, payload));
+  createdReview = await dispatch(createReviewThunk(currentSpotId, payload));
   
   if (createdReview) {
-    history.push(`/spots/${spotId}`);
-    // history.push('/');
+    // history.push(`/spots/${spotId}`);
+    history.push('/');
   }
 }
 
   const cancelHandler = (e) => {
     e.preventDefault();
-    history.push(`/spots/${spotId}`);
+    history.push(`/spots/${currentSpotId}`);
   };
 
   return (

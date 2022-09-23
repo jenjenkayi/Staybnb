@@ -11,9 +11,6 @@ const GetSpotReviews = () => {
   const reviews = useSelector(state => state.reviews.spotReviews);
   const reviewsArr = Object.values(reviews);
 
-  console.log('reviews', reviews)
-  console.log('reviewarr', reviewsArr)
-
   useEffect(() => {
     dispatch(getSpotReviewsThunk(spotId))
   }, [dispatch, spotId]);
@@ -34,7 +31,7 @@ const GetSpotReviews = () => {
         {reviewsArr && reviewsArr.map((review) => {
           return (
             <div className="review_details">
-              {/* <div className="review_creator">Review By: {review.User.firstName}</div> */}
+              <div className="review_creator">{review.User.firstName}</div>
               <div className="review_date">{review.createdAt}</div>
               <div className="review_rating">
                 <i className="fa-solid fa-star"></i>

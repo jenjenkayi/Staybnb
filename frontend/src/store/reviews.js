@@ -29,18 +29,18 @@ export const deleteReview = (reviewId) => ({
 
 // THUNKS
 export const createReviewThunk = (data, spotId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+  const response = await csrfFetch(`/api/spots/${data.spotId}/reviews`, {
     method: 'post',
     headers: {
         'Content-Type': 'application/json'
       },
     body: JSON.stringify(data)
   });
-console.log('createReviewthunk', response)
+
   if(response.ok){
     const review = await response.json()
     dispatch(createReview(review))
-    return response
+    return review
   }
 }
 
@@ -81,28 +81,28 @@ const initialState = {spotReviews:{}, userReviews:{}}
 export default function reviewsReducer(state=initialState, action){
   switch(action.type) {
     case CREATE_REVIEWS: {
-      const newState = { ...state }
+      const newState = { ...state}
+      console.log("newState", newState)
       newState[action.payload.id] = action.payload
       return newState
   }
     case READ_ALL_SPOT_REVIEWS: {
-      const newState = { ...state, spotReviews:{...state.spotReviews} }
-      console.log("action", action.payload)
+      const newState = { ...state, spotReviews:{...state.spotReviews}}
        action.payload.Reviews.forEach(review => {
         newState.spotReviews[review.id] = review
        })
       return newState;
     }
     case READ_USER_REVIEWS: {
-    const newState = { ...state, userReviews:{...state.userReviews} }
-      action.payload.userReviews.forEach(review => {
+    const newState = { ...state, userReviews:{...state.userReviews}}
+      action.payload.Reviews.forEach(review => {
         newState.userReviews[review.id] = review
       });
       return newState;
     }
     case DELETE_REVIEWS: {
-      const newState = { ...state }
-      delete newState[action.anythingId]
+      const newState = { ...state, spotReviews:{...state.spotReviews}}
+      delete newState.spotReviews[action.payload]
       return newState
     }
     default:
