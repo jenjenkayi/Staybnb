@@ -82,7 +82,7 @@ export default function reviewsReducer(state=initialState, action){
   switch(action.type) {
     case CREATE_REVIEWS: {
       const newState = { ...state}
-      console.log("newState", newState)
+      console.log("actionpayload", action.payload)
       newState[action.payload.id] = action.payload
       return newState
   }

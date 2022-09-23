@@ -18,8 +18,6 @@ const CreateReviewForm = ({spotId}) => {
     const currentSpotId = currentSpot.id
     // const currentSpotsArr = Object.values(currentSpot);
 
-    console.log("currentSpot", currentSpotId)
-
     const [review, setReview] = useState('');
     const [stars, setStars] = useState('');
     const [errors, setErrors] = useState([]);
@@ -28,7 +26,7 @@ const CreateReviewForm = ({spotId}) => {
     const updateStars = (e) => setStars(e.target.value);
     const updateErrors = (e) => setStars(e.target.value);
 
-    const submitHandler = async (currentSpotId) => {
+    const submitHandler = async () => {
 
     const payload = {
       userId: userId,
@@ -41,7 +39,7 @@ const CreateReviewForm = ({spotId}) => {
 
   let createdReview; 
   
-  createdReview = await dispatch(createReviewThunk(currentSpotId, payload));
+  createdReview = await dispatch(createReviewThunk(payload));
   
   if (createdReview) {
     // history.push(`/spots/${spotId}`);
