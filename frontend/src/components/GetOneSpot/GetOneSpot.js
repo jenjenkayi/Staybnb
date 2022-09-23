@@ -36,7 +36,7 @@ const GetOneSpot = () => {
               {/* <img src={spot.previewImage} alt=""></img> */}
             </div>
             {/* <div className="spot_owner">{spot.Owner.firstName}</div> */}
-            <div className="spot_details">Host by {spot.owner}</div>
+            <div className="spot_details">Entire house hosted by {spot.owner}</div>
               <div className="spot_description">{spot.description}</div>
               <div className="border_box">
               <span className="border_box_left">${spot.price} night</span>

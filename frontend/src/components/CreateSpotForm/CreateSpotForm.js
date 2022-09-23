@@ -152,7 +152,8 @@ const CreateSpotForm = () => {
             value={imageUrl}
             required
             onChange={updateImageUrl} />
-        <button type="submit" disabled={!!errors.length}>Create Spot</button>
+        <button type="submit">Create Spot</button>
+        {/* disabled={!!errors.length} */}
         <button type="button" onClick={cancelHandler}>Cancel</button>
       </form>
     </section>
