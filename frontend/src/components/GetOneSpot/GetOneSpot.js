@@ -47,7 +47,6 @@ const GetOneSpot = () => {
             <NavLink to={'/createReview'}>
               <button className="create-review-button">Create a Review</button>
             </NavLink>
-            <CreateReviewForm />
             </>
       </div>
    </section>

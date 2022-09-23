@@ -6,11 +6,13 @@ import './GetCurrentSpots.css';
 
 const GetCurrentSpots = () => {
   const { spotId } = useParams();
+  
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const user = useSelector((state) => state.session.user);
   const currentSpots = useSelector(state => state.spots.allSpots);
   const spotsArr = Object.values(currentSpots);
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(getCurrentSpotsThunk())
@@ -22,7 +24,7 @@ const GetCurrentSpots = () => {
 
   const deleteHandler = async (spotId) => {
       await dispatch(deleteSpotThunk(spotId));
-      // history.push("/currentSpots");
+      history.push("/");
   }
 
   return (

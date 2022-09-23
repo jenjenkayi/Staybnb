@@ -1,11 +1,21 @@
 .nav-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-family: sans-serif;
 }
 
+.logo{
+    height: 100px;
+    width: 100px;
+}
+
 .nav-host {
-    align-self: flex-end;
-    justify-content:end;
     font-family: sans-serif;
+}
+
+.button {
+    border-radius: 15px;
+    display: flex;
+    border: none;
 }
