@@ -32,8 +32,8 @@ router.get('/current', requireAuth, async (req, res) => {
             },
             {
                 model: Spot,
-                // attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
-                attributes: []
+                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+                // attributes: []
             },
             {
                 model: ReviewImage,
@@ -43,17 +43,15 @@ router.get('/current', requireAuth, async (req, res) => {
     })
 
     // let spotId = currentUserReviews[0].dataValues.spotId
-    // for (let i = 0; i < currentUserReviews.length; i++) {
-    //     let review = currentUserReviews[i]
 
-    //     const spot = await Spot.findOne({
-    //         where: { id: spot.id },
-    //         attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
+    // const spot = await Spot.findOne({
+    //     where: { id: spotId },
+    //     attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price']
 
-    //     })
+    // })
 
-    //     let previewImage = await SpotImage.findOne({
-    //         where: { spotId: spot.id },
+    // let previewImage = await SpotImage.findOne({
+    //         where: { spotId: spotId },
     //         attributes: ['url'],
     //     })
 
@@ -73,18 +71,8 @@ router.get('/current', requireAuth, async (req, res) => {
     //     review.dataValues.Spot = spot
     // }
 
-    // res.status(200);
-    // return res.json({ Reviews: currentUserReviews });
-    for (let i = 0; i < currentUserReviews.length; i++) {
-        let review = currentUserReviews[i].toJSON();
-        let previewImage = review.Spot.SpotImages[0]
-
-        if (previewImage) {
-            review.Spot.previewImage = previewImage.url
-        } 
-    };
-
-    return res.json({ Reviews: currentUserReviews })
+    res.status(200);
+    return res.json({ Reviews: currentUserReviews });
 })
 
 // Add an Image to a Review based on the Review's id
