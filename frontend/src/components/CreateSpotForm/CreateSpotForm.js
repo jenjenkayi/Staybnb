@@ -136,7 +136,7 @@ const CreateSpotForm = () => {
             placeholder="Price"
             value={price}
             // required
-            min='1'
+            // min='1'
             onChange={updatePrice} />
           <input
             type="text"

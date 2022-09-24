@@ -28,33 +28,33 @@ function Navigation({ isLoaded }){
     );
   }
 
-  const openMenu = () => {
-    if (showMenu) return;
-    setShowMenu(true);
-  };
+  // const openMenu = () => {
+  //   if (showMenu) return;
+  //   setShowMenu(true);
+  // };
   
-  useEffect(() => {
-    if (!showMenu) return;
+  // useEffect(() => {
+  //   if (!showMenu) return;
 
-    const closeMenu = () => {
-      setShowMenu(false);
-    };
+  //   const closeMenu = () => {
+  //     setShowMenu(false);
+  //   };
 
-    document.addEventListener('click', closeMenu);
+  //   document.addEventListener('click', closeMenu);
   
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
+  //   return () => document.removeEventListener("click", closeMenu);
+  // }, [showMenu]);
 
   return (
-      <div className='nav_container'>
+      <div className='nav_wrapper'>
         <img
-          className='logo'
+          className='nav_logo'
           src='https://user-images.githubusercontent.com/92122927/191908093-f94f94f2-c679-4e28-94e5-4d0ac62f8ba6.png'
           alt=""
           onClick={() => history.push('/')}
           >
           </img>
-          <div className='nav_host'
+        <div className='nav_host_button'
             onClick={() => history.push("/createSpot")}
             >
             Become a Host

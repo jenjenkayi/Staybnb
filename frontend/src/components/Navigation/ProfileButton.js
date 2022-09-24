@@ -33,10 +33,11 @@ function ProfileButton({ user }) {
 
 
   return (
-    <>
+    <div className="dropdown_menu">
       <button className="profile_button" onClick={openMenu}>
         <i className="fa-solid fa-bars"/>
-        <i className="fa-solid fa-user"/>
+        <br></br>
+        <i className="fas fa-user-circle fa-2xl"/>
       </button>
       {showMenu && (
         <div className="profile_dropdown">
@@ -45,7 +46,6 @@ function ProfileButton({ user }) {
           <div>
           <button onClick={logout}>Log Out</button>
           <br></br>
-          {/* <button onClick={() => history.push('/currentSpots')}>My Spots</button> */}
           <NavLink to={'/currentSpots'}>
               <button className="my-spots-button">My Spots</button>
              </NavLink>
@@ -54,7 +54,7 @@ function ProfileButton({ user }) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

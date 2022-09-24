@@ -4,8 +4,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import { createReviewThunk } from '../../store/reviews';
 import './CreateReviewForm.css';
 
-const CreateReviewForm = ({spotId}) => {
-    // const { spotId } = useParams();
+const CreateReviewForm = () => {
+    const { spotId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
@@ -55,8 +55,7 @@ const CreateReviewForm = ({spotId}) => {
   const cancelHandler = (e) => {
     e.preventDefault();
     // history.push(`/spots/${currentSpotId}`);
-    history.push(`/createReview/:spotId`);
-    // history.push('/');
+    history.push(`/spots/${spotId}`);
   };
 
   return (

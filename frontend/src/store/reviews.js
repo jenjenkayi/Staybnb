@@ -2,7 +2,6 @@ import { csrfFetch } from './csrf';
 
 // TYPES
 const CREATE_REVIEW = 'reviews/CREATE_REVIEW'
-const READ_REVIEWS = 'reviews/READ_REVIEWS'
 const READ_SPOT_REVIEWS = 'reviews/READ_SPOT_REVIEWS'
 const READ_USER_REVIEWS = 'reviews/READ_USER_REVIEWS'
 const DELETE_REVIEWS = 'reviews/DELETE_REVIEWS'
@@ -12,11 +11,6 @@ export const createReview = (review) => ({
     type: CREATE_REVIEW,
     payload: review
 })
-
-// export const getReviews = (reviews) => ({
-//     type: READ_REVIEWS,
-//     payload: reviews
-// })
 
 export const getSpotReviews = (reviews) => ({
     type: READ_SPOT_REVIEWS,
@@ -40,13 +34,13 @@ export const createReviewThunk = (data, spotId) => async (dispatch) => {
     headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({data, spotId})
+      body: JSON.stringify(data)
     });
-    console.log("resThunk", response)
+
   if(response.ok){
     const review = await response.json()
     dispatch(createReview(review))
-    return review
+    return response
   }
 }
 
@@ -69,16 +63,6 @@ export const getUserReviewsThunk = () => async (dispatch) => {
     return reviews
   }
 }
-// export const getReviewsThunk = () => async (dispatch) => {
-//   const response = await csrfFetch('/api/reviews')
-
-//   if(response.ok){
-//     const reviews = await response.json()
-//     console.log("reviewsThunk", reviews)
-//     dispatch(getReviews(reviews))
-//     return reviews
-//   }
-// }
 
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${reviewId}`, {
@@ -101,8 +85,12 @@ export default function reviewsReducer(state=initialState, action){
       // console.log("newState", newState)
       // newState.spotReviews[action.payload.id] = action.payload
       // return newState
-      const newState = {...state}
-      newState[action.payload.id] = {...newState[action.payload.id], ...action.payload}
+      // const newState = {...state}
+      // newState[action.payload.id] = {...newState[action.payload.id], ...action.payload}
+      // console.log("newState", newState)
+      // return newState;
+       const newState = {...state}
+      newState[action.payload.id] = action.payload
       return newState;
   }
     case READ_SPOT_REVIEWS: {
