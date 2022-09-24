@@ -26,7 +26,14 @@ const CreateReviewForm = ({spotId}) => {
     const updateStars = (e) => setStars(e.target.value);
     const updateErrors = (e) => setStars(e.target.value);
 
-    const submitHandler = async () => {
+    const submitHandler = async (e) => {
+      e.preventDefault();
+      setErrors([]);  
+
+      let Review = {review, stars}
+
+      if (!Review.review.length) return setErrors(["Please provide a review"]);
+      if (Review.stars > 5 || Review.stars < 1) return setErrors(["Stars must be between 1 to 5"]);
 
     const payload = {
       userId: userId,
@@ -35,28 +42,31 @@ const CreateReviewForm = ({spotId}) => {
       stars
     };
   
- // if (!) return setErrors("Please")
-
   let createdReview; 
   
   createdReview = await dispatch(createReviewThunk(payload));
-  
+
   if (createdReview) {
-    // history.push(`/spots/${spotId}`);
-    history.push('/');
+    history.push(`/spots/${spotId}`);
+    // history.push('/');
   }
 }
 
   const cancelHandler = (e) => {
     e.preventDefault();
     // history.push(`/spots/${currentSpotId}`);
-    history.push('/');
+    history.push(`/createReview/:spotId`);
+    // history.push('/');
   };
 
   return (
     <section>
       <form className="create-review-form" onSubmit={submitHandler}>
         <div className='create-a-review'>Create A Review</div>
+        <ul className="errors">
+        {errors.length > 0 &&
+        errors.map((error) => <li key={error}>{error}</li>)}
+        </ul>
         <input
             type="text"
             placeholder='Write your review'

@@ -51,7 +51,7 @@ function App() {
           <Route path="/spotReviews">
             <GetSpotReviews />
           </Route> 
-          <Route path="/createReview">
+          <Route path="/createReview/:spotId">
             <CreateReviewForm />
           </Route> 
           <Route path="/userReviews">

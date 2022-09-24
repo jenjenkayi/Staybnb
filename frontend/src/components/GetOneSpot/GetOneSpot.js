@@ -10,12 +10,12 @@ const GetOneSpot = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots.singleSpot);
-  const reviews = useSelector(state => state.reviews.spotReviews);
-  // console.log("reviews", reviews)
-
+  // const reviews = useSelector(state => state.reviews.spotReviews);
+  console.log("spot", spot)
+  
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
-  }, [dispatch, spotId, reviews]);
+  }, [dispatch, spotId]);
   
   if (Object.keys(spot).length === 0) {
     return null;
@@ -32,21 +32,22 @@ const GetOneSpot = () => {
               </div>
             </div>
         </div>
-            <div className='spot_image'>
+        <div className='spot_image'>
               {spot.SpotImages.map((image) => {
               return <img src={image.url} alt=""></img>
               })} 
-            </div>
+        </div>
         <div className="spot_details2">
               <h2 className="spot_host">Entire house hosted by {spot.Owner.firstName}</h2>
               <div className="spot_description">{spot.description}</div>
+        
         <div className="border_box">
               <span className="border_box_left">${spot.price} night</span>
               <span className="border_box_right">
               <i className="fa-solid fa-star"></i>{spot.avgStarRating} {spot.numReviews} reviews</span>
         </div>
         <GetSpotReviews />
-            <NavLink to={'/createReview'}>
+            <NavLink to={`/createReview/${spotId}`}>
               <button className="create-review-button">Create a Review</button>
             </NavLink>
         </div>

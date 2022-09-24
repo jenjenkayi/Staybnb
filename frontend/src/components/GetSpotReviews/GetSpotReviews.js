@@ -10,7 +10,6 @@ const GetSpotReviews = () => {
 
   const reviews = useSelector(state => state.reviews.spotReviews);
   const reviewsArr = Object.values(reviews);
-  console.log("reviews", reviews)
   
   useEffect(() => {
     dispatch(getSpotReviewsThunk(spotId))
@@ -24,7 +23,7 @@ const GetSpotReviews = () => {
     <>
       <div className="reviews_cards_container">
            <div className="reviews_headers">
-            {reviewsArr.length} Review
+            {reviewsArr.length} Reviews
             {/* <i className="fa-solid fa-star"></i>
             {reviewsArr.stars} */}
         </div>

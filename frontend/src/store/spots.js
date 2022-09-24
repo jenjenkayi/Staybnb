@@ -158,12 +158,11 @@ export default function spotsReducer(state = initialState, action){
       // console.log("newState", newState)
       // action.payload.forEach(spot => {
       //   newState.singleSpot[spot.id] = spot
+      // })
       const newState = {...state, singleSpot:{...state.singleSpot}}
       console.log("newState", newState)
       newState.singleSpot = action.payload
       return newState
-      // })
-      // return newState
     }
     case UPDATE_SPOT: {
       const newState = {...state}

@@ -32,56 +32,47 @@ const CreateSpotForm = () => {
     const updatePrice = (e) => setPrice(e.target.value);
     const updateImageUrl = (e) => setImageUrl(e.target.value);
     
-    useEffect(() => {
-    const errors = [];
+    const submitHandler = async (e) => {
+      e.preventDefault();
+      setErrors([]);
 
-    if (!address.length) errors.push('Please provide an address');
-    if (!city.length) errors.push('Please provide a city');
-    if (!state.length) errors.push('Please provide a state');
-    if (!country.length) errors.push('Please provide a country');
-    if (!lat) errors.push('Please provide a lat');
-    if (!lng) errors.push('Please provide a lng');
-    if (name.length < 0) errors.push('Name must be 1 or more characters');
-    if (!description) errors.push('Please provide a description');
-    if (price < 0 ) errors.push('Price must be 1 or higher');
-
-    setErrors(errors);
-    }, [address, city, state, country, lat, lng, name, description, price, imageUrl]);
-
-    // console.log({ address, city, country, lat, lng, name, description, price, imageUrl });
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    setErrors();
-
-  const payload = {
-      address,
-      city,
-      state,
-      country,
-      lat,
-      lng,
-      name,
-      description,
-      price,
-      imageUrl,
-    };
-  
-    // if (!) return setErrors("Please")
-
-  let createdSpot; 
-  
-  createdSpot = await dispatch(createSpotThunk(payload));
-  if (createdSpot) {
-    history.push('/');
-    // history.push(`/spots/${createdSpot.id}`);
+      let spot = {address, city, state, country, lat, lng, name, description, price, imageUrl}
+      
+      if (!spot.address.length) return setErrors(['Please provide an address']);
+      if (!spot.city.length) return setErrors(['Please provide a city']);
+      if (!spot.state.length) return setErrors(['Please provide a state']);
+      if (!spot.country.length) return setErrors(['Please provide a country']);
+      if (!spot.lat) return setErrors(['Please provide a lat']);
+      if (!spot.lng) return setErrors(['Please provide a lng']);
+      if (!spot.name.length < 0) return setErrors(['Name must be 1 or more characters']);
+      if (!spot.description) return setErrors(['Please provide a description']);
+      if (!spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
+    
+      const payload = {
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+        imageUrl,
+      };
+    
+    let createdSpot; 
+    createdSpot = await dispatch(createSpotThunk(payload));
+    
+    if (createdSpot) {
+      // history.push(`/spots/${createdSpot.id}`);
+      history.push('/');
+    }
   }
-  
-}
-  const cancelHandler = (e) => {
-    e.preventDefault();
-    setErrors();
-    history.push('/');
+    const cancelHandler = (e) => {
+      e.preventDefault();
+      setErrors();
+      history.push('/');
   };  
 
   return (
@@ -96,62 +87,62 @@ const CreateSpotForm = () => {
             type="text"
             placeholder='Address'
             value={address}
-            required
+            // required
             onChange={updateAddress} />
         <input
             type="text"
             placeholder="City"
             value={city}
-            required
+            // required
             onChange={updateCity} />
         <input
             type="text"
             placeholder="State"
             value={state}
-            required
+            // required
             onChange={updateState} />
         <input
             type="text"
             placeholder="Country"
             value={country}
-            required
+            // required
             onChange={updateCountry} />
         <input
             type="number"
             placeholder="Lat"
             value={lat}
-            required
+            // required
             onChange={updateLat} />
           <input
             type="number"
             placeholder="Lng"
             value={lng}
-            required
+            // required
             onChange={updateLng} />
           <input
             type="text"
             placeholder="Name"
             value={name}
-            required
+            // required
             onChange={updateName} />
           <input
             type="text"
             placeholder="Description"
             value={description}
-            required
+            // required
             onChange={updateDescription} />
           <input
             type="number"
             placeholder="Price"
             value={price}
-            required
+            // required
             min='1'
             onChange={updatePrice} />
           <input
             type="text"
             placeholder="Image URL"
             value={imageUrl}
-            required
+            // required
             onChange={updateImageUrl} />
         <button type="submit">Create Spot</button>
         {/* disabled={!!errors.length} */}

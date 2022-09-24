@@ -8,7 +8,8 @@ const UpdateSpotForm = ({ spot }) => {
     const currentSpots = useSelector(state => state.spots.allSpots);
     const currentSpotsArr = Object.values(currentSpots);
     const currentSpot = currentSpotsArr.find(spot => spot.id == spotId)
-
+    console.log("currentSpot", currentSpot);
+    
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -21,7 +22,6 @@ const UpdateSpotForm = ({ spot }) => {
     const [name, setName] = useState(currentSpot.name);
     const [description, setDescription] = useState(currentSpot.description);
     const [price, setPrice] = useState(currentSpot.price);
-    // const [imageUrl, setImageUrl] = useState(currentSpot.imageUrl);
     const [errors, setErrors] = useState([]);
 
     const updateAddress = (e) => setAddress(e.target.value);
@@ -33,7 +33,6 @@ const UpdateSpotForm = ({ spot }) => {
     const updateName = (e) => setName(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
-    // const updateImageUrl = (e) => setImageUrl(e.target.value);
 
    useEffect(() => {
       dispatch(updateSpotThunk());
@@ -41,8 +40,20 @@ const UpdateSpotForm = ({ spot }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    setErrors();
+    setErrors([]);
 
+    let spot = {address, city, state, country, lat, lng, name, description, price}
+      
+    if (!spot.address.length) return setErrors(['Please provide an address']);
+    if (!spot.city.length) return setErrors(['Please provide a city']);
+    if (!spot.state.length) return setErrors(['Please provide a state']);
+    if (!spot.country.length) return setErrors(['Please provide a country']);
+    if (!spot.lat) return setErrors(['Please provide a lat']);
+    if (!spot.lng) return setErrors(['Please provide a lng']);
+    if (!spot.name.length < 0) return setErrors(['Name must be 1 or more characters']);
+    if (!spot.description) return setErrors(['Please provide a description']);
+    if (!spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
+    
     const payload = {
       id: spotId,
       address,
@@ -54,11 +65,8 @@ const UpdateSpotForm = ({ spot }) => {
       name,
       description,
       price,
-      // imageUrl
     };
   
-    // if (!) return setErrors("Please")
-
   let updatedSpot; 
   updatedSpot = await dispatch(updateSpotThunk(payload));
 
@@ -78,6 +86,10 @@ const UpdateSpotForm = ({ spot }) => {
     <section className="update-spot-form">
       <form  onSubmit={submitHandler}>
         <h2>Edit A Spot</h2>
+        <ul className="errors">
+        {errors.length > 0 &&
+        errors.map((error) => <li key={error}>{error}</li>)}
+        </ul>
         <input
             type="text"
             placeholder='Address'
@@ -133,12 +145,6 @@ const UpdateSpotForm = ({ spot }) => {
             required
             min='1'
             onChange={updatePrice} />
-          {/* <input
-            type="text"
-            placeholder="Image URL"
-            value={imageUrl}
-            required
-            onChange={updateImageUrl} /> */}
         <button type="submit">Submit</button>
         <button type="button" onClick={cancelHandler}>Cancel</button>
       </form>

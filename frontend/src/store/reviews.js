@@ -1,7 +1,7 @@
 import { csrfFetch } from './csrf';
 
 // TYPES
-const CREATE_REVIEWS = 'reviews/CREATE_REVIEWS'
+const CREATE_REVIEW = 'reviews/CREATE_REVIEW'
 const READ_REVIEWS = 'reviews/READ_REVIEWS'
 const READ_SPOT_REVIEWS = 'reviews/READ_SPOT_REVIEWS'
 const READ_USER_REVIEWS = 'reviews/READ_USER_REVIEWS'
@@ -9,7 +9,7 @@ const DELETE_REVIEWS = 'reviews/DELETE_REVIEWS'
 
 // ACTION CREATORS
 export const createReview = (review) => ({
-    type: CREATE_REVIEWS,
+    type: CREATE_REVIEW,
     payload: review
 })
 
@@ -40,9 +40,9 @@ export const createReviewThunk = (data, spotId) => async (dispatch) => {
     headers: {
         'Content-Type': 'application/json'
       },
-    body: JSON.stringify(data)
-  });
-
+      body: JSON.stringify({data, spotId})
+    });
+    console.log("resThunk", response)
   if(response.ok){
     const review = await response.json()
     dispatch(createReview(review))
@@ -96,26 +96,23 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
 const initialState = {spotReviews:{}, userReviews:{}}
 export default function reviewsReducer(state=initialState, action){
   switch(action.type) {
-    case CREATE_REVIEWS: {
-      const newState = { ...state}
-      newState[action.payload.id] = action.payload
-      return newState
+    case CREATE_REVIEW: {
+      // const newState = { ...state, spotReviews:{...state.spotReviews}}
+      // console.log("newState", newState)
+      // newState.spotReviews[action.payload.id] = action.payload
+      // return newState
+      const newState = {...state}
+      newState[action.payload.id] = {...newState[action.payload.id], ...action.payload}
+      return newState;
   }
     case READ_SPOT_REVIEWS: {
-      const newState = { ...state, spotReviews:{...state.spotReviews}}
+      const newState = { ...state, spotReviews:{}}
        action.payload.Reviews.forEach(review => {
         newState.spotReviews[review.id] = review
         console.log("newState", newState)
        })
       return newState;
     }
-    // case READ_REVIEWS: {
-    //   const newState = { ...state, spotReviews:{...state.spotReviews}}
-    //   console.log("newState", newState)
-    //   console.log("actionpayload", action.payload)
-    //   newState.spotReviews = action.payload
-    //   return newState
-    // }
     case READ_USER_REVIEWS: {
     const newState = { ...state, userReviews:{...state.userReviews}}
       action.payload.Reviews.forEach(review => {
