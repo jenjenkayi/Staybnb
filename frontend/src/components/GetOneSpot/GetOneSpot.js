@@ -52,9 +52,11 @@ const GetOneSpot = () => {
         </div>
         </div>
           <GetSpotReviews />
-            <NavLink to={`/createReview/${spotId}`}>
-              <button className="one_spot_create_review_button">Create a Review</button>
-            </NavLink>
+          <div className="one_spot_button">
+            <button className="one_spot_create_review_button">Create a Review
+              <NavLink to={`/createReview/${spotId}`}></NavLink>
+            </button>
+          </div>
     </div>
   </>
   );

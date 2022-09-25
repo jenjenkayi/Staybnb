@@ -80,7 +80,7 @@ a {
     text-align: left;
     outline: 1px solid #dddddd;
     background-color: #ffffff;
-    box-shadow: rgba(0, 0, 0, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px;
     padding: 5px 5px 5px 10px;
     cursor: pointer;
     border-radius: 21px;
@@ -88,6 +88,8 @@ a {
     width: 200px;
     position: absolute;
     align-items: flex-start;
+    box-sizing: border-box;
+    right: 1%
 }
 
 ul {
