@@ -1,7 +1,66 @@
-.create-spot-form {
+.CreateSpotForm_Container {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    /* align-items: center; */
+    /* width: 550px;
+    height: 568px; */
+    width: 90%;
+    align-items: center;
     justify-content: center;
+    background-color: #ffffff;
+    /* outline: 1px solid #dddddd; */
+    text-align: center;
+    /* padding: 5px 5px 5px 5px; */
+    cursor: pointer;
+    /* padding: 10px; */
+    border-radius: 5px;
+    margin: 40px 50px 50px 50px;
+}
+
+.CreateSpotForm_Title {
+    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    align-items: center;
+}
+
+.CreateSpotForm_Input {
+    background-color: #ffffff;
+    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* position: relative; */
+    /* cursor: pointer; */
+    /* display: flex; */
+    /* justify-content: space-evenly; */
+    width: 520px;
+    height: 56px;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+}
+
+.CreateSpotForm_submit_button {
+    color: white;
+    background-color: #ff385c;
+    border-radius: 5px;
+    border: none;
+    height: 48px;
+    width: 520px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.CreateSpotForm_cancel_button {
+    color: white;
+    background-color: #ff385c;
+    border-radius: 5px;
+    border: none;
+    height: 48px;
+    width: 520px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+ul {
+    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    align-items: center;
 }

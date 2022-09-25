@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
+import './SignupFormModal.css';
 
 function SignupForm() {
   const dispatch = useDispatch();
@@ -31,74 +32,62 @@ function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="SignupForm_Container">
       <div className="SignupForm_Header">
         <h3 className="SignupForm_Title">Sign Up</h3>
       </div>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      <label>
-        Email
         <input
+          className="SignupForm_Input"
           type="text"
           value={email}
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Username
         <input
+          className="SignupForm_Input"
           type="text"
           value={username}
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Password
         <input
-          type="password"
+className="SignupForm_Input"
+type="password"
           value={password}
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Confirm Password
         <input
+          className="SignupForm_Input"
           type="password"
           value={confirmPassword}
           placeholder="Confirm Password"
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-      </label>
-      <label>
-        First Name
         <input
+          className="SignupForm_Input"
           type="text"
           value={firstName}
           placeholder="First Name"
           onChange={(e) => setFirstName(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Last Name
         <input
+          className="SignupForm_Input"
           type="text"
           value={lastName}
           placeholder="Last Name"
           onChange={(e) => setLastName(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Sign Up</button>
+      <button type="submit" className="Signup_submit_button">Sign Up</button>
     </form>
   );
 }

@@ -22,16 +22,14 @@ const GetOneSpot = () => {
 
   return (
     <>
-     <section>
       <div className="spot_wrapper">
-        {/* <div className="spot_header"> */}
-            <div className="spot_name">{spot.name}</div>
-            <div className="spot_details">
-              <div className="spot_rating">
-                <i className="fa-solid fa-star"></i>
-                {spot.avgStarRating} · {spot.numReviews} reviews · {spot.city}, {spot.state}, {spot.country}
-              </div>
-            {/* </div> */}
+          <div className="spot_name">{spot.name}</div>
+          <div className="spot_details">
+            <div className="spot_rating">
+              <i className="fa-solid fa-star"></i>
+              {spot.avgStarRating} · {spot.numReviews ? spot.numReviews : 0} reviews · {spot.city}, {spot.state}, {spot.country}
+            </div>
+          </div>
         </div>
         <div className='spot_image'>
               {spot.SpotImages.map((image) => {
@@ -51,10 +49,8 @@ const GetOneSpot = () => {
             <NavLink to={`/createReview/${spotId}`}>
               <button className="create-review-button">Create a Review</button>
             </NavLink>
-        </div>
     </div>
-   </section>
-   </>
+  </>
   );
 };
 

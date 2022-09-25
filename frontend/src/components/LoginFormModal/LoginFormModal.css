@@ -1,24 +1,20 @@
-.UpdateSpotForm_Container {
+.LoginForm_Container {
     display: flex;
     flex-direction: column;
-    /* width: 550px;
-    height: 568px; */
-    width: 100%;
+    width: 550px;
+    height: 568px;
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
-    /* outline: 1px solid #dddddd; */
+    /* border: #dddddd; */
+    outline: 1px solid #dddddd;
     text-align: center;
-    /* padding: 5px 5px 5px 5px; */
+    /* padding: 5px 5px 5px 10px; */
     cursor: pointer;
-    /* padding: 10px; */
-    border-radius: 5px;
-    margin: 40px 50px 50px 50px;
-    justify-content: center;
-    align-items: center;
+    border-radius: 50px;
 }
 
-.UpdateSpotForm_Title {
+.LoginForm_Title {
     font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     font-weight: bold;
@@ -26,20 +22,20 @@
     align-items: center;
 }
 
-.UpdateSpotForm_Input {
+.LoginForm_Input {
     background-color: #ffffff;
     font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+    /* position: relative; */
+    /* cursor: pointer; */
+    /* display: flex; */
+    /* justify-content: space-evenly; */
     width: 520px;
-    height: 100px;
+    height: 56px;
     border-radius: 5px;
     border: 1px solid #dddddd;
 }
 
-.UpdateSpotForm_Submit_Button {
+.login_submit_button {
     color: white;
     background-color: #ff385c;
     border-radius: 5px;
@@ -48,27 +44,14 @@
     width: 520px;
     margin-top: 10px;
     margin-bottom: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.UpdateSpotForm_Cancel_Button {
+.login_demouser_button {
     color: white;
     background-color: #ff385c;
     border-radius: 5px;
     border: none;
     height: 48px;
     width: 520px;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-ul {
-    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 16px;
-    align-items: center;
+    margin-top: 5px;
 }

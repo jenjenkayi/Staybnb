@@ -77,61 +77,72 @@ const CreateSpotForm = () => {
 
   return (
     <section>
-      <form className="create-spot-form" onSubmit={submitHandler}>
-        <h2>Create A Spot</h2>
+      <form className="CreateSpotForm_Container" onSubmit={submitHandler}>
+        <div className="CreateSpotForm_Header">
+        <h3 className="CreateSpotForm_Title">Create A Spot</h3>
+      </div>
         <ul className="errors">
         {errors.length > 0 &&
         errors.map((error) => <li key={error}>{error}</li>)}
       </ul>
         <input
+            className='CreateSpotForm_Input'
             type="text"
             placeholder='Address'
             value={address}
             // required
             onChange={updateAddress} />
         <input
+            className='CreateSpotForm_Input'
             type="text"
             placeholder="City"
             value={city}
             // required
             onChange={updateCity} />
         <input
+            className='CreateSpotForm_Input'
             type="text"
             placeholder="State"
             value={state}
             // required
             onChange={updateState} />
         <input
+            className='CreateSpotForm_Input'
             type="text"
             placeholder="Country"
             value={country}
             // required
             onChange={updateCountry} />
         <input
+            className='CreateSpotForm_Input'
             type="number"
             placeholder="Lat"
             value={lat}
             // required
             onChange={updateLat} />
           <input
+            className='CreateSpotForm_Input'
             type="number"
             placeholder="Lng"
             value={lng}
             // required
             onChange={updateLng} />
           <input
+            className='CreateSpotForm_Input'
             type="text"
             placeholder="Name"
             value={name}
             // required
             onChange={updateName} />
           <input
+            className='CreateSpotForm_Input'
             type="text"
             placeholder="Description"
             value={description}
             // required
             onChange={updateDescription} />
           <input
+            className='CreateSpotForm_Input'
             type="number"
             placeholder="Price"
             value={price}
@@ -139,14 +150,20 @@ const CreateSpotForm = () => {
             // min='1'
             onChange={updatePrice} />
           <input
+            className='CreateSpotForm_Input'
             type="text"
             placeholder="Image URL"
             value={imageUrl}
             // required
             onChange={updateImageUrl} />
-        <button type="submit">Create Spot</button>
+        <button type="submit" className="CreateSpotForm_submit_button">Create Spot</button>
         {/* disabled={!!errors.length} */}
-        <button type="button" onClick={cancelHandler}>Cancel</button>
+        <button type="button" 
+        className="CreateSpotForm_submit_button"
+        onClick={cancelHandler}
+        >
+        Cancel
+        </button>
       </form>
     </section>
   );

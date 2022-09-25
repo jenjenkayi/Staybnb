@@ -60,19 +60,21 @@ const CreateReviewForm = () => {
 
   return (
     <section>
-      <form className="create-review-form" onSubmit={submitHandler}>
-        <div className='create-a-review'>Create A Review</div>
+      <form className="CreateReviewForm_Container" onSubmit={submitHandler}>
+        <h3 className="CreateReviewForm_Title">Create A Review</h3>
         <ul className="errors">
         {errors.length > 0 &&
         errors.map((error) => <li key={error}>{error}</li>)}
         </ul>
         <input
+            className='CreateReviewForm_Input'
             type="text"
             placeholder='Write your review'
             value={review}
             required
             onChange={updateReview} />
         <input
+            className='CreateReviewForm_Input'
             type="number"
             placeholder="Stars"
             value={stars}
@@ -80,8 +82,13 @@ const CreateReviewForm = () => {
             min="1"
             max="5"
             onChange={updateStars} />
-        <button type="submit">Submit</button>
-        <button type="button" onClick={cancelHandler}>Cancel</button>
+        <button type="submit" className='CreateReviewForm_Submit_Button'>Submit</button>
+        <button type="button" 
+        onClick={cancelHandler}
+         className='CreateReviewForm_Cancel_Button'
+        >
+        Cancel
+        </button>
       </form>
     </section>
   );

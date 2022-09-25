@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+import './LoginFormModal.css';
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="LoginForm_Container">
       <div className="LoginForm_Header">
         <div className="LoginForm_Title">Log In</div>
       </div>
@@ -29,28 +30,25 @@ function LoginForm() {
           <li key={idx}>{error}</li>
         ))}
       </ul>
-      <label>
-        Username or Email
         <input
+          className="LoginForm_Input"
           type="text"
           value={credential}
           placeholder="Username or Email"
           onChange={(e) => setCredential(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Password
         <input
+          className="LoginForm_Input"
           type="password"
           value={password}
-          placeholder="password"
+          placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Log In</button>
-      <button type="submit" onClick={(e) => {
+      {/* </label> */}
+      <button type="submit" className="login_submit_button">Log In</button>
+      <button type="submit" className="login_demouser_button" onClick={(e) => {
         setCredential("new@user.io");
         setPassword('password')
         }}

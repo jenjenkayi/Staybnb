@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams} from 'react-router-dom';
 import { updateSpotThunk } from '../../store/spots';
+import './UpdateSpotForm.css';
 
 const UpdateSpotForm = ({ spot }) => {
   const { spotId } = useParams();
@@ -83,70 +84,86 @@ const UpdateSpotForm = ({ spot }) => {
 
 
   return (
-    <section className="update-spot-form">
+    <section className="UpdateSpotForm_Container">
       <form  onSubmit={submitHandler}>
-        <h2>Edit A Spot</h2>
+      <div className="UpdateSpotForm_Header">
+        <h3 className="UpdateSpotForm_Title">Edit A Spot</h3>
+      </div>
         <ul className="errors">
         {errors.length > 0 &&
         errors.map((error) => <li key={error}>{error}</li>)}
         </ul>
         <input
+            className="UpdateSpotForm_Input"
             type="text"
             placeholder='Address'
             value={address}
             required
             onChange={updateAddress} />
         <input
+            className="UpdateSpotForm_Input"
             type="text"
             placeholder="City"
             value={city}
             required
             onChange={updateCity} />
         <input
+            className="UpdateSpotForm_Input"
             type="text"
             placeholder="State"
             value={state}
             required
             onChange={updateState} />
         <input
+            className="UpdateSpotForm_Input"
             type="text"
             placeholder="Country"
             value={country}
             required
             onChange={updateCountry} />
         <input
+            className="UpdateSpotForm_Input"
             type="number"
             placeholder="Lat"
             value={lat}
             required
             onChange={updateLat} />
           <input
+            className="UpdateSpotForm_Input"
             type="number"
             placeholder="Lng"
             value={lng}
             required
             onChange={updateLng} />
           <input
+            className="UpdateSpotForm_Input"
             type="text"
             placeholder="Name"
             value={name}
             required
             onChange={updateName} />
           <input
+            className="UpdateSpotForm_Input"
             type="text"
             placeholder="Description"
             value={description}
             required
             onChange={updateDescription} />
           <input
+            className="UpdateSpotForm_Input"
             type="number"
             placeholder="Price"
             value={price}
             required
             min='1'
             onChange={updatePrice} />
-        <button type="submit">Submit</button>
-        <button type="button" onClick={cancelHandler}>Cancel</button>
+        <button type="submit" className="UpdateSpotForm_Submit_Button">Submit</button>
+        <button type="button" 
+        onClick={cancelHandler}
+         className="UpdateSpotForm_Cancel_Button"
+        >
+        Cancel
+        </button>
       </form>
     </section>
   );

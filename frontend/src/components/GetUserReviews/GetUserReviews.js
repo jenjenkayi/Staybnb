@@ -32,26 +32,30 @@ const GetUserReviews = () => {
 
   return (
     <>
-      <div className="reviews_cards_container">
-           <div className="reviews_headers">
+      <div className="UserReviews_Container">
+           <div className="UserReviews_Header">
+            <h3 className="UserReviews_Title">
             {reviewsArr.length} Reviews
+            </h3>
             {/* <i className="fa-solid fa-star"></i>
             {reviewsArr.stars} */}
         </div>
             <br></br>
         {reviewsArr && reviewsArr.map((review) => {
           return (
-            <><div className="review_details">
-              <div className="review_location">Location: {review.Spot.name}</div>
-              <div className="review_creator">Review by: {review.User.firstName}</div>
+            <><div className="UserReviews_Details">
+              <div className="UserReviews_Location">Location: {review.Spot.name}</div>
+              <div className="UserReviews_Creator">Review by: {review.User.firstName}</div>
               {/* <div className="review_date">{review.createdAt}</div> */}
-              <div className="review_rating">
+              <div className="UserReviews_Rating">
                 <i className="fa-solid fa-star"></i>
                 {review.stars}
               </div>
-              <div className="review_description">{review.review}</div>
+              <div className="UserReviews_Description">{review.review}</div>
               </div>
-               {user && <button onClick={()=>deleteHandler(review.id)}>Delete Review</button>}
+               {user && <button 
+               className="UserReviews_Delete_Button"
+               onClick={()=>deleteHandler(review.id)}>Delete Review</button>}
               </>
               )
         })}
