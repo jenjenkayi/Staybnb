@@ -9,7 +9,8 @@ const GetOneSpot = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots.singleSpot);
-  // const reviews = useSelector(state => state.reviews.spotReviews);
+  const reviews = useSelector(state => state.reviews.spotReviews);
+  console.log("reviews", reviews)
   console.log("spot", spot)
   
   useEffect(() => {
@@ -22,34 +23,37 @@ const GetOneSpot = () => {
 
   return (
     <>
-      <div className="spot_wrapper">
-          <div className="spot_header_info">
-          <div className="spot_name">{spot.name}</div>
-          <div className="spot_details">
-            <div className="spot_rating">
+    <div className="one_spot_wrapper">
+        <div className="one_spot_header_info">
+          <div className="one_spot_name">{spot.name}</div>
+          <div className="one_spot_details">
+            <div className="one_spot_rating">
               <i className="fa-solid fa-star"></i>
-              {spot.avgStarRating} · {spot.numReviews ? spot.numReviews : 0} reviews · {spot.city}, {spot.state}, {spot.country}
+              {spot.avgStarRating ? spot.avgStarRating : "0"} · {spot.numReviews ? spot.numReviews : '0'} reviews · {spot.city}, {spot.state}, {spot.country}
             </div>
           </div>
         </div>
-        </div>
-        <div className='spot_image'>
+      <div className='one_spot_image'>
               {spot.SpotImages.map((image) => {
-              return <img src={image.url} alt=""></img>
+                return <img className="one_spot_img "src={image.url} alt=""/>
               })} 
+      </div>
+      <div className="one_spot_details_container">
+        <div className="one_spot_details2">
+              <div className="one_spot_host">Entire house hosted by {spot.Owner.firstName}</div>
+              <div className="one_spot_description">{spot.description}</div>
         </div>
-        <div className="spot_details2">
-              <div className="spot_host">Entire house hosted by {spot.Owner.firstName}</div>
-              <div className="spot_description">{spot.description}</div>
-        
-        <div className="spot_border_box">
-              <span className="border_box_left">${spot.price} night</span>
-              <span className="border_box_right">
-              <i className="fa-solid fa-star"></i>{spot.avgStarRating} {spot.numReviews} reviews</span>
+        <div className="one_spot_border_box">
+              <div className="border_box_left">${spot.price} night</div>
+              <div className="border_box_right">
+                <i className="fa-solid fa-star"></i>
+                {spot.avgStarRating} · {spot.numReviews} reviews
+              </div>        
         </div>
-        <GetSpotReviews />
+        </div>
+          <GetSpotReviews />
             <NavLink to={`/createReview/${spotId}`}>
-              <button className="create-review-button">Create a Review</button>
+              <button className="one_spot_create_review_button">Create a Review</button>
             </NavLink>
     </div>
   </>

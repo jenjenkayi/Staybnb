@@ -3,9 +3,13 @@
     justify-content: space-between;
     align-items: center;
     font-family: sans-serif;
-    width: 90%;
+    width: 95%;
     padding-left: 40px;
     padding-right: 55px;  
+    /* min-width: 100%;
+    margin-left: 4%;
+    margin-right: 4%; */
+    border-bottom: 1px solid #dddddd;
 }
 
 .nav_logo {
