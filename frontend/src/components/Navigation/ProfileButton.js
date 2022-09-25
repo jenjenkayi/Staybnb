@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory, NavLink } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import GetCurrentSpots from '../GetCurrentSpots/GetCurrentSpots';
+import './Navigation.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -35,24 +36,28 @@ function ProfileButton({ user }) {
   return (
     <div className="dropdown_menu">
       <button className="profile_button" onClick={openMenu}>
-        <i className="fa-solid fa-bars"/>
-        <br></br>
+        <i className="fa-solid fa-bars fa-lg"/>
         <i className="fas fa-user-circle fa-2xl"/>
       </button>
       {showMenu && (
-        <div className="profile_dropdown">
-          <div>Hi {user.username}!</div>
-          <div>{user.email}</div>
-          <div>
-          <button onClick={logout}>Log Out</button>
-          <br></br>
-          <NavLink to={'/currentSpots'}>
-              <button className="my-spots-button">My Spots</button>
-             </NavLink>
-          <br></br>
-          <button onClick={() => history.push('/userReviews')}>My Reviews</button>
-          </div>
-        </div>
+        <ul className="profile_dropdown">
+          <li>Hi {user.username}!</li>
+          <li>{user.email}</li>
+          <li className="my_spots_button"
+            onClick={() => history.push('/currentSpots')}>
+                {/* <button className="my-spots-button">My Spots</button> */}
+            My Spots
+          </li>
+          <li className="my_reviews_button"
+             onClick={() => history.push('/userReviews')}>
+          {/* <button onClick={() => history.push('/userReviews')}>My Reviews</button> */}
+            My Reviews
+          </li>
+          <li className="log_out_button"
+            onClick={logout}>
+            Log Out
+          </li>
+        </ul>
       )}
     </div>
   );

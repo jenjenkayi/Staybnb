@@ -21,8 +21,8 @@ const GetAllSpots = () => {
 
   return (
     <>
-      <div className="spots_cards_container">
-        <br></br>
+    <div className="spots_cards_container">
+      <div className="spots_cards">
         {spotsArr && spotsArr.map((spot) => {
           return (
             <NavLink key={spot.id} to={`/spots/${spot.id}`}>
@@ -30,16 +30,26 @@ const GetAllSpots = () => {
               src={spot.previewImage}
               alt=""
               />
-              <div className="spots_location">{spot.city}, {spot.state}</div>
-              <div className="spots_price">${spot.price} night</div>
-              <div className="spots_rating">
-                <i className="fa-solid fa-star"></i>
-                {spot.avgRating}
+            <div className="spots_details">
+              <div id='spots_details_container1'>
+                <div className="spots_location">{spot.city},  {spot.state}</div> 
+                <div className="spots_rating">
+                  <i className="fa-solid fa-star"></i>
+                  <span>
+                  {spot.avgRating? spot.avgRating : "No Rating"}
+                  </span>
+                </div>
               </div>
+              <div id='spots_details_container2'>
+                <div className="spots_price">${spot.price}</div>
+                <span>night</span>
+              </div>
+            </div>
             </NavLink>
                 )
-               })}
-      </div>
+            })}
+    </div>
+    </div>
   </>
   );
 };

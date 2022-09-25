@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import { getOneSpotThunk } from '../../store/spots';
 import  GetSpotReviews from "../../components/GetSpotReviews/GetSpotReviews";
-import CreateReviewForm from "../CreateReviewForm/CreateReviewForm";
 import './GetOneSpot.css';
 
 const GetOneSpot = () => {
@@ -22,15 +21,17 @@ const GetOneSpot = () => {
   }
 
   return (
+    <>
      <section>
-        <div className="spot_header">
-            <h1 className="spot_name">{spot.name}</h1>
+      <div className="spot_wrapper">
+        {/* <div className="spot_header"> */}
+            <div className="spot_name">{spot.name}</div>
             <div className="spot_details">
               <div className="spot_rating">
                 <i className="fa-solid fa-star"></i>
-                {spot.avgStarRating} · {spot.numReviews} reviews · {spot.city}, {spot.state}, {spot.country} ${spot.price} night
+                {spot.avgStarRating} · {spot.numReviews} reviews · {spot.city}, {spot.state}, {spot.country}
               </div>
-            </div>
+            {/* </div> */}
         </div>
         <div className='spot_image'>
               {spot.SpotImages.map((image) => {
@@ -51,7 +52,9 @@ const GetOneSpot = () => {
               <button className="create-review-button">Create a Review</button>
             </NavLink>
         </div>
+    </div>
    </section>
+   </>
   );
 };
 
