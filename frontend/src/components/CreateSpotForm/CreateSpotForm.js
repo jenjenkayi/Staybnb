@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { createSpotThunk } from '../../store/spots';
@@ -31,7 +31,7 @@ const CreateSpotForm = () => {
     const updateDescription = (e) => setDescription(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updateImageUrl = (e) => setImageUrl(e.target.value);
-    
+
     const submitHandler = async (e) => {
       e.preventDefault();
       setErrors([]);
@@ -71,7 +71,6 @@ const CreateSpotForm = () => {
   }
     const cancelHandler = (e) => {
       e.preventDefault();
-      setErrors();
       history.push('/');
   };  
 
@@ -157,11 +156,7 @@ const CreateSpotForm = () => {
             // required
             onChange={updateImageUrl} />
         <button type="submit" className="CreateSpotForm_submit_button">Create Spot</button>
-        {/* disabled={!!errors.length} */}
-        <button type="button" 
-        className="CreateSpotForm_submit_button"
-        onClick={cancelHandler}
-        >
+        <button type="button" className="CreateSpotForm_cancel_button" onClick={cancelHandler}>
         Cancel
         </button>
       </form>

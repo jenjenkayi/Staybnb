@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { createReviewThunk } from '../../store/reviews';
@@ -24,7 +24,6 @@ const CreateReviewForm = () => {
 
     const updateReview = (e) => setReview(e.target.value);
     const updateStars = (e) => setStars(e.target.value);
-    const updateErrors = (e) => setStars(e.target.value);
 
     const submitHandler = async (e) => {
       e.preventDefault();
