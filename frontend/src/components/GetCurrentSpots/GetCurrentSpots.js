@@ -22,13 +22,9 @@ const GetCurrentSpots = () => {
 
   const deleteHandler = async (spotId) => {
       await dispatch(deleteSpotThunk(spotId));
-      // history.push("/");
+      history.push("/");
   }
 
-  const submitHandler = async(spot) => {
-    await dispatch(updateSpotThunk(spot));
-    history.push(`/spots/${spot.id}`)
-  }
 
   return (
      <>
