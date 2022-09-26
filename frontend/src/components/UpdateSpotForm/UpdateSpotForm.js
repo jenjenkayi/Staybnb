@@ -9,7 +9,7 @@ const UpdateSpotForm = ({ spot }) => {
     const currentSpots = useSelector(state => state.spots.allSpots);
     const currentSpotsArr = Object.values(currentSpots);
     const currentSpot = currentSpotsArr.find(spot => spot.id == spotId)
-    console.log("currentSpot", currentSpot);
+    // console.log("currentSpot", currentSpot);
     
     const history = useHistory();
     const dispatch = useDispatch();
@@ -73,6 +73,7 @@ const UpdateSpotForm = ({ spot }) => {
 
   if (updatedSpot) {
     // history.push(`/spots/${updatedSpot.id}`);
+
     history.push('/');
   }
 }
@@ -80,11 +81,13 @@ const UpdateSpotForm = ({ spot }) => {
   const cancelHandler = (e) => {
     e.preventDefault();
     setErrors();
+    // history.push(`/spots/${spotId}`);
+
     history.push('/');
   };
 
 
-  return (
+ return (
     <section className="UpdateSpotForm_Container">
       <form  onSubmit={submitHandler}>
       <div className="UpdateSpotForm_Header">
