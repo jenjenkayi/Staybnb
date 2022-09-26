@@ -7,17 +7,12 @@
     justify-content: center;
     padding-left: 10%;
     padding-right: 10%;
-    margin-top: 100px; 
+    margin-top: 60px; 
     column-gap: 20px;
     row-gap: 20px;
     vertical-align:bottom;
     text-decoration: none;
 }
-
-a {
-    text-decoration: none;
-}
-
 
 .spots_img {
     display: flex;
@@ -29,6 +24,7 @@ a {
     vertical-align: bottom; 
     gap: 2em;
     object-fit: cover;
+    text-decoration: none;
 }
 
 /* .spots_img > * {
@@ -58,6 +54,7 @@ a {
 
 .spots_rating { 
     font-size: 16px;
+    text-decoration: none;
     /* margin-left: 75px; */
 }
 
