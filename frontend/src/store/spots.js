@@ -112,7 +112,6 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
 
   if(response.ok){
     const data = await response.json()
-    console.log("updatedSpotdata", data)
     dispatch(updateSpot(data))
     return data
   }
@@ -128,7 +127,6 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
   if(response.ok){
     const data = await response.json()
     dispatch(deleteSpot(spotId))
-    return data
   } 
 }
 
@@ -168,6 +166,9 @@ export default function spotsReducer(state = initialState, action){
       const newState = {...state}
       newState[action.payload.id] = action.payload
       return newState
+      // const newState = {...state, singleSpot:{...state.singleSpot}}
+      // newState.singleSpot[action.payload.id] = action.payload
+      // return newState
     }
     case DELETE_SPOT:{
       const newState = {...state, singleSpot:{...state.singleSpot}}
