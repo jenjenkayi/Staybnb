@@ -72,7 +72,8 @@ const UpdateSpotForm = ({ spot }) => {
   updatedSpot = await dispatch(updateSpotThunk(payload));
 
   if (updatedSpot) {
-    history.push(`/spots/${updatedSpot.id}`);
+    // history.push(`/spots/${updatedSpot.id}`);
+    history.push('/');
   }
 }
 

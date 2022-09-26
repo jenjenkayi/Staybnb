@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import { getCurrentSpotsThunk, deleteSpotThunk } from '../../store/spots';
+import { getCurrentSpotsThunk, deleteSpotThunk, updateSpotThunk } from '../../store/spots';
 import './GetCurrentSpots.css';
 
 const GetCurrentSpots = () => {  
@@ -25,6 +25,11 @@ const GetCurrentSpots = () => {
   const deleteHandler = async (spotId) => {
       await dispatch(deleteSpotThunk(spotId));
       history.push("/");
+  }
+
+  const submitHandler = async(spot) => {
+    await dispatch(updateSpotThunk(spot));
+    history.push(`/spots/${spot.id}`)
   }
 
   return (

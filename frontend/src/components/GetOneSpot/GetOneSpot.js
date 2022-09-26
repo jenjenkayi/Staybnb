@@ -9,9 +9,9 @@ const GetOneSpot = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const spot = useSelector(state => state.spots.singleSpot);
-  const reviews = useSelector(state => state.reviews.spotReviews);
-  console.log("reviews", reviews)
-  console.log("spot", spot)
+  // const reviews = useSelector(state => state.reviews.spotReviews);
+  // console.log("reviews", reviews)
+  // console.log("spot", spot)
   
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
@@ -52,11 +52,10 @@ const GetOneSpot = () => {
         </div>
         </div>
           <GetSpotReviews />
-          <div className="one_spot_button">
+            <NavLink to={`/createReview/${spotId}`}>
             <button className="one_spot_create_review_button">Create a Review
-              <NavLink to={`/createReview/${spotId}`}></NavLink>
             </button>
-          </div>
+            </NavLink>
     </div>
   </>
   );
