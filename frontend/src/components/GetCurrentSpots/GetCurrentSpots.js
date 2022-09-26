@@ -20,11 +20,14 @@ const GetCurrentSpots = () => {
     return null;
   }
 
-  const deleteHandler = async (spotId) => {
-      await dispatch(deleteSpotThunk(spotId));
+  const deleteHandler = (spotId) => {
+      dispatch(deleteSpotThunk(spotId));
       history.push("/");
   }
 
+  if (!spotsArr) {
+    return null;
+  }
 
   return (
      <>
@@ -53,7 +56,7 @@ const GetCurrentSpots = () => {
                 <NavLink to={`/updateSpot/${spot.id}`}>
                   <button className="curr_spot_edit_button">Edit Spot</button>
                 </NavLink>
-                  <button className="curr_spot_delete_button" onClick={()=>deleteHandler(spot.id)}>Delete Spot</button>
+                  <button className="curr_spot_delete_button" onClick={() => deleteHandler(spot.id)}>Delete Spot</button>
                 </div>
           </div>     
             </>

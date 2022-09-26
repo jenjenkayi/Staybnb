@@ -20,7 +20,7 @@ const GetAllSpots = () => {
   }
 
   return (
-    <>
+    spotsArr && (
     <div className="spots_cards_container">
         {spotsArr && spotsArr.map((spot) => {
           return (
@@ -48,7 +48,7 @@ const GetAllSpots = () => {
           )
         })}
     </div>
-  </>
+    )
   );
 };
 

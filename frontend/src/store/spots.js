@@ -119,7 +119,6 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
 }
 
 export const deleteSpotThunk = (spotId) => async (dispatch) => {
-  console.log("deletedThunk", spotId)
   const response = await csrfFetch(`/api/spots/${spotId}`, {
     method: 'DELETE'
   });
@@ -128,7 +127,9 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
   if(response.ok){
     const data = await response.json()
     dispatch(deleteSpot(spotId))
+    return data
   } 
+  return response
 }
 
 // reducers
