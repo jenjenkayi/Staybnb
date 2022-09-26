@@ -33,14 +33,13 @@ const GetUserReviews = () => {
   return (
     <>
       <div className="UserReviews_Container">
-           <div className="UserReviews_Header">
+          <div className="UserReviews_Header">
             <h3 className="UserReviews_Title">
             {reviewsArr.length} Reviews
             </h3>
+          </div>
             {/* <i className="fa-solid fa-star"></i>
             {reviewsArr.stars} */}
-        </div>
-            <br></br>
         {reviewsArr && reviewsArr.map((review) => {
           return (
             <><div className="UserReviews_Details">

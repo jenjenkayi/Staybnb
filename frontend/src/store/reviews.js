@@ -97,7 +97,6 @@ export default function reviewsReducer(state=initialState, action){
       const newState = { ...state, spotReviews:{}}
        action.payload.Reviews.forEach(review => {
         newState.spotReviews[review.id] = review
-        console.log("newState", newState)
        })
       return newState;
     }

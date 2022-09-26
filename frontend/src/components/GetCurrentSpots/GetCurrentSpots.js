@@ -11,8 +11,6 @@ const GetCurrentSpots = () => {
   const user = useSelector((state) => state.session.user);
   const currentSpots = useSelector(state => state.spots.singleSpot);
   const spotsArr = Object.values(currentSpots);
-
-  console.log('currentSpots', currentSpots)
   
   useEffect(() => {
     dispatch(getCurrentSpotsThunk())
@@ -24,7 +22,7 @@ const GetCurrentSpots = () => {
 
   const deleteHandler = async (spotId) => {
       await dispatch(deleteSpotThunk(spotId));
-      history.push("/");
+      // history.push("/");
   }
 
   const submitHandler = async(spot) => {
