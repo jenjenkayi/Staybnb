@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams} from 'react-router-dom';
-import { updateSpotThunk } from '../../store/spots';
+import { getOneSpotThunk, updateSpotThunk } from '../../store/spots';
 import './UpdateSpotForm.css';
 
 const UpdateSpotForm = ({ spot }) => {
@@ -9,8 +9,8 @@ const UpdateSpotForm = ({ spot }) => {
     const currentSpots = useSelector(state => state.spots.allSpots);
     const currentSpotsArr = Object.values(currentSpots);
     const currentSpot = currentSpotsArr.find(spot => spot.id == spotId)
-    console.log("currentSpot", currentSpot);
-    
+    console.log('currentSpots', currentSpots);
+
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -36,8 +36,13 @@ const UpdateSpotForm = ({ spot }) => {
     const updatePrice = (e) => setPrice(e.target.value);
 
    useEffect(() => {
-      dispatch(updateSpotThunk());
-    }, [dispatch])
+      dispatch(getOneSpotThunk(spotId));
+    }, [dispatch, spotId])
+
+
+   if (!currentSpot) {
+    return null;
+  }
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -72,18 +77,16 @@ const UpdateSpotForm = ({ spot }) => {
   updatedSpot = await dispatch(updateSpotThunk(payload));
 
   if (updatedSpot) {
-    // history.push(`/spots/${updatedSpot.id}`);
-
-    history.push('/');
+    history.push(`/spots/${updatedSpot.id}`);
+    // history.push('/');
   }
 }
 
   const cancelHandler = (e) => {
     e.preventDefault();
     setErrors();
-    // history.push(`/spots/${spotId}`);
-
-    history.push('/');
+    history.push(`/spots/${spotId}`);
+    // history.push('/');
   };
 
 
