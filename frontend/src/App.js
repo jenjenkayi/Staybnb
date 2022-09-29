@@ -36,16 +36,16 @@ function App() {
           <Route exact path="/" >
             <GetAllSpots />
           </Route>
-          <Route exact path="/createSpot">
+          <Route path="/createSpot">
             <CreateSpotForm />
           </Route>
-          <Route exact path="/spots/:spotId">
+          <Route  path="/spots/:spotId">
             <GetOneSpot />
           </Route>
-          <Route exact path="/currentSpots" >
+          <Route path="/currentSpots" >
             <GetCurrentSpots />
           </Route>
-          <Route exact path="/updateSpot/:spotId">
+          <Route path="/updateSpot/:spotId">
             <UpdateSpotForm />
           </Route>
           <Route path="/spotReviews">

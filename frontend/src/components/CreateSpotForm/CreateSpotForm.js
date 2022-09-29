@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
 import { createSpotThunk } from '../../store/spots';
 import './CreateSpotForm.css';
 
@@ -45,9 +44,11 @@ const CreateSpotForm = () => {
       if (!spot.lat) return setErrors(['Please provide a lat']);
       if (!spot.lng) return setErrors(['Please provide a lng']);
       if (!spot.name.length < 0) return setErrors(['Name must be 1 or more characters']);
-      if (!spot.description) return setErrors(['Please provide a description']);
-      if (!spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
-    
+      if (!spot.description || spot.description.length < 10) return setErrors(['Please provide a description and it must be 10 or more characters']);
+      if (!spot.price || spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
+      if (!spot.imageUrl.length) return setErrors(['Please provide an image']);
+      if (!spot.imageUrl.includes('.jpg') && !spot.imageUrl.includes('.jpeg') && !spot.previewImage.includes('.png')) return setErrors(['Image must be in jpg, jpeg, png format']);
+
       const payload = {
         address,
         city,
@@ -62,12 +63,12 @@ const CreateSpotForm = () => {
       };
     
     let createdSpot; 
-    createdSpot = await dispatch(createSpotThunk(payload));
-     history.push('/');
-     
+    createdSpot = await dispatch(createSpotThunk(payload))
+    history.push('/');
+
     if (createdSpot) {
-      // history.push(`/spots/${createdSpot.id}`);
       history.push('/');
+      // history.push(`/spots/${createdSpot.id}`);
     }
   }
     const cancelHandler = (e) => {
