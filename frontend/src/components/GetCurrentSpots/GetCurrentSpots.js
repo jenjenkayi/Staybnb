@@ -11,28 +11,25 @@ const GetCurrentSpots = () => {
   const user = useSelector((state) => state.session.user);
   const currentSpots = useSelector(state => state.spots.singleSpot);
   const spotsArr = Object.values(currentSpots);
+  const userSpots = spotsArr.filter((spot) => spot.ownerId === user.id);
   
   useEffect(() => {
     dispatch(getCurrentSpotsThunk())
   }, [dispatch]);
-  
- if (Object.keys(spotsArr).length === 0) {
-    return null;
-  }
 
   const deleteHandler = (spotId) => {
       dispatch(deleteSpotThunk(spotId));
       history.push("/");
   }
 
-  if (!spotsArr) {
+  if (!userSpots) {
     return null;
   }
 
   return (
      <>
       <div className="curr_spot_cards_container">
-         {spotsArr && spotsArr.map((spot) => {
+         {userSpots && userSpots.map((spot) => {
           return (
             <>
             <div className='curr_spot_details_outer_container'>
