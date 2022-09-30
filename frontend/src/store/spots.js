@@ -159,7 +159,6 @@ export default function spotsReducer(state = initialState, action){
       //   newState.singleSpot[spot.id] = spot
       // })
       const newState = {...state, singleSpot:{...state.singleSpot}}
-      console.log("newState", newState)
       newState.singleSpot = action.payload
       return newState
     }
