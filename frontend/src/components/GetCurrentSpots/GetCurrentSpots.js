@@ -39,7 +39,7 @@ const GetCurrentSpots = () => {
                   <div className="curr_spot_rating">
                       <i id="curr_rating" className="fa-solid fa-star"></i>
                       <span>
-                      {spot.avgRating? spot.avgRating : "No Rating"}
+                      {spot.avgRating? spot.avgRating : 0} 
                       </span>
                   </div>
                 </div>

@@ -8,6 +8,7 @@ import './GetOneSpot.css';
 const GetOneSpot = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
+  const user = useSelector((state) => state.session.user)
   const spot = useSelector(state => state.spots.singleSpot);
   // const reviews = useSelector(state => state.reviews.spotReviews);
   // console.log("reviews", reviews)
@@ -47,15 +48,15 @@ const GetOneSpot = () => {
               <div className="border_box_left">${spot.price} night</div>
               <div className="border_box_right">
                 <i className="fa-solid fa-star"></i>
-                {spot.avgStarRating} · {spot.numReviews} reviews
+                {spot.avgStarRating? spot.avgStarRating : 0} · {spot.numReviews? spot.numReviews : 0} reviews
               </div>        
         </div>
         </div>
           <GetSpotReviews />
-            <NavLink to={`/createReview/${spotId}`}>
+            {user && <NavLink to={`/createReview/${spotId}`}>
             <button className="one_spot_create_review_button">Create a Review
             </button>
-            </NavLink>
+            </NavLink>}
     </div>
   </>
   );
