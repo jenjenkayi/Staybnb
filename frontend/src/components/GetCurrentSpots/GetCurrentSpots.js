@@ -22,9 +22,9 @@ const GetCurrentSpots = () => {
       history.push("/");
   }
 
-  // if (!userSpots) {
-  //   return null;
-  // }
+  if (!userSpots) {
+    return null;
+  }
 
   return (
      <>
