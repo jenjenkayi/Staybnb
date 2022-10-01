@@ -17,10 +17,10 @@ const GetCurrentSpots = () => {
     dispatch(getCurrentSpotsThunk())
   }, [dispatch]);
 
-  // const deleteHandler = (spotId) => {
-  //     dispatch(deleteSpotThunk(spotId));
-  //     history.push("/");
-  // }
+  const deleteHandler = (spotId) => {
+      dispatch(deleteSpotThunk(spotId));
+      history.push("/");
+  }
 
   if (!userSpots) {
     return null;
