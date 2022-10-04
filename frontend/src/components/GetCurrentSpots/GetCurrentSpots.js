@@ -17,15 +17,16 @@ const GetCurrentSpots = () => {
     dispatch(getCurrentSpotsThunk())
   }, [dispatch]);
 
-  const deleteHandler = (spotId) => {
-      dispatch(deleteSpotThunk(spotId));
-      // history.push("/");
-      // return <Redirect to="/" />;
-  }
-
   if (!userSpots) {
     return null;
   }
+
+  const deleteHandler = async (spotId) => {
+      await dispatch(deleteSpotThunk(spotId));
+      history.push("/");
+      // return <Redirect to="/" />;
+  }
+
 
   return (
      <>

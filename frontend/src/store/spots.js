@@ -128,7 +128,7 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
     dispatch(deleteSpot(spotId))
     return data;
   } 
-  return response;
+  // return response;
 }
 
 // reducers
