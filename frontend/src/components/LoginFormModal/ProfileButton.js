@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import * as sessionActions from '../../store/session';
-import './Navigation.css';
 
-function ProfileButton({ user }) {
+function ProfileButton() {
   const dispatch = useDispatch();
   const history = useHistory();
   
@@ -27,11 +25,6 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(sessionActions.logout());
-  };
-
 
   return (
     <div className="dropdown_menu">
@@ -41,21 +34,13 @@ function ProfileButton({ user }) {
       </button>
       {showMenu && (
         <ul className="profile_dropdown">
-          <li>Hi {user.username}!</li>
-          <li>{user.email}</li>
-          <li className="my_spots_button"
+          <li className="login_button"
             onClick={() => history.push('/currentSpots')}>
-                {/* <button className="my-spots-button">My Spots</button> */}
-            My Spots
+            Log In
           </li>
           <li className="my_reviews_button"
              onClick={() => history.push('/userReviews')}>
-          {/* <button onClick={() => history.push('/userReviews')}>My Reviews</button> */}
-            My Reviews
-          </li>
-          <li className="log_out_button"
-            onClick={logout}>
-            Log Out
+            Sign Up
           </li>
         </ul>
       )}

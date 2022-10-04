@@ -8,7 +8,7 @@ const GetAllSpots = () => {
   const dispatch = useDispatch();
   const spots = useSelector(state => state.spots.allSpots);
   const spotsArr = Object.values(spots);
-  // console.log('spots', spots)
+  console.log('spots', spots)
   // console.log('arr', spotsArr)
 
   useEffect(() => {

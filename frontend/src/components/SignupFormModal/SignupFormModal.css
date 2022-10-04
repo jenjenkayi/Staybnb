@@ -1,3 +1,23 @@
+.Nav_Signup_Button {
+    padding: 5px 5px 5px 5px;
+    justify-content: space-around;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    cursor: pointer;
+    height: 45px;
+    width: 80px;
+    border: .5px solid #dddddd;
+    /* border: transparent; */
+    background-color: #ffffff;
+    background: transparent;
+    box-shadow: rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s ease;
+    text-align: inherit;
+    align-items: center;
+}
+
 .SignupForm_Container {
     display: flex;
     flex-direction: column;

@@ -1,3 +1,23 @@
+.Nav_Login_Button {
+    padding: 5px 5px 5px 5px;
+    justify-content: space-around;
+    margin-left: 500px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    cursor: pointer;
+    height: 45px;
+    width: 80px;
+    border: .5px solid #dddddd;
+    /* border: transparent; */
+    background-color: #ffffff;
+    background: transparent;
+    box-shadow: rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s ease;
+    text-align: inherit;
+    align-items: center;
+}
+
 .LoginForm_Container {
     display: flex;
     flex-direction: column;
@@ -6,12 +26,10 @@
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
-    /* border: #dddddd; */
     outline: 1px solid #dddddd;
     text-align: center;
-    /* padding: 5px 5px 5px 10px; */
     cursor: pointer;
-    border-radius: 50px;
+    /* border-radius: 50px; */
 }
 
 .LoginForm_Title {
@@ -40,7 +58,7 @@
     background-color: #ff385c;
     border-radius: 5px;
     border: none;
-    height: 48px;
+    height: 56px;
     width: 520px;
     margin-top: 10px;
     margin-bottom: 5px;
@@ -51,7 +69,7 @@
     background-color: #ff385c;
     border-radius: 5px;
     border: none;
-    height: 48px;
+    height: 56px;
     width: 520px;
     margin-top: 5px;
 }

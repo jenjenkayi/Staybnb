@@ -1,17 +1,14 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import SignupFormPage from '../SignupFormPage';
 import './Navigation.css';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const history = useHistory();
-  const [showMenu, setShowMenu] = useState(false);
 
   let sessionLinks;
   if (sessionUser) {
@@ -22,28 +19,10 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <>
         <LoginFormModal />
-        {/* <NavLink to="/signup">Sign Up</NavLink> */}
         <SignupFormModal />
       </>
     );
   }
-
-  // const openMenu = () => {
-  //   if (showMenu) return;
-  //   setShowMenu(true);
-  // };
-  
-  // useEffect(() => {
-  //   if (!showMenu) return;
-
-  //   const closeMenu = () => {
-  //     setShowMenu(false);
-  //   };
-
-  //   document.addEventListener('click', closeMenu);
-  
-  //   return () => document.removeEventListener("click", closeMenu);
-  // }, [showMenu]);
 
   return (
       <div className='nav_wrapper'>
@@ -54,11 +33,11 @@ function Navigation({ isLoaded }){
           onClick={() => history.push('/')}
           >
           </img>
-        <div className='nav_host_button'
+        {sessionUser && <div className='nav_host_button'
             onClick={() => history.push("/createSpot")}
             >
             Become a Host
-          </div>
+          </div>}
             {isLoaded && sessionLinks}
       </div>
   )
