@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, Redirect } from "react-router-dom";
 import { getCurrentSpotsThunk, deleteSpotThunk, updateSpotThunk } from '../../store/spots';
 import './GetCurrentSpots.css';
 
@@ -19,7 +19,8 @@ const GetCurrentSpots = () => {
 
   const deleteHandler = (spotId) => {
       dispatch(deleteSpotThunk(spotId));
-      history.push("/");
+      // history.push("/");
+      // return <Redirect to="/" />;
   }
 
   if (!userSpots) {
