@@ -9,7 +9,7 @@ function ProfileButton({ user }) {
   const history = useHistory();
   
   const [showMenu, setShowMenu] = useState(false);
-  
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -45,12 +45,10 @@ function ProfileButton({ user }) {
           <li>{user.email}</li>
           <li className="my_spots_button"
             onClick={() => history.push('/currentSpots')}>
-                {/* <button className="my-spots-button">My Spots</button> */}
             My Spots
           </li>
           <li className="my_reviews_button"
              onClick={() => history.push('/userReviews')}>
-          {/* <button onClick={() => history.push('/userReviews')}>My Reviews</button> */}
             My Reviews
           </li>
           <li className="log_out_button"
@@ -58,7 +56,8 @@ function ProfileButton({ user }) {
             Log Out
           </li>
         </ul>
-      )}
+      ) 
+    }
     </div>
   );
 }

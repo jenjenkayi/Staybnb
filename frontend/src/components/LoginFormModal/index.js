@@ -5,7 +5,7 @@ import './LoginFormModal.css';
 
 function LoginFormModal() {
   const [showModal, setShowModal] = useState(false);
-  
+
   return (
     <>
       <button className='Nav_Login_Button' onClick={() => setShowModal(true)}>Log In</button>
