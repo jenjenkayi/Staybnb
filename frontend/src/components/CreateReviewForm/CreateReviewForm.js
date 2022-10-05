@@ -9,14 +9,10 @@ const CreateReviewForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    const userId = user.id
-
-    // const reviews = useSelector(state => state.reviews.spotReviews);
-    // const reviewsArr = Object.values(reviews);
 
     const currentSpot = useSelector(state => state.spots.singleSpot);
+    const userId = user.id
     const currentSpotId = currentSpot.id
-    // const currentSpotsArr = Object.values(currentSpot);
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState('');
@@ -63,8 +59,8 @@ const CreateReviewForm = () => {
       <form className="CreateReviewForm_Container" onSubmit={submitHandler}>
         <h3 className="CreateReviewForm_Title">Create A Review</h3>
         <ul className="errors">
-        {errors.length > 0 &&
-        errors.map((error) => <li key={error}>{error}</li>)}
+          {errors.length > 0 &&
+          errors.map((error) => <li key={error}>{error}</li>)}
         </ul>
         <input
             className='CreateReviewForm_Input'
