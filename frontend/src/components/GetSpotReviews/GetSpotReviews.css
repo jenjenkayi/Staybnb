@@ -1,7 +1,7 @@
 .reviews_cards_container {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
+    border: 1px solid rgb(221, 221, 221);
     border-radius: 12px;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
     padding: 15px;
