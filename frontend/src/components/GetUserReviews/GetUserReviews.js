@@ -32,32 +32,28 @@ const GetUserReviews = () => {
 
   return (
     <>
-      <div className="UserReviews_Container">
-          <div className="UserReviews_Header">
-            <h3 className="UserReviews_Title">
+        <div className="UserReviews_Header">
             {reviewsArr.length} Reviews
-            </h3>
-          </div>
-            {/* <i className="fa-solid fa-star"></i>
-            {reviewsArr.stars} */}
-        {reviewsArr && reviewsArr.map((review) => {
-          return (
-            <><div className="UserReviews_Details">
-              <div className="UserReviews_Location">Location: {review.Spot.name}</div>
-              <div className="UserReviews_Creator">Review by: {review.User.firstName}</div>
-              {/* <div className="review_date">{review.createdAt}</div> */}
-              <div className="UserReviews_Rating">
-                <i className="fa-solid fa-star"></i>
-                {review.stars}
-              </div>
-              <div className="UserReviews_Description">{review.review}</div>
-              </div>
-               {user && <button 
-               className="UserReviews_Delete_Button"
-               onClick={()=>deleteHandler(review.id)}>Delete Review</button>}
-              </>
-              )
-        })}
+        </div>
+      <div className="UserReviews_Container">
+            {reviewsArr && reviewsArr.map((review) => {
+                return (
+                  <>
+                  <div className="UserReviews_Details">
+                  <div className="UserReviews_Location">Location: {review.Spot.name}</div>
+                  <div className="UserReviews_Creator">Review by: {review.User.firstName}</div>
+                  <div className="UserReviews_Rating">
+                    <i className="fa-solid fa-star"></i>
+                    {review.stars}
+                  </div>
+                  <div className="UserReviews_Description">{review.review}</div>
+                  {user && <button className="UserReviews_Delete_Button"
+                  onClick={()=>deleteHandler(review.id)}>Delete Review
+                  </button>}
+                  </div>
+                  </>
+                )
+              })}
       </div>
   </>
   );

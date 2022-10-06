@@ -9,3 +9,10 @@
     /* margin-left: 17%; */
     margin-right: 5%;
 }
+
+.reviews_headers{
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+}
