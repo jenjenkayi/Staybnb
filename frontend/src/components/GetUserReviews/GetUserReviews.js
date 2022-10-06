@@ -25,7 +25,7 @@ const GetUserReviews = () => {
     return null;
   }
 
-   const deleteHandler = async (reviewId) => {
+  const deleteHandler = async (reviewId) => {
       await dispatch(deleteReviewThunk(reviewId));
       history.push("/");
   }

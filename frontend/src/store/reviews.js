@@ -50,7 +50,7 @@ export const getSpotReviewsThunk = (id) => async (dispatch) => {
   if(response.ok){
     const reviews = await response.json()
     dispatch(getSpotReviews(reviews))
-    return reviews
+    // return reviews
   }
 }
 
@@ -70,9 +70,9 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
   });
 
   if(response.ok){
-    const review = await response.json()
+    // const review = await response.json()
     dispatch(deleteReview(reviewId))
-    return review
+    // return review
   } 
 }
 
@@ -85,10 +85,6 @@ export default function reviewsReducer(state=initialState, action){
       // console.log("newState", newState)
       // newState.spotReviews[action.payload.id] = action.payload
       // return newState
-      // const newState = {...state}
-      // newState[action.payload.id] = {...newState[action.payload.id], ...action.payload}
-      // console.log("newState", newState)
-      // return newState;
        const newState = {...state}
       newState[action.payload.id] = action.payload
       return newState;
@@ -108,8 +104,9 @@ export default function reviewsReducer(state=initialState, action){
       return newState;
     }
     case DELETE_REVIEWS: {
-      const newState = { ...state, spotReviews:{...state.spotReviews}}
+      const newState = { ...state, spotReviews:{...state.spotReviews}, userReviews:{...state.userReviews}}
       delete newState.spotReviews[action.payload]
+      delete newState.userReviews[action.payload]
       return newState
     }
     default:
