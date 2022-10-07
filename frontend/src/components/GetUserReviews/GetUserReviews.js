@@ -12,10 +12,6 @@ const GetUserReviews = () => {
 
   const reviews = useSelector(state => state.reviews.userReviews);
   const reviewsArr = Object.values(reviews);
-
-  // console.log('reviews', reviews)
-  // console.log('reviewarr', reviewsArr)
-  // console.log("user", user)
   
   useEffect(() => {
     dispatch(getUserReviewsThunk())

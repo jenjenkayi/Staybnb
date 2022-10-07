@@ -12,6 +12,8 @@ const GetOneSpot = () => {
   const spot = useSelector(state => state.spots.singleSpot);
 
   const reviews = useSelector(state => state.reviews.spotReviews);
+  console.log('GetOneSpot Reviews', reviews)
+  console.log('GetOneSpot spot', spot)
   const userReview = Object.values(reviews).filter((review) => review.userId === user.id)
 
   useEffect(() => {
@@ -43,6 +45,20 @@ const GetOneSpot = () => {
         <div className="one_spot_details2">
               <div className="one_spot_host">Entire house hosted by {spot?.Owner?.firstName}</div>
               <div className="one_spot_description">{spot.description}</div>
+        <div className="one_spot_details3">
+          <div className="check_in">
+          <i class="fa-solid fa-door-closed "></i>
+          Self check-in
+          </div>
+          <div className="location">
+          <i class="fa-solid fa-location-dot fa-lg"></i> 
+          Great location
+          </div>
+          <div className="cancellation">
+          <i className="fa-solid fa-calendar"></i> 
+          Free cancellation for 48 hours
+          </div>
+        </div>
         </div>
         <div className="one_spot_border_box">
               <div className="border_box_left">${spot.price} night</div>
@@ -50,6 +66,11 @@ const GetOneSpot = () => {
                 <i className="fa-solid fa-star"></i>
                 {spot.avgStarRating? spot.avgStarRating : 0} · {spot.numReviews? spot.numReviews : 0} reviews
               </div>        
+        </div>
+        <div>
+          <div className='one_spot_details4'>
+
+          </div>
         </div>
         </div>
             {!userReview.length && user && <NavLink to={`/createReview/${spotId}`}>

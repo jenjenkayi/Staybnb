@@ -7,15 +7,14 @@ import './GetSpotReviews.css';
 const GetSpotReviews = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
-  const user = useSelector(state => state.session.user);
 
-  const reviews = useSelector(state => state.reviews.spotReviews);
-  const reviewsArr = Object.values(reviews);
+  const spotReviews = useSelector(state => state.reviews.spotReviews);
+  const userReviews = useSelector(state => state.reviews.userReviews);
+  const reviewsArr = Object.values(spotReviews);
   
-  // console.log('reviews', reviewsArr)
-  // const userReview = reviewsArr.filter((review) => review.userId === user.id);
-
-  // console.log('userReview', userReview);
+  console.log('GetSpotReview spotReviews', spotReviews)
+  // console.log('GetSpotReview userReviews', userReviews)
+  // console.log('GetSpotReview reviewsArr', reviewsArr)
 
   useEffect(() => {
     dispatch(getSpotReviewsThunk(spotId))
@@ -35,7 +34,7 @@ const GetSpotReviews = () => {
           return (
             <div className="review_details">
               <div className="review_creator">{review.User.firstName}</div>
-              <div className="review_date">{review.createdAt.slice(0, 10)}</div>
+              <div className="review_date">{review.createdAt?.slice(0, 10)}</div>
               <div className="review_rating">
                 <i className="fa-solid fa-star"></i>
                 {review.stars}
