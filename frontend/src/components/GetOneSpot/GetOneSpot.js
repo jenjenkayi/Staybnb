@@ -32,13 +32,13 @@ const GetOneSpot = () => {
           </div>
         </div>
       <div className='one_spot_image'>
-             {spot.SpotImages.map((image) => {
+             {spot?.SpotImages?.map((image) => {
                 return <img className="one_spot_img "src={image.url} alt=""/>
               })} 
       </div>
       <div className="one_spot_details_container">
         <div className="one_spot_details2">
-              <div className="one_spot_host">Entire house hosted by {spot.Owner.firstName}</div>
+              <div className="one_spot_host">Entire house hosted by {spot?.Owner?.firstName}</div>
               <div className="one_spot_description">{spot.description}</div>
         </div>
         <div className="one_spot_border_box">

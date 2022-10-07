@@ -7,17 +7,22 @@ import './GetSpotReviews.css';
 const GetSpotReviews = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
+  const user = useSelector(state => state.session.user);
 
   const reviews = useSelector(state => state.reviews.spotReviews);
   const reviewsArr = Object.values(reviews);
-  console.log('reviews', reviews)
+  
+  console.log('reviews', reviewsArr)
+  const userReview = reviewsArr.filter((review) => review.userId === user.id);
+
+  console.log('userReview', userReview);
 
   useEffect(() => {
     dispatch(getSpotReviewsThunk(spotId))
   }, [dispatch, spotId]);
 
    if (Object.keys(reviewsArr).length === 0) {
-    return null;
+    return ('No Reviews Yet');
   }
 
   return (
