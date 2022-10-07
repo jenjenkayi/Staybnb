@@ -12,8 +12,8 @@ const GetOneSpot = () => {
   const spot = useSelector(state => state.spots.singleSpot);
 
   const reviews = useSelector(state => state.reviews.spotReviews);
-  console.log('GetOneSpot Reviews', reviews)
-  console.log('GetOneSpot spot', spot)
+  // console.log('GetOneSpot Reviews', reviews)
+  // console.log('GetOneSpot spot', spot)
   const userReview = Object.values(reviews).filter((review) => review.userId === user.id)
 
   useEffect(() => {

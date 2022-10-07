@@ -46,10 +46,9 @@ export const createReviewThunk = (data, spotId) => async (dispatch) => {
 
 export const getSpotReviewsThunk = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${id}/reviews`)
-
   if(response.ok){
     const reviews = await response.json()
-    dispatch(getSpotReviews(reviews))
+    dispatch(getSpotReviews(reviews.Reviews))
     return reviews
   }
 }
@@ -91,10 +90,11 @@ export default function reviewsReducer(state=initialState, action){
   }
     case READ_SPOT_REVIEWS: {
       const newState = { ...state, spotReviews:{...state.spotReviews}}
-        action.payload.Reviews.forEach(review => {
+      console.log("newState", newState)
+        action.payload.forEach(review => {
         newState.spotReviews[review.id] = review
-       })
-      return newState;
+     })
+     return newState
     }
     case READ_USER_REVIEWS: {
       const newState = { ...state, userReviews:{...state.userReviews}}
