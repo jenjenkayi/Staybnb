@@ -11,6 +11,9 @@ const GetOneSpot = () => {
   const user = useSelector((state) => state.session.user)
   const spot = useSelector(state => state.spots.singleSpot);
 
+  const reviews = useSelector(state => state.reviews.spotReviews);
+  const userReview = Object.values(reviews).filter((review) => review.userId === user.id)
+
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
   }, [dispatch, spotId]);
@@ -49,11 +52,14 @@ const GetOneSpot = () => {
               </div>        
         </div>
         </div>
-          <GetSpotReviews />
-            {user && <NavLink to={`/createReview/${spotId}`}>
-            <button className="one_spot_create_review_button">Create a Review
+            {!userReview.length && user && <NavLink to={`/createReview/${spotId}`}>
+            <button 
+              type="submit"
+              className="one_spot_create_review_button"
+              >Create a Review
             </button>
             </NavLink>}
+          <GetSpotReviews />
     </div>
   </>
   );

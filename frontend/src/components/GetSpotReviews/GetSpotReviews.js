@@ -12,10 +12,10 @@ const GetSpotReviews = () => {
   const reviews = useSelector(state => state.reviews.spotReviews);
   const reviewsArr = Object.values(reviews);
   
-  console.log('reviews', reviewsArr)
-  const userReview = reviewsArr.filter((review) => review.userId === user.id);
+  // console.log('reviews', reviewsArr)
+  // const userReview = reviewsArr.filter((review) => review.userId === user.id);
 
-  console.log('userReview', userReview);
+  // console.log('userReview', userReview);
 
   useEffect(() => {
     dispatch(getSpotReviewsThunk(spotId))
