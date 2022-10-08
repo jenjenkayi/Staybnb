@@ -8,12 +8,9 @@ const GetSpotReviews = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
 
-  const spotReviews = useSelector(state => state.reviews);
+  const spotReviews = useSelector(state => state.reviews.spotReviews);
   const reviewsArr = Object.values(spotReviews);
   
-  console.log('GetSpotReview spotReviews', spotReviews)
-  // console.log('GetSpotReview reviewsArr', reviewsArr)
-
   useEffect(() => {
     dispatch(getSpotReviewsThunk(spotId))
   }, [dispatch, spotId]);
@@ -25,23 +22,33 @@ const GetSpotReviews = () => {
   return (
     <>
       <div className="reviews_cards_container">
-           <div className="reviews_headers">
+        {reviewsArr && reviewsArr.map((review) => {
+            return (
+                <div className="review_rating">
+                  <i className="fa-solid fa-star"></i>
+                  {review.stars / reviewsArr.length}
+                </div>
+            )
+          })}
+        <div className="reviews_headers">
             {reviewsArr.length} Reviews
         </div>
-        {reviewsArr && reviewsArr.map((review) => {
-          return (
-            <div className="review_details">
-              {/* <div className="review_creator">{review.User.firstName}</div> */}
-              <div className="review_date">{review?.createdAt?.slice(0, 10)}</div>
-              <div className="review_rating">
-                <i className="fa-solid fa-star"></i>
-                {review.stars}
-              </div>
-              <div className="review_description">{review.review}</div>
-              </div>
-            )
-        })}
-      </div>
+          <div className="reviews_details1">
+          {reviewsArr && reviewsArr.map((review) => {
+            return (
+              <div className="review_details2">
+                <div className="review_creator">Review by: {review?.User?.firstName}</div>
+                <div className="review_date">{review?.createdAt?.slice(0, 10)}</div>
+                <div className="review_rating">
+                  <i className="fa-solid fa-star"></i>
+                  {review.stars}
+                </div>
+                <div className="review_description">{review.review}</div>
+                </div>
+              )
+          })}
+          </div>
+    </div>
   </>
   );
 };

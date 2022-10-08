@@ -12,8 +12,6 @@ const GetOneSpot = () => {
   const spot = useSelector(state => state.spots.singleSpot);
 
   const reviews = useSelector(state => state.reviews.spotReviews);
-  // console.log('GetOneSpot Reviews', reviews)
-  // console.log('GetOneSpot spot', spot)
   const userReview = Object.values(reviews).filter((review) => review.userId === user.id)
 
   useEffect(() => {
@@ -47,7 +45,7 @@ const GetOneSpot = () => {
               <div className="one_spot_description">{spot.description}</div>
         <div className="one_spot_details3">
           <div className="check_in">
-          <i class="fa-solid fa-door-closed "></i>
+          <i className="fa-solid fa-door-closed "></i>
           Self check-in
           </div>
           <div className="location">

@@ -90,10 +90,10 @@ export default function reviewsReducer(state=initialState, action){
   }
     case READ_SPOT_REVIEWS: {
       const newState = { ...state, spotReviews:{...state.spotReviews}}
-      console.log("newState", newState)
         action.payload.forEach(review => {
-        newState.spotReviews[review.id] = review
-     })
+        newState.spotReviews = review
+      });
+    //  })
      return newState
     }
     case READ_USER_REVIEWS: {
