@@ -3,7 +3,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-    padding: 15px;
+    padding-top: 15px;
     justify-content: space-evenly;
     align-items: left;
     font-size: 18px;
@@ -13,7 +13,7 @@
 .reviews_headers{
     display: flex;
     flex-direction: column;
-    padding-left: 15px;
+    padding-top: 15px;
     font-size: 18px;
     font-weight: bold;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
@@ -25,8 +25,7 @@
     border-top: 1px solid rgb(221, 221, 221);
     border-bottom: 1px solid rgb(221, 221, 221);
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-    padding: 15px;
-    /* justify-content: space-evenly; */
+    padding-top: 10px;
     justify-content: left;
     margin-bottom: 10px;
 }
