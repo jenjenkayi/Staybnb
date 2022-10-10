@@ -16,7 +16,7 @@ const GetSpotReviews = () => {
   }, [dispatch, spotId]);
 
    if (Object.keys(reviewsArr).length === 0) {
-    return ('No Reviews Yet');
+    return null;
   }
 
   return (
