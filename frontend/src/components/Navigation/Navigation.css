@@ -47,7 +47,7 @@ a {
 
 .profile_button {
     text-align: left;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 0px 5px 5px;
     justify-content: space-around;
     align-items: left;
     display: flex;
@@ -65,6 +65,14 @@ a {
     text-align: inherit;
     align-items: center;
     position: relative;
+}
+
+.fa-bars {
+    padding: 5px 0px 5px 10px;
+}
+
+.fa-user-circle {
+    padding: 5px 10px 5px 0px;
 }
 
 .profile_button:hover {
