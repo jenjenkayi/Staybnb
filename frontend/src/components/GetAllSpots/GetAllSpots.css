@@ -43,10 +43,6 @@ a:active {
     text-decoration: none;
 }
 
-/* .spots_img > * {
-    flex: 0 0 100%;
-} */
-
 .spots_details_container1 {
     display: flex;
     flex-direction: row;
@@ -59,7 +55,6 @@ a:active {
 }
 
 .spots_location {
-    line-height: 20px;
     margin-bottom: 5x;
     font-size: 16px;
     font-weight: bold;
