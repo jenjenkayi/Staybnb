@@ -14,15 +14,15 @@ const UpdateSpotForm = ({ spot }) => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [address, setAddress] = useState(currentSpot.address);
-    const [city, setCity] = useState(currentSpot.city);
-    const [state, setState] = useState(currentSpot.state);
-    const [country, setCountry] = useState(currentSpot.country);
-    const [lat, setLat] = useState(currentSpot.lat);
-    const [lng, setLng] = useState(currentSpot.lng);
-    const [name, setName] = useState(currentSpot.name);
-    const [description, setDescription] = useState(currentSpot.description);
-    const [price, setPrice] = useState(currentSpot.price);
+    const [address, setAddress] = useState(currentSpot?.address);
+    const [city, setCity] = useState(currentSpot?.city);
+    const [state, setState] = useState(currentSpot?.state);
+    const [country, setCountry] = useState(currentSpot?.country);
+    const [lat, setLat] = useState(currentSpot?.lat);
+    const [lng, setLng] = useState(currentSpot?.lng);
+    const [name, setName] = useState(currentSpot?.name);
+    const [description, setDescription] = useState(currentSpot?.description);
+    const [price, setPrice] = useState(currentSpot?.price);
     const [errors, setErrors] = useState([]);
 
     const updateAddress = (e) => setAddress(e.target.value);

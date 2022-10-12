@@ -5,11 +5,10 @@
     display: flex;
     flex-direction: row;
     border-radius: 20px;
-    cursor: pointer;
+    /* cursor: pointer; */
     height: 45px;
     width: 80px;
     border: .5px solid #dddddd;
-    /* border: transparent; */
     background-color: #ffffff;
     background: transparent;
     box-shadow: rgba(0, 0, 0, 0.2);
@@ -27,11 +26,8 @@
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
-    /* border: #dddddd; */
     outline: 1px solid #dddddd;
     text-align: center;
-    /* padding: 5px 5px 5px 10px; */
-    cursor: pointer;
     border-radius: 5px;
 }
 
@@ -46,10 +42,6 @@
 .SignupForm_Input {
     background-color: #ffffff;
     font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    /* position: relative; */
-    /* cursor: pointer; */
-    /* display: flex; */
-    /* justify-content: space-evenly; */
     width: 520px;
     height: 56px;
     border-radius: 5px;
@@ -65,4 +57,11 @@
     width: 520px;
     margin-top: 10px;
     margin-bottom: 5px;
+    cursor: pointer;
+};
+
+.errors {
+    color:#ff385c;
+    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
 }

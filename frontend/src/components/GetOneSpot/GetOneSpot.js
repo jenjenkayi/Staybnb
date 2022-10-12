@@ -12,7 +12,7 @@ const GetOneSpot = () => {
   const spot = useSelector(state => state.spots.singleSpot);
 
   const reviews = useSelector(state => state.reviews.spotReviews);
-  const userReview = Object.values(reviews).filter((review) => review.userId === user.id)
+  const userReview = Object.values(reviews).filter((review) => review.userId === user?.id)
 
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
@@ -52,7 +52,7 @@ const GetOneSpot = () => {
           Self check-in
           </div>
           <div className="one_spot_location">
-          <i class="fa-solid fa-location-dot fa-lg"></i> 
+          <i className="fa-solid fa-location-dot fa-lg"></i> 
           Great location
           </div>
           <div className="one_spot_cancellation">
@@ -87,15 +87,15 @@ const GetOneSpot = () => {
             
             <div className='one_spot_details4_offers2'>
               <div className="one_spot_tv">
-                <i class="fa-solid fa-tv"></i>
+                <i className="fa-solid fa-tv"></i>
                 TV
               </div>
               <div className="one_spot_ac">
-                <i class="fa-solid fa-snowflake fa-lg"></i>
+                <i className="fa-solid fa-snowflake fa-lg"></i>
                 Central air conditioning
               </div>
               <div className="one_spot_bath">
-                <i class="fa-solid fa-bath"></i>
+                <i className="fa-solid fa-bath"></i>
                 Private hot tub
               </div>
               <div className="one_spot_heating">

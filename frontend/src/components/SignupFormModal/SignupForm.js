@@ -8,7 +8,7 @@ function SignupForm() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
 
- const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,6 +20,11 @@ function SignupForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(!email.includes('@')) {
+      return setErrors(['Please provide a valid email'])
+    }
+
     if (password === confirmPassword) {
     setErrors([]);
     return dispatch(sessionActions.signup({ email, username, password, firstName, lastName }))
@@ -37,7 +42,9 @@ function SignupForm() {
         <h3 className="SignupForm_Title">Sign Up</h3>
       </div>
       <ul>
+        <div className="errors">
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </div>
       </ul>
         <input
           className="SignupForm_Input"
@@ -56,8 +63,8 @@ function SignupForm() {
           required
         />
         <input
-className="SignupForm_Input"
-type="password"
+          className="SignupForm_Input"
+          type="password"
           value={password}
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
