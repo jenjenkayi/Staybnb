@@ -15,8 +15,6 @@ a:active {
 }
 
 .spots_cards_container {
-    /* display: grid;
-    grid-template-columns: repeat(3, 1fr); */
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -41,6 +39,7 @@ a:active {
     gap: 2em;
     object-fit: cover;
     text-decoration: none;
+    margin-bottom: 10px;
 }
 
 .spots_details_container1 {
@@ -51,31 +50,31 @@ a:active {
     justify-content: space-between;
     vertical-align: bottom;
     text-decoration: none;
-    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
+    font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;}
 
 .spots_location {
-    margin-bottom: 5x;
+    margin-bottom: 5px;
     font-size: 16px;
     font-weight: bold;
     vertical-align: bottom;
     text-decoration: none;
-    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
 } 
 
 .spots_rating { 
     font-size: 16px;
     text-decoration: none;
-    /* margin-left: 75px; */
+    font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
 }
 
 .spots_name { 
     color: #b0b0b0;
-    font-size: 14px;
+    font-size: 16px;
     align-content:flex-end;
     margin-bottom: 10px;
     text-decoration: none;
     vertical-align: bottom;
+    font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
 }
 
 .spots_details_container2 {
@@ -87,7 +86,7 @@ a:active {
     align-content: space-around;
     vertical-align: bottom;
     text-decoration: none;
-    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Circular', -apple-system, 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', sans-serif;
 } 
 
 .spots_price {
@@ -98,8 +97,3 @@ a:active {
     text-decoration: none;
     vertical-align: bottom;
 } 
-
-/* div.emptyDiv {
-    border: 1px solid #dddddd;    
-    width: 100em;
-/* } */ 
