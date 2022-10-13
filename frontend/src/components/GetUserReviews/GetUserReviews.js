@@ -29,7 +29,7 @@ const GetUserReviews = () => {
   return (
     <>
         <div className="UserReviews_Header">
-            {reviewsArr.length} Reviews
+          Reviews
         </div>
       <div className="UserReviews_Container">
             {reviewsArr && reviewsArr.map((review) => {
