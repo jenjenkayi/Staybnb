@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import {  } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './Navigation.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  
+  const sessionUser = useSelector(state => state.session.user);
+
   const [showMenu, setShowMenu] = useState(false);
 
   const openMenu = () => {
@@ -33,14 +35,13 @@ function ProfileButton({ user }) {
     history.push('/')
   };
 
-
   return (
     <div className="dropdown_menu">
       <button className="profile_button" onClick={openMenu}>
         <i className="fa-solid fa-bars fa-lg"/>
         <i className="fas fa-user-circle fa-2xl"/>
       </button>
-      {showMenu && (
+      {sessionUser && showMenu && (
         <ul className="profile_dropdown">
           <li>Hi {user.username}!</li>
           <li>{user.email}</li>
