@@ -46,11 +46,11 @@ function ProfileButton({ user }) {
           <li>{user.email}</li>
           <li className="my_spots_button"
             onClick={() => history.push('/currentSpots')}>
-            My Spots
+            Manage Listings
           </li>
           <li className="my_reviews_button"
              onClick={() => history.push('/userReviews')}>
-            My Reviews
+            Manage Reviews
           </li>
           <li className="log_out_button"
             onClick={logout}>

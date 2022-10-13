@@ -27,8 +27,9 @@ const GetCurrentSpots = () => {
   }
 
 
-  return (
-     <>
+return (
+  <>
+    <div className='curr_spot_title'>Listings</div>
       <div className="curr_spot_cards_container">
          {userSpots && userSpots.map((spot) => {
           return (
