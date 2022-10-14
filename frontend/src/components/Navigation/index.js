@@ -34,11 +34,11 @@ function Navigation({ isLoaded }){
           onClick={() => history.push('/')}
           >
           </img>
-        {sessionUser && <div className='nav_host_button'
+        {sessionUser && <button className='nav_host_button'
             onClick={() => history.push("/createSpot")}
             >
             Become a Host
-          </div>}
+          </button>}
             {isLoaded && sessionLinks}
       </div>
   )
