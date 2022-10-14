@@ -7,15 +7,17 @@
     /* margin: 20px 50px 50px 50px; */
     /* border: 1px solid rgb(221, 221, 221); */
     /* border-radius: 12px; */
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
     margin-top: 20px;
     margin-left: 20%;
     margin-right: 20%;
     border-bottom: .5px solid;
+    font-family: sans-serif;
+    line-height: 20px;
+    font-style: normal;
+    font-weight: 500;
 }
 
 .UserReviews_Header {
-    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 26px;
     font-weight: bold;
     line-height: 20px;
@@ -25,6 +27,8 @@
     margin-right: 20%;
     padding-bottom: 20px;
     border-bottom: .5px solid;
+    font-family: sans-serif;
+    font-style: normal;
 }
 
 .UserReviews_Delete_Button {
@@ -36,6 +40,9 @@
     width: 100px;
     margin-top: 10px;
     margin-bottom: 15px;
-    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
+    line-height: 20px;
+    font-style: normal;
+    font-weight: 500;    
     font-size: 12px;
 }

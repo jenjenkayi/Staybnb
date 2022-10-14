@@ -20,7 +20,7 @@ a {
 }
 
 .one_spot_name {
-    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+    font-family: sans-serif;
     font-size: 26px;
     line-height: 30px;
     color: rgb(33, 33, 33);
@@ -32,7 +32,7 @@ a {
 };
 
 .one_spot_details {
-    font-family: Circular, -apple-system, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+    font-family: sans-serif;
     border-radius: 20px;
     margin-right: 15%;
     margin-left: 5px;
@@ -52,7 +52,7 @@ a {
     margin-bottom: 5px;
     border: 5px;
     margin-left: 5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_details_container {
@@ -72,12 +72,12 @@ a {
     margin-top: 20px;
     margin-right: 20px;
     margin-left: 5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_host {
     font-size: 22px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_description {
@@ -86,7 +86,7 @@ a {
     padding-bottom: 10px;
     font-size: 16px;
     border-bottom: .5px solid;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_details3 {
@@ -97,12 +97,12 @@ a {
     font-size: 16px;
     padding: 5px 0px 10px 0px;
     border-bottom: .5px solid;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_check_in {
     padding-bottom: 15px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .fa-solid {
@@ -115,12 +115,12 @@ a {
 
 .one_spot_location {
     padding-bottom: 15px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_cancellation {
     padding-bottom: 10px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_border_box {
@@ -140,19 +140,19 @@ a {
     width: 300px;
     vertical-align: bottom;
     align-items: baseline;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .border_box_left {
     color: rgb(34, 34, 34);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
     font-size: 22px;
     align-items: baseline;
 }
 
 .border_box_right {
     color: rgb(34, 34, 34);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
     font-size: 16px;
     align-items: baseline;
 }
@@ -168,7 +168,7 @@ a {
     font-size: 22px;
     padding-top: 30px;
     padding-bottom: 15px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_details4_offers {
@@ -177,62 +177,62 @@ a {
     justify-content: space-between;
     padding-right: 60px;
     font-size: 16px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
-.one_spot_kitchen {
+.one_spot_kitchen {font-family: sans-serif;
     font-size: 16px;
     color: #222222;
     padding-bottom: 5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_parking {
     font-size: 16px;
     color: #222222;
     padding-bottom: 5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 .one_spot_wifi {
     font-size: 16px;
     color: #222222;
     padding-bottom: 5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_linens {
     font-size: 16px;
     color: #222222;
     padding-bottom: 5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_tv {
     font-size: 16px;
     color: #222222;
     padding-bottom: 5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_ac {
     font-size: 16px;
     color: #222222;
     padding-bottom: 5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_bath {
     font-size: 16px;
     color: #222222;
     padding-bottom: 5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_heating {
     font-size: 16px;
     color: #222222;
     padding-bottom: 5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: sans-serif;
 }
 
 .one_spot_create_review_button {
