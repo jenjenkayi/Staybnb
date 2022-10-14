@@ -54,11 +54,12 @@ router.delete('/', (_req, res) => {
 
 // Restore session user 
 // Get the Current User
-router.get('/', restoreUser, (req, res) => {
+// router.get('/', restoreUser, (req, res) => {
+router.get('/', (req, res) => {
         const { user } = req;
         if (user) {
             return res.json(user.toSafeObject());
-        } else return res.json({});
+        } else {res.json(null)};
     }
 );
 
