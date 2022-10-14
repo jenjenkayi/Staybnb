@@ -85,7 +85,8 @@ const UpdateSpotForm = ({ spot }) => {
   const cancelHandler = (e) => {
     e.preventDefault();
     setErrors();
-    history.push(`/spots/${spotId}`);
+    // history.push(`/spots/${spotId}`);
+    history.push('/currentSpots');
     // history.push('/');
   };
 

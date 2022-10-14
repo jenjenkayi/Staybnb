@@ -11,10 +11,11 @@ function Navigation({ isLoaded }){
   const history = useHistory();
 
   let sessionLinks;
+
   if (sessionUser) {
     sessionLinks = (
       <ProfileButton user={sessionUser}/>
-    );
+    )
   } else {
     sessionLinks = (
       <>

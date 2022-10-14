@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import {  } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './Navigation.css';
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -37,11 +39,11 @@ function ProfileButton({ user }) {
 
   return (
     <div className="dropdown_menu">
-      <button className="profile_button" onClick={openMenu}>
+      {sessionUser && <button className="profile_button" onClick={openMenu}>
         <i className="fa-solid fa-bars fa-lg"/>
         <i className="fas fa-user-circle fa-2xl"/>
-      </button>
-      {sessionUser && showMenu && (
+      </button>}
+      {showMenu && (
         <ul className="profile_dropdown">
           <li>Hi {user.username}!</li>
           <li>{user.email}</li>
@@ -58,8 +60,7 @@ function ProfileButton({ user }) {
             Log Out
           </li>
         </ul>
-      ) 
-    }
+    )}
     </div>
   );
 }
