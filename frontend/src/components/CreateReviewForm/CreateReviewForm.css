@@ -1,23 +1,18 @@
 .CreateReviewForm_Container {
     display: flex;
     flex-direction: column;
-    /* width: 550px;
-    height: 568px; */
     width: 90%;
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
-    /* outline: 1px solid #dddddd; */
     text-align: center;
-    /* padding: 5px 5px 5px 5px; */
     cursor: pointer;
-    /* padding: 10px; */
     border-radius: 5px;
     margin: 40px 50px 50px 50px;
 }
 
 .CreateReviewForm_Title {
-    font-family: sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 20px;
     font-style: normal;
     font-weight: 500;    
@@ -29,14 +24,10 @@
 
 .CreateReviewForm_Input {
     background-color: #ffffff;
-    font-family: sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 20px;
     font-style: normal;
     font-weight: 500;
-    /* position: relative; */
-    /* cursor: pointer; */
-    /* display: flex; */
-    /* justify-content: space-evenly; */
     width: 520px;
     height: 56px;
     border-radius: 5px;
@@ -66,7 +57,7 @@
 }
 
 .errors {
-    font-family: sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 20px;
     font-style: normal;
     font-weight: 500;
