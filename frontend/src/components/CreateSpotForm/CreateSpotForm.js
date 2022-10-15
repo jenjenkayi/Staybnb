@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createSpotThunk } from '../../store/spots';
@@ -47,7 +47,7 @@ const CreateSpotForm = () => {
       if (!spot.description || spot.description.length < 10) return setErrors(['Please provide a description and it must be 10 or more characters']);
       if (!spot.price || spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
       if (!spot.imageUrl.length) return setErrors(['Please provide an image']);
-      if (!spot.imageUrl.includes('.jpg') && !spot.imageUrl.includes('.jpeg') && !spot.previewImage.includes('.png')) return setErrors(['Image must be in jpg, jpeg, png format']);
+      if (!spot.imageUrl.includes('.jpg') && !spot.imageUrl.includes('.jpeg') && !spot.imageUrl.includes('.png')) return setErrors(['Image must be in .jpg, .jpeg, or .png format']);
 
       const payload = {
         address,

@@ -21,8 +21,28 @@ function SignupForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(!email.includes('@')) {
+    if(!email && !email.includes('@')) {
       return setErrors(['Please provide a valid email'])
+    }
+
+    if (!username) {
+      return setErrors(['Please provide a username'])
+    }
+
+    if (!password){
+      return setErrors(['Please provide a password'])
+    }
+
+    if (!confirmPassword){
+      return setErrors(['Please provide a password'])
+    }
+
+    if (!firstName){
+      return setErrors(['Please provide a firstName'])
+    }
+
+    if (!lastName){
+      return setErrors(['Please provide a lastName'])
     }
 
     if (password === confirmPassword) {
@@ -52,7 +72,7 @@ function SignupForm() {
           value={email}
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
-          required
+          // required
         />
         <input
           className="SignupForm_Input"
@@ -60,7 +80,7 @@ function SignupForm() {
           value={username}
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
-          required
+          // required
         />
         <input
           className="SignupForm_Input"
@@ -68,7 +88,7 @@ function SignupForm() {
           value={password}
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
-          required
+          // required
         />
         <input
           className="SignupForm_Input"
@@ -76,7 +96,7 @@ function SignupForm() {
           value={confirmPassword}
           placeholder="Confirm Password"
           onChange={(e) => setConfirmPassword(e.target.value)}
-          required
+          // required
         />
         <input
           className="SignupForm_Input"
@@ -84,7 +104,7 @@ function SignupForm() {
           value={firstName}
           placeholder="First Name"
           onChange={(e) => setFirstName(e.target.value)}
-          required
+          // required
         />
         <input
           className="SignupForm_Input"
@@ -92,7 +112,7 @@ function SignupForm() {
           value={lastName}
           placeholder="Last Name"
           onChange={(e) => setLastName(e.target.value)}
-          required
+          // required
         />
       <button type="submit" className="Signup_submit_button">Sign Up</button>
     </form>

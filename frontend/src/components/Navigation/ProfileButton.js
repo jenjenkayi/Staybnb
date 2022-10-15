@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import {  } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './Navigation.css';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -47,18 +45,18 @@ function ProfileButton({ user }) {
         <ul className="profile_dropdown">
           <li>Hi {user.username}!</li>
           <li>{user.email}</li>
-          <li className="my_spots_button"
+          <button className="my_spots_button"
             onClick={() => history.push('/currentSpots')}>
             Manage Listings
-          </li>
-          <li className="my_reviews_button"
+          </button>
+          <button className="my_reviews_button"
              onClick={() => history.push('/userReviews')}>
             Manage Reviews
-          </li>
-          <li className="log_out_button"
+          </button>
+          <button className="log_out_button"
             onClick={logout}>
             Log Out
-          </li>
+          </button>
         </ul>
     )}
     </div>

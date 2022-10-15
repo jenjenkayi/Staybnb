@@ -11,6 +11,15 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!credential){
+      return setErrors(['Please provide a credential'])
+    }
+
+    if (!password){
+      return setErrors(['Please provide a password'])
+    }
+
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
@@ -25,7 +34,7 @@ function LoginForm() {
       <div className="LoginForm_Header">
         <div className="LoginForm_Title">Log In</div>
       </div>
-      <ul>
+      <ul className="errors">
         {errors.map((error, idx) => (
           <li key={idx}>{error}</li>
         ))}
@@ -36,7 +45,7 @@ function LoginForm() {
           value={credential}
           placeholder="Username or Email"
           onChange={(e) => setCredential(e.target.value)}
-          required
+          // required
         />
         <input
           className="LoginForm_Input"
@@ -44,7 +53,7 @@ function LoginForm() {
           value={password}
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
-          required
+          // required
         />
       {/* </label> */}
       <button type="submit" className="login_submit_button">Log In</button>
