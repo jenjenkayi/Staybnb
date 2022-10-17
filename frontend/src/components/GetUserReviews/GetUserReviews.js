@@ -9,16 +9,19 @@ const GetUserReviews = () => {
   const history = useHistory();
 
   const user = useSelector((state) => state.session.user);
-
   const reviews = useSelector(state => state.reviews.userReviews);
   const reviewsArr = Object.values(reviews);
-  
+  const userReviews = reviewsArr.filter((review) => review.userId === user.id);
+
+  console.log('GetUserReviews', userReviews)
   useEffect(() => {
     dispatch(getUserReviewsThunk())
   }, [dispatch]);
 
-   if (Object.keys(reviewsArr).length === 0) {
-    return null;
+  if (userReviews.length === 0) {
+    return <div className='UserReviews_no_review'>
+      There are no reviews yet.
+    </div>;
   }
 
   const deleteHandler = async (reviewId) => {
@@ -28,16 +31,14 @@ const GetUserReviews = () => {
 
   return (
     <>
-        <div className="UserReviews_Header">
-          Reviews
-        </div>
+        <div className="UserReviews_Header">Reviews</div>
       <div className="UserReviews_Container">
-            {reviewsArr && reviewsArr.map((review) => {
+            {userReviews && userReviews.map((review) => {
                 return (
                   <>
                   <div className="UserReviews_Details">
-                  <div className="UserReviews_Location">Location: {review.Spot.name}</div>
-                  <div className="UserReviews_Creator">Review by: {review.User.firstName}</div>
+                  <div className="UserReviews_Location">Location: {review?.Spot?.name}</div>
+                  <div className="UserReviews_Creator">Review by: {review?.User?.firstName}</div>
                   <div className="UserReviews_Rating">
                     <i className="fa-solid fa-star"></i>
                     {review.stars}

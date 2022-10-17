@@ -93,9 +93,8 @@ a {
     text-align: left;
     outline: 1px solid #dddddd;
     background-color: #ffffff;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px;
-    padding: 10px 10px 10px 10px;
-    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 2px 16px;
+    padding: 5px 5px 5px 12px;
     border-radius: 21px;
     height: 150px;
     width: 200px;

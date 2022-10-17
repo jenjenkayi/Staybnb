@@ -17,8 +17,10 @@ const GetCurrentSpots = () => {
     dispatch(getCurrentSpotsThunk())
   }, [dispatch]);
 
-  if (!userSpots) {
-    return null;
+  if (userSpots.length === 0) {
+    return <div className="curr_spot_no_spots">
+      There are no listings yet.
+    </div>;
   }
 
   const deleteHandler = async (spotId) => {

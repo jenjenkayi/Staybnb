@@ -9,7 +9,6 @@ const UpdateSpotForm = ({ spot }) => {
     const currentSpots = useSelector(state => state.spots.allSpots);
     const currentSpotsArr = Object.values(currentSpots);
     const currentSpot = currentSpotsArr.find(spot => spot.id == spotId)
-    console.log('currentSpots', currentSpots);
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -87,7 +86,6 @@ const UpdateSpotForm = ({ spot }) => {
     setErrors();
     // history.push(`/spots/${spotId}`);
     history.push('/currentSpots');
-    // history.push('/');
   };
 
 

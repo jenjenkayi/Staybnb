@@ -9,6 +9,7 @@
     cursor: pointer;
     border-radius: 5px;
     margin: 40px 50px 50px 50px;
+    overflow: auto;
 }
 
 .CreateSpotForm_Title {
@@ -19,6 +20,7 @@
     font-weight: bold;
     line-height: 20px;
     align-items: center;
+    overflow: auto;
 }
 
 .CreateSpotForm_Input {
@@ -31,6 +33,7 @@
     height: 56px;
     border-radius: 5px;
     border: 1px solid #dddddd;
+    overflow: auto;
 }
 
 .CreateSpotForm_submit_button {
