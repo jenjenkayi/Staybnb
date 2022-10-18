@@ -12,8 +12,8 @@ import GetOneSpot from "./components/GetOneSpot/GetOneSpot";
 import UpdateSpotForm from "./components/UpdateSpotForm/UpdateSpotForm";
 import GetSpotReviews from "./components/GetSpotReviews/GetSpotReviews";
 import GetUserReviews from "./components/GetUserReviews/GetUserReviews";
-import LoginFormModal from "./components/LoginFormModal";
 import CreateReviewForm from "./components/CreateReviewForm/CreateReviewForm";
+import UpdateReviewForm from "./components/UpdateReviewForm/UpdateReviewForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +47,9 @@ function App() {
           </Route>
           <Route path="/updateSpot/:spotId">
             <UpdateSpotForm />
+          </Route>
+          <Route path="/updateReview/:reviewId">
+            <UpdateReviewForm />
           </Route>
           <Route path="/spotReviews">
             <GetSpotReviews />

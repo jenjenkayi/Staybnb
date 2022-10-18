@@ -5,6 +5,7 @@ const CREATE_REVIEW = 'reviews/CREATE_REVIEW'
 const READ_SPOT_REVIEWS = 'reviews/READ_SPOT_REVIEWS'
 const READ_USER_REVIEWS = 'reviews/READ_USER_REVIEWS'
 const DELETE_REVIEWS = 'reviews/DELETE_REVIEWS'
+const UPDATE_REVIEW = 'reviews/UPDATE_REVIEW'
 
 // ACTION CREATORS
 export const createReview = (review) => ({
@@ -20,6 +21,11 @@ export const getSpotReviews = (reviews) => ({
 export const getUserReviews = (reviews) => ({
     type: READ_USER_REVIEWS,
     payload: reviews
+})
+
+export const updateReview = (review) => ({
+    type: UPDATE_REVIEW,
+    payload: review
 })
 
 export const deleteReview = (reviewId) => ({
@@ -63,6 +69,22 @@ export const getUserReviewsThunk = () => async (dispatch) => {
   }
 }
 
+export const updateReviewThunk = (review) => async (dispatch) => {
+   const response = await csrfFetch(`/api/reviews/${review.id}`, {
+     method: 'PUT',
+     headers: {
+       'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(review)
+    });
+    console.log('updateReviewThunk', response)
+    
+    if(response.ok){
+      const data = await response.json()
+      dispatch(updateReview(data))
+      return data
+  }
+}
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${reviewId}`, {
     method: 'DELETE',
@@ -102,6 +124,11 @@ export default function reviewsReducer(state=initialState, action){
         newState.userReviews[review.id] = review
       });
       return newState;
+    }
+    case UPDATE_REVIEW: {
+      const newState = {...state, userReviews:{...state.userReviews}}
+      newState.userReviews[action.payload.id] = action.payload
+      return newState
     }
     case DELETE_REVIEWS: {
       const newState = { ...state, spotReviews:{...state.spotReviews}, userReviews:{...state.userReviews}}

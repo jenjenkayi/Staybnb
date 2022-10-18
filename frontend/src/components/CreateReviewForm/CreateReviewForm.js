@@ -75,8 +75,8 @@ const CreateReviewForm = () => {
             placeholder="Stars"
             value={stars}
             // required
-            min="1"
-            max="5"
+            // min="1"
+            // max="5"
             onChange={updateStars} />
         <button type="submit" className='CreateReviewForm_Submit_Button'>Submit</button>
         <button type="button" 

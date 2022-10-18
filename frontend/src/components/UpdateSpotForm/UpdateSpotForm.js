@@ -55,7 +55,7 @@ const UpdateSpotForm = ({ spot }) => {
     if (!spot.country.length) return setErrors(['Please provide a country']);
     if (!spot.lat) return setErrors(['Please provide a lat']);
     if (!spot.lng) return setErrors(['Please provide a lng']);
-    if (!spot.name.length < 0) return setErrors(['Name must be 1 or more characters']);
+    if (!spot.name.length) return setErrors(['Please provide a name']);
     if (!spot.description || spot.description.length < 10) return setErrors(['Please provide a description and it must be 10 or more characters']);
     if (!spot.price || spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
     
