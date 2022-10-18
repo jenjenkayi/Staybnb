@@ -158,7 +158,8 @@ a {
     height: 40px;
     width: 90px;
     margin-top: 10px;
-    margin-bottom: 10px;    
+    margin-bottom: 10px;
+    cursor: pointer;    
 } 
  
 .curr_spot_delete_button {
@@ -171,4 +172,5 @@ a {
     width: 90px;
     margin-top: 10px;
     margin-bottom: 10px;
+    cursor: pointer;
 } 

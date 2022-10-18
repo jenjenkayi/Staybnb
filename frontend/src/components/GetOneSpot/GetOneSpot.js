@@ -30,7 +30,7 @@ const GetOneSpot = () => {
           <div className="one_spot_details">
             <div className="one_spot_rating">
               <i className="fa-solid fa-star"></i>
-              {spot.avgStarRating ? spot.avgStarRating : "0"} · {spot.numReviews ? spot.numReviews : '0'} reviews · {spot.city}, {spot.state}, {spot.country}
+              {spot.avgStarRating ? spot.avgStarRating : 0} · {spot.numReviews ? spot.numReviews : 0} reviews · {spot.city}, {spot.state}, {spot.country}
             </div>
           </div>
         </div>

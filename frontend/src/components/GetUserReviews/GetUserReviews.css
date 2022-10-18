@@ -54,6 +54,7 @@
     font-style: normal;
     font-weight: 500;    
     font-size: 12px;
+    cursor: pointer;
 }
 
 .UserReviews_Edit_Button {
@@ -70,4 +71,5 @@
     font-style: normal;
     font-weight: 500;    
     font-size: 12px;
+    cursor: pointer;
 }

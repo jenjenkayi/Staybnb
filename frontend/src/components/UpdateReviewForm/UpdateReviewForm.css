@@ -42,6 +42,7 @@
     width: 525px;
     margin-top: 10px;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .UpdateReviewForm_Cancel_Button {
@@ -53,6 +54,7 @@
     width: 525px;
     margin-top: 5px;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .errors {

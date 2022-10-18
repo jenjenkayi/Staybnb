@@ -37,7 +37,9 @@ return (
           return (
             <>
             <div className='curr_spot_details_outer_container'>
+                <NavLink key={spot.id} to={`/spots/${spot.id}`}>
                 <img className='curr_spot_image' src={spot.previewImage} alt=""></img>
+                </NavLink>
                 <div className='curr_spot_details_container1'>
                   <div className="curr_spot_location">{spot.city},  {spot.state}</div> 
                   <div className="curr_spot_rating">
