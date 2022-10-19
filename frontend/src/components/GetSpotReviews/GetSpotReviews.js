@@ -31,7 +31,7 @@ const GetSpotReviews = () => {
             )
           })} */}
         <div className="reviews_headers">
-            {reviewsArr.length} Reviews
+            {reviewsArr.length} Review(s)
         </div>
           <div className="reviews_details1">
           {reviewsArr && reviewsArr.map((review) => {

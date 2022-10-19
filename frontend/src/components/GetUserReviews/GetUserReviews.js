@@ -17,11 +17,11 @@ const GetUserReviews = () => {
     dispatch(getUserReviewsThunk())
   }, [dispatch]);
 
-  if (userReviews.length === 0) {
-    return <div className='UserReviews_no_review'>
-      There are no reviews yet.
-    </div>;
-  }
+  // if (userReviews.length === 0) {
+  //   return <div className='UserReviews_no_review'>
+  //     There are no reviews yet.
+  //   </div>;
+  // }
 
   const deleteHandler = async (reviewId) => {
       await dispatch(deleteReviewThunk(reviewId));
@@ -32,6 +32,7 @@ const GetUserReviews = () => {
     <>
         <div className="UserReviews_Header">Reviews</div>
       <div className="UserReviews_Container">
+            {!userReviews.length && <div className="UserReviews_no_review">There is no review yet.</div>}
             {userReviews && userReviews.map((review) => {
                 return (
                   <>
@@ -46,9 +47,9 @@ const GetUserReviews = () => {
                   {user && <button className="UserReviews_Delete_Button"
                   onClick={()=>deleteHandler(review.id)}>Delete Review
                   </button>}
-                  <NavLink to={`/updateReview/${review.id}`}>
+                  {/* <NavLink to={`/updateReview/${review.id}`}>
                   <button className="UserReviews_Edit_Button">Edit Review</button>
-                  </NavLink>
+                  </NavLink> */}
                   </div>
                   </>
                 )

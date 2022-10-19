@@ -27,7 +27,7 @@ const CreateReviewForm = () => {
 
       let Review = {review, stars}
 
-      if (!Review.review.length) return setErrors(["Please provide a review"]);
+      if (!Review.review.length || Review.review.length < 10) return setErrors(["Please provide a review and it must be 10 or more characters"]);
       if (!Review.stars.length) return setErrors(["Please provide a star"]);
       if (Review.stars > 5 || Review.stars < 1) return setErrors(["Stars must be between 1 to 5"]);
 

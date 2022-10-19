@@ -30,7 +30,7 @@ const GetOneSpot = () => {
           <div className="one_spot_details">
             <div className="one_spot_rating">
               <i className="fa-solid fa-star"></i>
-              {spot.avgStarRating ? spot.avgStarRating : 0} · {spot.numReviews ? spot.numReviews : 0} reviews · {spot.city}, {spot.state}, {spot.country}
+              {parseFloat(spot.avgStarRating) ? spot.avgStarRating : "New"} · {spot.numReviews ? spot.numReviews : 0} review(s) · {spot.city}, {spot.state}, {spot.country}
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@ const GetOneSpot = () => {
               <div className="border_box_left">${spot.price} night</div>
               <div className="border_box_right">
                 <i className="fa-solid fa-star"></i>
-                {spot.avgStarRating? spot.avgStarRating : 0} · {spot.numReviews? spot.numReviews : 0} reviews
+                {parseFloat(spot.avgStarRating)? spot.avgStarRating : "New"} · {spot.numReviews? spot.numReviews : 0} review(s)
               </div>        
         </div>
         </div>

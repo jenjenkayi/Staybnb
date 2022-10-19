@@ -55,7 +55,7 @@ const UpdateSpotForm = ({ spot }) => {
     if (!spot.country.length) return setErrors(['Please provide a country']);
     if (!spot.lat) return setErrors(['Please provide a lat']);
     if (!spot.lng) return setErrors(['Please provide a lng']);
-    if (!spot.name.length) return setErrors(['Please provide a name']);
+    if (!spot.name.length || spot.name.length > 50) return setErrors(['Please provide a name and it must be less than 50 characters']);
     if (!spot.description || spot.description.length < 10) return setErrors(['Please provide a description and it must be 10 or more characters']);
     if (!spot.price || spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
     
@@ -92,13 +92,11 @@ const UpdateSpotForm = ({ spot }) => {
  return (
     <section className="UpdateSpotForm_Container">
       <form  onSubmit={submitHandler}>
-      <div className="UpdateSpotForm_Header">
-        <h3 className="UpdateSpotForm_Title">Edit A Spot</h3>
-      </div>
-        <ul className="errors">
+        <div className="UpdateSpotForm_Title">Edit A Spot</div>
+        <div className="errors">
         {errors.length > 0 &&
         errors.map((error) => <li key={error}>{error}</li>)}
-        </ul>
+        </div>
         <input
             className="UpdateSpotForm_Input"
             type="text"

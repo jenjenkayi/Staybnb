@@ -7,11 +7,7 @@
     background-color: #ffffff;
     text-align: center;
     cursor: pointer;
-    border-radius: 5px;
-    /* margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 40px; */
-    margin: 40px 50px 50px 50px;
+    margin: 50px 50px 50px 50px;
     overflow: auto;
 }
 
@@ -24,6 +20,7 @@
     line-height: 20px;
     align-items: center;
     overflow: auto;
+    margin-bottom: 15px;
 }
 
 .CreateSpotForm_Input {
@@ -33,7 +30,7 @@
     font-style: normal;
     font-weight: 500;
     width: 520px;
-    height: 56px;
+    height: 50px;
     border-radius: 5px;
     border: 1px solid #dddddd;
     overflow: auto;
@@ -45,9 +42,10 @@
     border-radius: 5px;
     border: none;
     height: 48px;
-    width: 520px;
+    width: 522px;
     margin-top: 10px;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .CreateSpotForm_cancel_button {
@@ -56,9 +54,10 @@
     border-radius: 5px;
     border: none;
     height: 48px;
-    width: 520px;
-    margin-top: 10px;
+    width: 522px;
+    margin-top: 5px;
     margin-bottom: 5px;
+    cursor: pointer;
 };
 
 .errors {
@@ -69,4 +68,5 @@
     font-size: 14px;
     color: #ff385c;
     text-align: left;
+    list-style: none;
 }

@@ -17,11 +17,11 @@ const GetCurrentSpots = () => {
     dispatch(getCurrentSpotsThunk())
   }, [dispatch]);
 
-  if (userSpots.length === 0) {
-    return <div className="curr_spot_no_spots">
-      There are no listings yet.
-    </div>;
-  }
+  // if (userSpots.length === 0) {
+  //   return <div className="curr_spot_no_spots">
+  //     There are no listings yet.
+  //   </div>;
+  // }
 
   const deleteHandler = async (spotId) => {
       await dispatch(deleteSpotThunk(spotId));
@@ -33,6 +33,7 @@ return (
   <>
     <div className='curr_spot_title'>Listings</div>
       <div className="curr_spot_cards_container">
+        {!userSpots.length && <div className="curr_spot_no_spots">There is no listing yet.</div>}
          {userSpots && userSpots.map((spot) => {
           return (
             <>

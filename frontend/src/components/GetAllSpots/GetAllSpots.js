@@ -33,7 +33,7 @@ const GetAllSpots = () => {
                 <div className="spots_rating">
                   <i id="rating" className="fa-solid fa-star"></i>
                   <span>
-                  {spot.avgRating? spot.avgRating : "No Rating"}
+                  {parseFloat(spot.avgRating) ? spot.avgRating : "New"}
                   </span>
                 </div>
               </div>
