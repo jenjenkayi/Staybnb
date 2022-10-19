@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams} from 'react-router-dom';
-import { getUserReviewsThunk, updateReviewThunk } from '../../store/reviews';
+import { getOneReviewThunk, getSpotReviewsThunk, getUserReviewsThunk, updateReviewThunk } from '../../store/reviews';
 import './UpdateReviewForm.css';
 
-const UpdateReviewForm = ({reviews}) => {
+const UpdateReviewForm = () => {
     const { reviewId } = useParams();
     const currentReviews = useSelector(state => state.reviews.userReviews[reviewId]);
+    const currentReviewId = currentReviews.id
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -46,8 +47,7 @@ useEffect(() => {
   updatedReview = await dispatch(updateReviewThunk(payload));
 
   if (updatedReview) {
-    history.push(`/spots/${updateReview.id}`);
-    // history.push('/');
+    history.push('/userReviews');
   }
 }
 

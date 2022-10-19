@@ -40,6 +40,8 @@ a:active {
     object-fit: cover;
     text-decoration: none;
     margin-bottom: 10px;
+    object-fit: cover;
+    box-shadow: rgba(0, 0, 0, 0.2);
 }
 
 .spots_details_container1 {
