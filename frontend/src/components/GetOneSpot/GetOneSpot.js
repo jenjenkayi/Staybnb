@@ -115,9 +115,9 @@ const GetOneSpot = () => {
                 {parseFloat(spot.avgStarRating)? spot.avgStarRating : "New"} · {spot.numReviews? spot.numReviews : 0} review(s)
               </div>
             </div>
-            <div className="border_box_middle">
+            {/* <div className="border_box_middle">
               <div>Cleaning Fee</div>        
-            </div>
+            </div> */}
         </div>
         </div>
        
