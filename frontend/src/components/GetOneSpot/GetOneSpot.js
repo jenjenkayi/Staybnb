@@ -108,7 +108,7 @@ const GetOneSpot = () => {
       </div>
 
         <div className="one_spot_border_box">
-            <div className="border_box_top">
+            {/* <div className="border_box_top"> */}
               <div className="border_box_left">${spot.price} night</div>
               <div className="border_box_right">
                 <i className="fa-solid fa-star"></i>
@@ -118,7 +118,7 @@ const GetOneSpot = () => {
             {/* <div className="border_box_middle">
               <div>Cleaning Fee</div>        
             </div> */}
-        </div>
+        {/* </div> */}
         </div>
        
         <div>
