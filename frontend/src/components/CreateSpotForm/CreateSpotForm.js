@@ -39,7 +39,7 @@ const CreateSpotForm = () => {
       
       if (!spot.address.length) return setErrors(['Please provide an address']);
       if (!spot.city.length) return setErrors(['Please provide a city']);
-      if (!spot.state.length) return setErrors(['Please provide a state']);
+      if (!spot.state.length ) return setErrors(['Please provide a state']);
       if (!spot.country.length) return setErrors(['Please provide a country']);
       if (!spot.lat) return setErrors(['Please provide a lat']);
       if (!spot.lng) return setErrors(['Please provide a lng']);

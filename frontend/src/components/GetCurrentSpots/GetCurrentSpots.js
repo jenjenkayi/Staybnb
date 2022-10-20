@@ -46,7 +46,7 @@ return (
                   <div className="curr_spot_rating">
                       <i id="curr_rating" className="fa-solid fa-star"></i>
                       <span>
-                      {spot.avgRating? spot.avgRating : 0} 
+                      {parseFloat(spot.avgRating) ? spot.avgRating : "New"} 
                       </span>
                   </div>
                 </div>

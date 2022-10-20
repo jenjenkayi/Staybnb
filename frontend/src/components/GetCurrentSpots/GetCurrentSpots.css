@@ -44,7 +44,6 @@ a {
     margin-left: 20%;
     margin-right: 20%;
     padding-bottom: 10px;
-    /* border-bottom: .5px solid #dddddd; */
 }
 
 .curr_spot_image {
@@ -65,9 +64,9 @@ a {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     color:black;
     font-size: 16px;
-    justify-content: flex-start;
     align-content: space-between;
     vertical-align: bottom;
     margin-left: 10px;
@@ -81,6 +80,7 @@ a {
 .curr_spot_details_container1 {
     display: flex;
     flex-direction: row;
+    /* flex-wrap: wrap; */
     color:black;
     font-size: 16px;
     justify-content: space-between;
@@ -91,6 +91,9 @@ a {
     line-height: 20px;
     font-style: normal;
     font-weight: 500;
+    white-space: nowrap;
+    overflow: clip;
+    width: 290px;
 } 
 
 .curr_spot_location {
@@ -99,28 +102,34 @@ a {
     font-size: 16px;
     font-weight: bold;
     vertical-align: bottom;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-style: normal;
     font-weight: 500;
+    overflow: clip;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+    width: 290px;
 }
 
 .curr_spot_rating {
     font-size: 16px;
-    margin-left: 10px;
-    margin-right: 10px;
-    /* margin-left: 75px; */
+    margin-right: 5px;
 }
 
 .curr_spot_name {
     color: #b0b0b0;
     font-size: 14px;
     align-content: flex-end;
-    margin-left: 20px;
+    margin-left: 15px;
     margin-right: 10px;
     margin-bottom: 5px;
     vertical-align: bottom; 
+    white-space: nowrap;
+    overflow: clip;
+    text-overflow: ellipsis;
+    width: 290px;
 }
 
 .curr_spot_details_container2 {

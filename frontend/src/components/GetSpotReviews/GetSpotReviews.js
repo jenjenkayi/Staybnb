@@ -19,20 +19,11 @@ const GetSpotReviews = () => {
     return null;
   }
 
+
+
   return (
     <>
       <div className="reviews_cards_container">
-        {/* {reviewsArr && reviewsArr.map((review) => {
-            return (
-                <div className="review_rating">
-                  <i className="fa-solid fa-star"></i>
-                  {review.stars / reviewsArr.length}
-                </div>
-            )
-          })} */}
-        <div className="reviews_headers">
-            {reviewsArr.length} Review(s)
-        </div>
           <div className="reviews_details1">
           {reviewsArr && reviewsArr.map((review) => {
             return (

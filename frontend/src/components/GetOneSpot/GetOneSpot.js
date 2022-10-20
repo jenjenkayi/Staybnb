@@ -108,15 +108,24 @@ const GetOneSpot = () => {
       </div>
 
         <div className="one_spot_border_box">
+            <div className="border_box_top">
               <div className="border_box_left">${spot.price} night</div>
               <div className="border_box_right">
                 <i className="fa-solid fa-star"></i>
                 {parseFloat(spot.avgStarRating)? spot.avgStarRating : "New"} · {spot.numReviews? spot.numReviews : 0} review(s)
-              </div>        
+              </div>
+            </div>
+            <div className="border_box_middle">
+              <div>Cleaning Fee</div>        
+            </div>
         </div>
         </div>
        
         <div>
+          <div className="one_spot_review_header">
+             <i className="fa-solid fa-star"></i>
+            {parseFloat(spot.avgStarRating)? spot.avgStarRating : "New"} · {spot.numReviews? spot.numReviews : 0} Review(s)
+            </div>
             <GetSpotReviews />
             {!userReview.length && user && <NavLink to={`/createReview/${spotId}`}>
             <button 
