@@ -45,6 +45,7 @@ a {
     justify-self: center;
     align-self: center;
     object-fit: cover;
+    padding-top: 10px;
 }
 
 .one_spot_rating {
