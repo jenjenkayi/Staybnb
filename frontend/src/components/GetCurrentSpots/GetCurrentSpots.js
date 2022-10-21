@@ -37,8 +37,8 @@ return (
  
     <div className='curr_spot_title'>Listings</div>
       <div className="curr_spot_cards_container">
-        {!userSpots.length && <div className="curr_spot_no_spots">There is no listing yet.</div>}
-         {userSpots && userSpots.map((spot) => {
+        {isLoaded && !userSpots.length && <div className="curr_spot_no_spots">There is no listing yet.</div>}
+         {isLoaded && userSpots && userSpots.map((spot) => {
           return (
             <> 
             {isLoaded && (
