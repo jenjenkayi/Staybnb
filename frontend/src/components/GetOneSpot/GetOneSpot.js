@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import { getOneSpotThunk } from '../../store/spots';
@@ -14,8 +14,11 @@ const GetOneSpot = () => {
   const reviews = useSelector(state => state.reviews.spotReviews);
   const userReview = Object.values(reviews).filter((review) => review.userId === user?.id)
 
+  const [isLoaded, setIsLoaded] = useState(false)
+
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
+    .then(() => setIsLoaded(true))
   }, [dispatch, spotId]);
   
   if (Object.keys(spot).length === 0) {
@@ -24,6 +27,7 @@ const GetOneSpot = () => {
 
   return (
     <>
+      {isLoaded && (
     <div className="one_spot_wrapper">
         <div className="one_spot_header_info">
           <div className="one_spot_name">{spot.name}</div>
@@ -136,6 +140,7 @@ const GetOneSpot = () => {
             </NavLink>}
         </div>
   </div>
+  )}
   </>
   );
 };
