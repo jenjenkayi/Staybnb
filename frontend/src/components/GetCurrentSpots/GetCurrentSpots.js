@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { getCurrentSpotsThunk, deleteSpotThunk} from '../../store/spots';
@@ -13,8 +13,11 @@ const GetCurrentSpots = () => {
   const spotsArr = Object.values(currentSpots);
   const userSpots = spotsArr.filter((spot) => spot.ownerId === user.id);
 
+  const [isLoaded, setIsLoaded] = useState(false)
+
   useEffect(() => {
     dispatch(getCurrentSpotsThunk())
+    .then(() => setIsLoaded(true))
   }, [dispatch]);
 
   // if (userSpots.length === 0) {
@@ -31,12 +34,14 @@ const GetCurrentSpots = () => {
 
 return (
   <>
+ 
     <div className='curr_spot_title'>Listings</div>
       <div className="curr_spot_cards_container">
         {!userSpots.length && <div className="curr_spot_no_spots">There is no listing yet.</div>}
          {userSpots && userSpots.map((spot) => {
           return (
-            <>
+            <> 
+            {isLoaded && (
             <div className='curr_spot_details_outer_container'>
                 <NavLink key={spot.id} to={`/spots/${spot.id}`}>
                 <img className='curr_spot_image' src={spot.previewImage} alt=""></img>
@@ -62,7 +67,8 @@ return (
                 </NavLink>
                   <button className="curr_spot_delete_button" onClick={() => deleteHandler(spot.id)}>Delete Spot</button>
                 </div>
-          </div>     
+          </div>  
+          )}   
             </>
             )
          })}
