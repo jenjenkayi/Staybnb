@@ -49,14 +49,14 @@ const UpdateSpotForm = ({ spot }) => {
 
     let spot = {address, city, state, country, lat, lng, name, description, price}
       
-    if (!spot.address.length || spot.address.length > 100) return setErrors(['Please provide an address and it must be less than 100 characters']);
-    if (!spot.city.length || spot.city.length > 100) return setErrors(['Please provide a city and it must be less than 100 characters']);
-    if (!spot.state.length || spot.state.length > 100) return setErrors(['Please provide a state and it must be less than 100 characters']);
-    if (!spot.country.length || spot.country.length > 100) return setErrors(['Please provide a country and it must be less than 100 characters']);
+    if (!spot.address.length) return setErrors(['Please provide an address']);
+    if (!spot.city.length) return setErrors(['Please provide a city']);
+    if (!spot.state.length) return setErrors(['Please provide a state']);
+    if (!spot.country.length) return setErrors(['Please provide a country']);
     if (!spot.lat) return setErrors(['Please provide a lat']);
     if (!spot.lng) return setErrors(['Please provide a lng']);
-    if (!spot.name.length || spot.name.length > 100) return setErrors(['Please provide a name and it must be less than 100 characters']);
-    if (!spot.description || spot.description.length < 10 || spot.description.length > 200) return setErrors(['Please provide a description and it must be between 10 and 200 characters']);
+    if (!spot.name.length || spot.name.length > 50) return setErrors(['Please provide a name and it must be less than 50 characters']);
+    if (!spot.description || spot.description.length < 10) return setErrors(['Please provide a description and it must be more than 10 characters']);
     if (!spot.price || spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
     
     const payload = {
