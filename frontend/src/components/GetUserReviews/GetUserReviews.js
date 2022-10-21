@@ -35,8 +35,8 @@ const GetUserReviews = () => {
     <>
         <div className="UserReviews_Header">Reviews</div>
       <div className="UserReviews_Container">
-            {!userReviews.length && <div className="UserReviews_no_review">There is no review yet.</div>}
-            {userReviews && userReviews.map((review) => {
+            {isLoaded && !userReviews.length && <div className="UserReviews_no_review">There is no review yet.</div>}
+            {isLoaded && userReviews && userReviews.map((review) => {
                 return (
                   <>
                 {isLoaded && (
