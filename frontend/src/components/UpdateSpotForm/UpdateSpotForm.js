@@ -159,7 +159,7 @@ const UpdateSpotForm = ({ spot }) => {
             placeholder="Price"
             value={price}
             // required
-            min='1'
+            // min='1'
             onChange={updatePrice} />
         <button type="submit" className="UpdateSpotForm_Submit_Button">Submit</button>
         <button type="button" 
