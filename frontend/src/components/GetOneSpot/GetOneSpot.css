@@ -169,7 +169,7 @@ a {
     display: flex;
     flex-direction: column;
     border-bottom: .5px solid;
-    margin-right: 50px;
+    margin-right: 0px;
     padding-bottom: 20px;
 }
 
