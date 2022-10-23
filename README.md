@@ -5,12 +5,14 @@ Staybnb is a full-stack application clone of Airbnb. It uses React and Redux in 
 Live site: https://stay-bnb.herokuapp.com
 
 
+
 ## Please see below links to project Wiki:
 
 * API-Routes
 * Database-Schema
 * Feature-List
 * Redux-Store-State-Shape
+
 
 
 ## This application was built with:
@@ -46,9 +48,9 @@ PostgresSQL ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?
 <img width="1359" alt="Screen Shot 2022-09-26 at 6 21 07 AM" src="https://user-images.githubusercontent.com/92122927/192287614-bb9e43ac-aa06-47d4-a458-c8a8a9c08953.png">
 
 #### Sign-up Page
-Without signing up, you can test the features with the "Demo User" button.
 <img width="610" alt="Screen Shot 2022-10-23 at 1 36 14 PM" src="https://user-images.githubusercontent.com/92122927/197417388-4e1f14d4-5ee5-4e1e-a495-249d41b12552.png">
 
 #### Log-in Page
+Without signing up, you can test the features with the "Demo User" button.
 <img width="607" alt="Screen Shot 2022-10-23 at 1 36 00 PM" src="https://user-images.githubusercontent.com/92122927/197417062-6c374603-a291-452d-b529-f27378ab5c3f.png">
 
