@@ -58,4 +58,8 @@ PostgresSQL ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?
 Without signing up, you can test the features with the "Demo User" button.
 <img width="607" alt="Screen Shot 2022-10-23 at 1 36 00 PM" src="https://user-images.githubusercontent.com/92122927/197417062-6c374603-a291-452d-b529-f27378ab5c3f.png">
 
+#### Manage Listings and Manage Reviews Page
+Logged-in Users Can Manage their listings and reviews
+<img width="1108" alt="Screen Shot 2022-10-23 at 2 53 45 PM" src="https://user-images.githubusercontent.com/92122927/197420045-d631776f-487e-47ff-b6a8-29806783d78a.png">
+<img width="1174" alt="Screen Shot 2022-10-23 at 2 54 01 PM" src="https://user-images.githubusercontent.com/92122927/197420049-43e1a13d-4503-4b08-9ced-fdffe45b6266.png">
 
