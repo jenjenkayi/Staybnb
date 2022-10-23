@@ -34,6 +34,7 @@ Sequelize ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-t
 PostgresSQL ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 
+
 ## Features
 * Sign up
 * Log in
@@ -53,4 +54,5 @@ PostgresSQL ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?
 #### Log-in Page
 Without signing up, you can test the features with the "Demo User" button.
 <img width="607" alt="Screen Shot 2022-10-23 at 1 36 00 PM" src="https://user-images.githubusercontent.com/92122927/197417062-6c374603-a291-452d-b529-f27378ab5c3f.png">
+
 
