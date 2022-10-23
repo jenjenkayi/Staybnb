@@ -75,29 +75,25 @@ PostgresSQL ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?
 
 ## Features
 
--Sign up
+* Sign up
+* Log in
 
--Log in
+* Show all spots
 
--Show all spots
+* Create/Read/Edit/Delete Spots
 
--Create/Read/Edit/Delete Spots
+* Shows all user's spots
 
--Shows all user's spots
+* Create/Edit/Delete Reviews
 
--Create/Edit/Delete Reviews
+* Show all user's reviews
 
--Show all user's reviews
-
--Home Page Demo User:
-
-
-### Without signing up, you can test the features with the "Demo User" button.
 
 #### Home Page
 <img width="1359" alt="Screen Shot 2022-09-26 at 6 21 07 AM" src="https://user-images.githubusercontent.com/92122927/192287614-bb9e43ac-aa06-47d4-a458-c8a8a9c08953.png">
 
 #### Sign-up Page
+Without signing up, you can test the features with the "Demo User" button.
 <img width="610" alt="Screen Shot 2022-10-23 at 1 36 14 PM" src="https://user-images.githubusercontent.com/92122927/197417388-4e1f14d4-5ee5-4e1e-a495-249d41b12552.png">
 
 #### Log-in Page
