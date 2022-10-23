@@ -77,12 +77,19 @@ PostgresSQL ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?
 Features
 
 -Sign up
+
 -Log in
+
 -Show all spots
+
 -Create/Read/Edit/Delete Spots
+
 -Shows all user's spots
+
 -Create/Edit/Delete Reviews
+
 -Show all user's reviews
+
 -Home Page Demo User:
 
 Without signing up, you can test the features with the "Demo User" button.
