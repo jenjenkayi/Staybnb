@@ -45,19 +45,18 @@ Live site: https://stay-bnb.herokuapp.com
 
 ## Please see below links to project Wiki:
 
-API-Routes
+* API-Routes
 
-Database-Schema
+* Database-Schema
 
-Feature-List
+* Feature-List
 
-Redux-Store-State-Shape
+* Redux-Store-State-Shape
 
 
 ## This application was built with:
 
 Javascript ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-
 Express ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 
 React ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -74,18 +73,12 @@ PostgresSQL ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?
 
 
 ## Features
-
 * Sign up
 * Log in
-
 * Show all spots
-
 * Create/Read/Edit/Delete Spots
-
 * Shows all user's spots
-
 * Create/Edit/Delete Reviews
-
 * Show all user's reviews
 
 
