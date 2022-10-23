@@ -43,6 +43,9 @@ PostgresSQL ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?
 * Shows all user's spots
 * Create/Edit/Delete Reviews
 * Show all user's reviews
+* Booking (future feature)
+* Spots search (future feature)
+* Favorites (future feature)
 
 
 #### Home Page
