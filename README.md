@@ -1,4 +1,4 @@
-#Staybnb#
+##Staybnb
 
 Staybnb is a full-stack application clone of Airbnb. It uses React and Redux in the frontend. Express, Sequelize, and PostgreSQL in the backend.
 
