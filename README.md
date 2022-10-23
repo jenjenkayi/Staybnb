@@ -4,7 +4,7 @@ Staybnb is a full-stack application clone of Airbnb. It uses React and Redux in 
 
 Live site: https://stay-bnb.herokuapp.com
 
-Please see below links to project Wiki:
+##Please see below links to project Wiki:
 
 API-Routes
 Database-Schema
@@ -37,14 +37,13 @@ Home Page
 
 <img width="1359" alt="Screen Shot 2022-09-26 at 6 21 07 AM" src="https://user-images.githubusercontent.com/92122927/192287614-bb9e43ac-aa06-47d4-a458-c8a8a9c08953.png">
 
-##Staybnb
+# Staybnb
 
 Staybnb is a full-stack application clone of Airbnb. It uses React and Redux in the frontend. Express, Sequelize, and PostgreSQL in the backend.
 
 Live site: https://stay-bnb.herokuapp.com
 
-
-Please see below links to project Wiki:
+## Please see below links to project Wiki:
 
 API-Routes
 
@@ -55,7 +54,7 @@ Feature-List
 Redux-Store-State-Shape
 
 
-This application was built with:
+## This application was built with:
 
 Javascript ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
@@ -74,7 +73,7 @@ Sequelize ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-t
 PostgresSQL ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 
-Features
+## Features
 
 -Sign up
 
@@ -92,9 +91,16 @@ Features
 
 -Home Page Demo User:
 
-Without signing up, you can test the features with the "Demo User" button.
 
-Home Page
+## Without signing up, you can test the features with the "Demo User" button.
+
+### Home Page
 
 <img width="1359" alt="Screen Shot 2022-09-26 at 6 21 07 AM" src="https://user-images.githubusercontent.com/92122927/192287614-bb9e43ac-aa06-47d4-a458-c8a8a9c08953.png">
+
+### Sign-up Page
+
+
+### Sign-in Page
+<img width="607" alt="Screen Shot 2022-10-23 at 1 36 00 PM" src="https://user-images.githubusercontent.com/92122927/197417062-6c374603-a291-452d-b529-f27378ab5c3f.png">
 
