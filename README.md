@@ -17,21 +17,21 @@ Live site: https://stay-bnb.herokuapp.com
 
 ## This application was built with:
 
-Javascript ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+* ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
-Express ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+* ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 
-React ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
-Redux ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+* ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 
-HTML ![HTML](https://img.shields.io/badge/html-%23E34F26.svg?style=for-the-badge&logo=html&logoColor=white)
+* ![HTML](https://img.shields.io/badge/html-%23E34F26.svg?style=for-the-badge&logo=html&logoColor=white)
 
-CSS ![CSS](https://img.shields.io/badge/css-%231572B6.svg?style=for-the-badge&logo=css&logoColor=white)
+* ![CSS](https://img.shields.io/badge/css-%231572B6.svg?style=for-the-badge&logo=css&logoColor=white)
 
-Sequelize ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
+* ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
 
-PostgresSQL ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+* ![PostgresQL](https://img.shields.io/badge/postgresql-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 
 
@@ -63,3 +63,10 @@ Logged-in Users Can Manage their listings and reviews
 <img width="1108" alt="Screen Shot 2022-10-23 at 2 53 45 PM" src="https://user-images.githubusercontent.com/92122927/197420045-d631776f-487e-47ff-b6a8-29806783d78a.png">
 <img width="1174" alt="Screen Shot 2022-10-23 at 2 54 01 PM" src="https://user-images.githubusercontent.com/92122927/197420049-43e1a13d-4503-4b08-9ced-fdffe45b6266.png">
 
+## Getting Started
+Below are instructions on setting up the project locally.
+1. Download or Clone the repo (run: git clone https://github.com/jenjenkayi/Airbnb.git)
+2. Install NPM packages
+
+To test your code live in the browser, run:
+1. Run npm start so it will update with changes or Navigate to localhost:3000 on the browser
