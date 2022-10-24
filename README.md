@@ -8,10 +8,10 @@ Live site: https://stay-bnb.herokuapp.com
 
 ## Please see below links to project Wiki:
 
-* API-Routes
-* Database-Schema
-* Feature-List
-* Redux-Store-State-Shape
+* [API-Routes](https://github.com/jenjenkayi/Airbnb/wiki/API-Routes)
+* [Database-Schema](https://github.com/jenjenkayi/Airbnb/wiki/Database-Schema)
+* [Feature-List](https://github.com/jenjenkayi/Airbnb/wiki/Feature-List)
+* [Redux-Store-State-Shape](https://github.com/jenjenkayi/Airbnb/wiki/Redux-Store-State-Shape)
 
 
 
