@@ -564,33 +564,5 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 })
 
 
-// Example
-// router.get('/', async (req, res) => {
-//     const games = await Boardgame.findAll({
-//         include: [
-//             { model: Review },
-//             { model: Image }
-//         ]
-//     })
-
-//     let gameList = [];
-
-//     games.forEach(game => {
-//         gameList.push(game.toJSON())
-//     })
-
-//     gameList.forEach(game => {
-//         game.Images.forEach(image => {
-//             if (image.bannerImage === true) {
-//                 game.bannerImage = image.url
-//             }
-//         })
-//         if (!game.bannerImage) {
-//             game.bannerImage = 'not banner image found'
-//         }
-//     })
-    
-//     res.json(gameList)
-// })
 
 module.exports = router;
