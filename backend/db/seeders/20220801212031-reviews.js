@@ -7,10 +7,8 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here
-     */
-    await queryInterface.bulkInsert('Reviews', options,[
+    options.tableName = 'Reviews';
+    await queryInterface.bulkInsert(options,[
       {
         userId: 1,
         spotId: 1,
@@ -75,11 +73,7 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     */
-    await queryInterface.bulkDelete('Reviews', null, options,{});
+    options.tableName = 'Reviews';
+    await queryInterface.bulkDelete(null, options, {});
   }
 };

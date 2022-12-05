@@ -8,10 +8,8 @@ if (process.env.NODE_ENV === 'production') {
 const { ReviewImage } = require('../models')
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-    */
-    await queryInterface.bulkInsert('ReviewImages', options,[
+    options.tableName = 'ReviewImages';
+    await queryInterface.bulkInsert(options,[
       {
         reviewId: 1,
         url: 'https://cdn.pixabay.com/photo/2016/06/24/11/46/architecture-1477099_1280.jpg',
@@ -56,9 +54,7 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     */
-    await queryInterface.bulkDelete('ReviewImages', null, options,{});
+    options.tableName = 'ReviewImages';
+    await queryInterface.bulkDelete(null, options,{});
   }
 };
