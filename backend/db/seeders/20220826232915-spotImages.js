@@ -1,11 +1,16 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      */
-    await queryInterface.bulkInsert('SpotImages', [
+    await queryInterface.bulkInsert('SpotImages', options,[
       {
         spotId: 1,
         url: 'https://cdn.pixabay.com/photo/2016/06/24/11/46/architecture-1477099_1280.jpg',
@@ -63,6 +68,6 @@ module.exports = {
     /**
      * Add commands to revert seed here.
      */
-    await queryInterface.bulkDelete('SpotImages', null, {});
+    await queryInterface.bulkDelete('SpotImages', null, options,{});
   }
 };
