@@ -1,8 +1,8 @@
-# Staybnb
+<img width="610" alt="Screen Shot 2022-10-23 at 1 36 14 PM" src="/Users/jen/Desktop/AppAcademy/Module-5/Week-16/Airbnb/frontend/public/images/logo2.png">
 
 Staybnb is a full-stack application clone of Airbnb. It uses React and Redux in the frontend. Express, Sequelize, and PostgreSQL in the backend.
 
-Live site: https://stay-bnb.herokuapp.com
+Live site: https://staybnb-mirg.onrender.com
 
 
 
