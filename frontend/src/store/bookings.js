@@ -2,9 +2,9 @@ import { csrfFetch } from './csrf';
 
 // TYPES
 const CREATE_BOOKING = 'bookings/CREATE_BOOKING'
-const LOAD_ALL_BOOKINGS = 'bookings/LOAD_ALL_BOOKINGS'
-const LOAD_ONE_BOOKING = 'bookings/LOAD_ONE_BOOKING'
+const LOAD_SPOT_BOOKINGS = 'bookings/LOAD_SPOT_BOOKINGS'
 const LOAD_USERS_BOOKINGS = 'bookings/LOAD_USERS_BOOKINGS'
+const LOAD_ONE_BOOKING = 'bookings/LOAD_ONE_BOOKING'
 const DELETE_BOOKING = 'bookings/DELETE_BOOKING'
 const UPDATE_BOOKING = 'bookings/UPDATE_BOOKING'
 
@@ -14,8 +14,8 @@ export const createBooking = (booking) => ({
     payload: booking
 })
 
-export const getAllBookings = (bookings) => ({
-    type: LOAD_ALL_BOOKINGS,
+export const getSpotBookings = (bookings) => ({
+    type: LOAD_SPOT_BOOKINGS,
     payload: bookings
 })
 
@@ -57,11 +57,11 @@ export const createBookingThunk = (data, spotId) => async (dispatch) => {
   }
 }
 
-export const getAllBookingsThunk = (spotId) => async (dispatch) => {
+export const getSpotBookingsThunk = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/bookings`)
   if(response.ok){
     const bookings = await response.json()
-    dispatch(getAllBookings(bookings.Bookings))
+    dispatch(getSpotBookings(bookings.Bookings))
     return bookings
   }
 }
@@ -107,9 +107,9 @@ export const deleteBookingThunk = (bookingId) => async (dispatch) => {
   });
 
   if(response.ok){
-    // const Booking = await response.json()
+    // const booking = await response.json()
     dispatch(deleteBooking(bookingId))
-    // return Booking
+    // return booking
   } 
 }
 
@@ -122,7 +122,7 @@ export default function bookingsReducer(state=initialState, action){
       newState.singleBooking = action.payload
       return newState
   }
-    case LOAD_ALL_BOOKINGS: {
+    case LOAD_SPOT_BOOKINGS: {
       const newState = { ...state, allBookings:{}}
         action.payload.Bookings.forEach(booking => {
         newState.allBookings[booking.id] = booking
