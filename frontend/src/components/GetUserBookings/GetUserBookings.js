@@ -35,28 +35,45 @@ const GetUserBookings = () => {
                 return (
                   <>
                 {isLoaded && (
-                  <div className="userBookings-container">
+                  <div className="userBookings-container1">
                     <div className="userBookings-wrapper">
                     <img className='userBookings-image' src={booking.Spot[0].previewImage} alt=""></img>
                     <div className="userBookings-details">
                         <div className="userBookings-name">{booking.Spot[0].name}</div>
-                        <div className="userBookings-address-container">
-                            <div className="userBookings-address"><strong>Address:</strong> {booking.Spot[0].address},</div>
-                            <div className="userBookings-city-state">{booking.Spot[0].city}, {booking.Spot[0].state}</div>
-                            <div className="userBookings-country">{booking.Spot[0].country}</div>
+                          <div className="userBookings-info">
+                            <strong>Address:</strong>
+                            <div>{booking.Spot[0].address}</div>
+                          </div>
+                          <div className="userBookings-info">
+                            <strong>City, State:</strong>
+                            <div>{booking.Spot[0].city}, {booking.Spot[0].state}</div>
+                          </div>
+                          <div className="userBookings-info">
+                            <strong>Country:</strong>
+                            <div>{booking.Spot[0].country}</div>
+                          </div>
+                        <div className="userBookings-info">
+                          <div><strong>Check in:</strong></div>
+                          <div>{(booking?.startDate).slice(0,10)}</div>
                         </div>
-                        <div className="userBookings-start"><strong>Check In: </strong>{(booking?.startDate).slice(0,10)}</div>
-                        <div className="userBookings-end"><strong>Check Out:</strong> {(booking?.endDate).slice(0,10)}</div>
-                    </div>
-                    <div className="userBookings-buttons">
+                        <div className="userBookings-info">
+                          <div><strong>Check out:</strong></div> 
+                          <div>{(booking?.endDate).slice(0,10)}</div>
+                        </div>
+                      <div className="userBookings-buttons-container">
+                        <div className="userBookings-buttons">
                         <NavLink to={`/editBooking/${booking.id}`}>
                             {user && <button className="userBookings-buttons">Edit Booking</button>}
                         </NavLink>
+                        </div>
+                        <div className="userBookings-buttons">
                         {user && <button className="userBookings-buttons"
                         onClick={()=>deleteHandler(booking.id)}>Cancel Booking
                         </button>}
+                        </div>
+                      </div>
+                      </div>
                     </div>
-                  </div>
                 </div>
                 )}
                   </>
