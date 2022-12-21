@@ -53,6 +53,10 @@ function ProfileButton({ user }) {
              onClick={() => history.push('/userReviews')}>
             Manage Reviews
           </button>
+          <button className="my_bookings_button"
+             onClick={() => history.push('/userBookings')}>
+            Manage Bookings
+          </button>
           <button className="log_out_button"
             onClick={logout}>
             Log Out

@@ -2,9 +2,9 @@ import React, { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import { getSearchProductsThunk } from '../../store/product'
-import "./SearchProduct.css";
+import "./SearchSpot.css";
 
-const SearchProduct = () => {
+const SearchSpot = () => {
   const dispatch = useDispatch();
   const {keyword} = useParams();
 
@@ -67,4 +67,4 @@ return (
 
 }
 
-export default SearchProduct;
+export default SearchSpot;
