@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { getUserBookingsThunk, deleteBookingThunk } from '../../store/bookings';
 import './GetUserBookings.css';
 
@@ -28,31 +28,36 @@ const GetUserBookings = () => {
 
   return (
     <>
-        <div className="userBookings-header">Bookings</div>
-      <div className="userBookings-container">
+        <div className="userBookings-header">My Bookings</div>
+           <div className="userBookings-container">
             {isLoaded && !userBookings.length && <div className="userBookings-no-booking">There is no booking yet.</div>}
             {isLoaded && userBookings && userBookings.map(booking => {
                 return (
                   <>
                 {isLoaded && (
                   <div className="userBookings-container">
-                  <img className='userBookings-image' src={booking.Spot[0].previewImage} alt=""></img>
-                  <div className="userBookings-start">{(booking?.startDate).slice(0,10)}</div>
-                  <div className="userBookings-end">{(booking?.endDate).slice(0,10)}</div>
-                  <div className="userBookings-name">{booking.Spot[0].name}</div>
-                  <div className="userBookings-address-container">
-                    <div className="userBookings-address">{booking.Spot[0].address},</div>
-                    <div className="userBookings-city">{booking.Spot[0].city}</div>
-                    <div className="userBookings-state">{booking.Spot[0].state}</div>
-                    <div className="userBookings-country">{booking.Spot[0].country}</div>
+                    <div className="userBookings-wrapper">
+                    <img className='userBookings-image' src={booking.Spot[0].previewImage} alt=""></img>
+                    <div className="userBookings-details">
+                        <div className="userBookings-name">{booking.Spot[0].name}</div>
+                        <div className="userBookings-address-container">
+                            <div className="userBookings-address"><strong>Address:</strong> {booking.Spot[0].address},</div>
+                            <div className="userBookings-city-state">{booking.Spot[0].city}, {booking.Spot[0].state}</div>
+                            <div className="userBookings-country">{booking.Spot[0].country}</div>
+                        </div>
+                        <div className="userBookings-start"><strong>Check In: </strong>{(booking?.startDate).slice(0,10)}</div>
+                        <div className="userBookings-end"><strong>Check Out:</strong> {(booking?.endDate).slice(0,10)}</div>
+                    </div>
+                    <div className="userBookings-buttons">
+                        <NavLink to={`/editBooking/${booking.id}`}>
+                            {user && <button className="userBookings-buttons">Edit Booking</button>}
+                        </NavLink>
+                        {user && <button className="userBookings-buttons"
+                        onClick={()=>deleteHandler(booking.id)}>Cancel Booking
+                        </button>}
+                    </div>
                   </div>
-                  {user && <button className="userBookings-delete-button"
-                  onClick={()=>deleteHandler(booking.id)}>Delete Booking
-                  </button>}
-                  {/* <NavLink to={`/updateBooking/${booking.id}`}>
-                  <button className="UserBookings_Edit_Button">Edit Booking</button>
-                  </NavLink> */}
-                  </div>
+                </div>
                 )}
                   </>
                 )

@@ -35,7 +35,7 @@ const GetCurrentSpots = () => {
 return (
   <>
  
-    <div className='curr_spot_title'>Listings</div>
+    <div className='curr_spot_title'>My Listings</div>
       <div className="curr_spot_cards_container">
         {isLoaded && !userSpots.length && <div className="curr_spot_no_spots">There is no listing yet.</div>}
          {isLoaded && userSpots && userSpots.map((spot) => {

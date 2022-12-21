@@ -45,15 +45,15 @@ function ProfileButton({ user }) {
         <ul className="profile_dropdown">
           <li>Hi {user.username}!</li>
           <li>{user.email}</li>
-          <button className="my_spots_button"
+          <button className="profile_buttons"
             onClick={() => history.push('/currentSpots')}>
             Manage Listings
           </button>
-          <button className="my_reviews_button"
+          <button className="profile_buttons"
              onClick={() => history.push('/userReviews')}>
             Manage Reviews
           </button>
-          <button className="my_bookings_button"
+          <button className="profile_buttons"
              onClick={() => history.push('/userBookings')}>
             Manage Bookings
           </button>

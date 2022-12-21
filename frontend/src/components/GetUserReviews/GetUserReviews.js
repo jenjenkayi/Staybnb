@@ -33,7 +33,7 @@ const GetUserReviews = () => {
 
   return (
     <>
-        <div className="UserReviews_Header">Reviews</div>
+        <div className="UserReviews_Header">My Reviews</div>
       <div className="UserReviews_Container">
             {isLoaded && !userReviews.length && <div className="UserReviews_no_review">There is no review yet.</div>}
             {isLoaded && userReviews && userReviews.map((review) => {
