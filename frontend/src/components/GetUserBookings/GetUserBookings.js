@@ -23,7 +23,7 @@ const GetUserBookings = () => {
 
   const deleteHandler = async (bookingId) => {
       await dispatch(deleteBookingThunk(bookingId));
-      history.push("/");
+      history.push("/userBookings");
   }
 
   return (
