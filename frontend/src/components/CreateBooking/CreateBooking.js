@@ -13,7 +13,7 @@ const CreateBookingForm = () => {
     const currentSpot = useSelector(state => state.spots.singleSpot);
     const userId = user.id
     const currentSpotId = currentSpot.id
-
+console.log('currentSpot-----', currentSpot)
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [errors, setErrors] = useState([]);
@@ -47,11 +47,6 @@ const CreateBookingForm = () => {
   }
 }
 
-  const cancelHandler = (e) => {
-    e.preventDefault();
-    history.push(`/spots/${spotId}`);
-  };
-
   return (
     <section>
       <form className="CreateBooking-Container" onSubmit={submitHandler}>
@@ -59,20 +54,48 @@ const CreateBookingForm = () => {
           {errors.length > 0 &&
           errors.map((error) => <li key={error}>{error}</li>)}
         </ul>
-        <input
-            className='CreateBooking-Input'
-            type="date"
-            value={startDate}
-            required
-            onChange={updateStartDate} />
-        <input
-            className='CreateBooking-Input'
-            type="date"
-            value={endDate}
-            required
-            onChange={updateEndDate} />
+        <div className='CreateBooking-Details'>
+            <div className='checkin-container'>
+                <div className='checkin'>CHECK-IN</div>
+                <input
+                    className='CreateBooking-Input'
+                    type="date"
+                    value={startDate}
+                    required
+                    onChange={updateStartDate} />
+            </div>
+            <div className='checkout-container'>
+                <div className='checkin'>CHECK-OUT</div>
+                <input
+                    className='CreateBooking-Input'
+                    type="date"     
+                    value={endDate}
+                    required
+                    onChange={updateEndDate} />
+            </div>
+        </div>
         <button type="submit" className='CreateBooking-Button'>Reserve</button>
       </form>
+      <div className='booking-text'>You won't be charged yet</div>
+      <div className='booking-payment-container'>
+        <div className='payment-info'>
+            <div>${currentSpot.price} x {} nights</div>
+            <div>${}</div>
+        </div>
+        <div className='payment-info'>
+            <div>Cleaning fee</div>
+            <div>${}</div>
+        </div>
+        <div className='payment-info'>
+            <div>Service fee</div>
+            <div>${}</div>
+        </div>
+        <div className='border'></div>
+        <div className='payment-info'>
+            <div><strong>Total before taxes</strong></div>
+            <div>${}</div>
+        </div>
+      </div>
     </section>
   );
 }

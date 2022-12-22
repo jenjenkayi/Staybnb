@@ -37,9 +37,11 @@ const GetUserBookings = () => {
                 {isLoaded && (
                   <div className="userBookings-container1">
                     <div className="userBookings-wrapper">
-                    <img className='userBookings-image' src={booking.Spot[0].previewImage} alt=""></img>
+                      <img className='userBookings-image' src={booking.Spot[0].previewImage} alt="" 
+                      onClick={() => history.push(`/spots/${booking.Spot[0].id}`)}></img>
                     <div className="userBookings-details">
-                        <div className="userBookings-name">{booking.Spot[0].name}</div>
+                        <div className="userBookings-name" onClick={() => history.push(`/spots/${booking.Spot[0].id}`)}>
+                          {booking.Spot[0].name}</div>
                           <div className="userBookings-info">
                             <strong>Address:</strong>
                             <div>{booking.Spot[0].address}</div>
