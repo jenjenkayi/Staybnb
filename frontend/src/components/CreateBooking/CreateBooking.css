@@ -1,0 +1,20 @@
+.CreateBooking-Container {
+
+}
+
+.CreateBooking-Input {
+
+}
+
+.CreateBooking-Button {
+    color: white;
+    background-color: #ff385c;
+    border-radius: 5px;
+    border: none;
+    height: 48px;
+    width: 300px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}

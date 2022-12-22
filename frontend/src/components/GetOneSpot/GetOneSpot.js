@@ -4,6 +4,7 @@ import { useParams, NavLink } from "react-router-dom";
 import { getOneSpotThunk } from '../../store/spots';
 import  GetSpotReviews from "../../components/GetSpotReviews/GetSpotReviews";
 import './GetOneSpot.css';
+import CreateBookingForm from "../CreateBooking/CreateBooking";
 
 const GetOneSpot = () => {
   const dispatch = useDispatch();
@@ -112,17 +113,13 @@ const GetOneSpot = () => {
       </div>
 
         <div className="one_spot_border_box">
-            {/* <div className="border_box_top"> */}
               <div className="border_box_left">${spot.price} night</div>
               <div className="border_box_right">
                 <i className="fa-solid fa-star"></i>
                 {parseFloat(spot.avgStarRating)? spot.avgStarRating : "New"} · {spot.numReviews? spot.numReviews : 0} review(s)
               </div>
+              <CreateBookingForm />
             </div>
-            {/* <div className="border_box_middle">
-              <div>Cleaning Fee</div>        
-            </div> */}
-        {/* </div> */}
         </div>
        
         <div>
