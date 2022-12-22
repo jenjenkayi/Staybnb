@@ -21,6 +21,14 @@ const CreateBookingForm = () => {
     const updateStartDate = (e) => setStartDate(e.target.value);
     const updateEndDate = (e) => setEndDate(e.target.value);
 
+    let today = (new Date()).toISOString()
+    // let tomorrow = today + 1
+    // let today = new Date()
+    let tomorrow = new Date()
+    tomorrow.setDate(today.getDate() + 1);
+    console.log('today', today)
+    console.log('tomorrow', tomorrow)
+
     const submitHandler = async (e) => {
       e.preventDefault();
       setErrors([]);  
@@ -61,6 +69,7 @@ const CreateBookingForm = () => {
                     className='CreateBooking-Input'
                     type="date"
                     value={startDate}
+                    min={today}
                     required
                     onChange={updateStartDate} />
             </div>
@@ -70,6 +79,7 @@ const CreateBookingForm = () => {
                     className='CreateBooking-Input'
                     type="date"     
                     value={endDate}
+                    min={tomorrow}
                     required
                     onChange={updateEndDate} />
             </div>
