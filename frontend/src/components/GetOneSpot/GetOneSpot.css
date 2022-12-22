@@ -131,6 +131,8 @@ a {
 }
 
 .one_spot_border_box {
+    position: sticky;
+    top: 300px;
     border: 1px solid rgb(221, 221, 221);
     border-radius: 12px;
     box-shadow: rgb(0, 0, 0, 0.12) 0px 6px 16px;

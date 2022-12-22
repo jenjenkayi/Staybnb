@@ -57,7 +57,7 @@ const CreateReviewForm = () => {
   return (
     <section>
       <form className="CreateReviewForm_Container" onSubmit={submitHandler}>
-        <h3 className="CreateReviewForm_Title">Create A Review</h3>
+        <h3 className="CreateReviewForm_Title">Leave A Review</h3>
         <ul className="errors">
           {errors.length > 0 &&
           errors.map((error) => <li key={error}>{error}</li>)}
@@ -67,16 +67,16 @@ const CreateReviewForm = () => {
             type="text"
             placeholder='Write your review'
             value={review}
-            // required
+            required
             onChange={updateReview} />
         <input
             className='CreateReviewForm_Input'
             type="number"
             placeholder="Stars"
             value={stars}
-            // required
-            // min="1"
-            // max="5"
+            required
+            min="1"
+            max="5"
             onChange={updateStars} />
         <button type="submit" className='CreateReviewForm_Submit_Button'>Submit</button>
         <button type="button" 

@@ -13,7 +13,7 @@ const CreateBookingForm = () => {
     const currentSpot = useSelector(state => state.spots.singleSpot);
     const userId = user.id
     const currentSpotId = currentSpot.id
-console.log('currentSpot-----', currentSpot)
+
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [errors, setErrors] = useState([]);
