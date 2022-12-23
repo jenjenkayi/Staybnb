@@ -16,6 +16,10 @@ const GetOneSpot = () => {
   const userReview = Object.values(reviews).filter((review) => review.userId === user?.id)
 
   const [isLoaded, setIsLoaded] = useState(false)
+  
+  const today = (new Date()).toISOString().slice(0, 10)
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
@@ -118,7 +122,13 @@ const GetOneSpot = () => {
                 <i className="fa-solid fa-star"></i>
                 {parseFloat(spot.avgStarRating)? spot.avgStarRating : "New"} · {spot.numReviews? spot.numReviews : 0} review(s)
               </div>
-              <CreateBookingForm />
+              <CreateBookingForm 
+                today={today}
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+              /> 
             </div>
         </div>
        

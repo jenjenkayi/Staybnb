@@ -41,13 +41,13 @@ export const deleteBooking = (bookingId) => ({
 })
 
 // THUNKS
-export const createBookingThunk = (data, spotId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${data.spotId}/bookings`, {
+export const createBookingThunk = (payload, spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${payload.spotId}/bookings`, {
     method: 'post',
     headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(payload)
     });
 
   if(response.ok){
@@ -66,13 +66,13 @@ export const getSpotBookingsThunk = (spotId) => async (dispatch) => {
   }
 }
 
-export const updateBookingThunk = (data, bookingId) => async (dispatch) => {
+export const updateBookingThunk = (payload, bookingId) => async (dispatch) => {
    const response = await csrfFetch(`/api/bookings/${bookingId}`, {
      method: 'PUT',
      headers: {
        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(payload)
     });
     
     if(response.ok){

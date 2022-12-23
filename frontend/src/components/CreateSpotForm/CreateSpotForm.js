@@ -37,16 +37,9 @@ const CreateSpotForm = () => {
 
       let spot = {address, city, state, country, lat, lng, name, description, price, imageUrl}
       
-      if (!spot.address.length) return setErrors(['Please provide an address']);
-      if (!spot.city.length) return setErrors(['Please provide a city']);
-      if (!spot.state.length) return setErrors(['Please provide a state']);
-      if (!spot.country.length) return setErrors(['Please provide a country']);
-      if (!spot.lat) return setErrors(['Please provide a lat']);
-      if (!spot.lng) return setErrors(['Please provide a lng']);
-      if (!spot.name.length || spot.name.length > 50) return setErrors(['Please provide a name and it must be less than 50 characters']);
-      if (!spot.description || spot.description.length < 10) return setErrors(['Please provide a description and it must be more than 10 characters']);
-      if (!spot.price || spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
-      if (!spot.imageUrl.length) return setErrors(['Please provide an image']);
+      if (spot.name.length > 50) return setErrors(['Name must be less than 50 characters']);
+      if (spot.description.length < 10) return setErrors(['Description must be more than 10 characters']);
+      if (spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
       if (!spot.imageUrl.includes('.jpg') && !spot.imageUrl.includes('.jpeg') && !spot.imageUrl.includes('.png')) return setErrors(['Image must be in .jpg, .jpeg, or .png format']);
 
       const payload = {
@@ -89,71 +82,71 @@ const CreateSpotForm = () => {
             type="text"
             placeholder='Address'
             value={address}
-            // required
+            required
             onChange={updateAddress} />
         <input
             className='CreateSpotForm_Input'
             type="text"
             placeholder="City"
             value={city}
-            // required
+            required
             onChange={updateCity} />
         <input
             className='CreateSpotForm_Input'
             type="text"
             placeholder="State"
             value={state}
-            // required
+            required
             onChange={updateState} />
         <input
             className='CreateSpotForm_Input'
             type="text"
             placeholder="Country"
             value={country}
-            // required
+            required
             onChange={updateCountry} />
         <input
             className='CreateSpotForm_Input'
             type="number"
             placeholder="Lat"
             value={lat}
-            // required
+            required
             onChange={updateLat} />
           <input
             className='CreateSpotForm_Input'
             type="number"
             placeholder="Lng"
             value={lng}
-            // required
+            required
             onChange={updateLng} />
           <input
             className='CreateSpotForm_Input'
             type="text"
             placeholder="Name"
             value={name}
-            // required
+            required
             onChange={updateName} />
           <input
             className='CreateSpotForm_Input'
             type="text"
             placeholder="Description"
             value={description}
-            // required
+            required
             onChange={updateDescription} />
           <input
             className='CreateSpotForm_Input'
             type="number"
             placeholder="Price"
             value={price}
-            // required
-            // min='1'
+            required
+            min='1'
             onChange={updatePrice} />
           <input
             className='CreateSpotForm_Input'
             type="text"
             placeholder="Image URL"
             value={imageUrl}
-            // required
+            required
             onChange={updateImageUrl} />
         <button type="submit" className="CreateSpotForm_submit_button">Create Spot</button>
         <button type="button" className="CreateSpotForm_cancel_button" onClick={cancelHandler}>
