@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { createBookingThunk, getUserBookingsThunk } from '../../store/bookings';
+import { createBookingThunk, getSpotBookingsThunk } from '../../store/bookings';
 import './CreateBooking.css';
 
 const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate }) => {
-    const { spotId } = useParams();
-    const history = useHistory();
     const dispatch = useDispatch();
+    const history = useHistory();
+    const { spotId } = useParams();
 
     const user = useSelector(state => state.session.user);
     const currentSpot = useSelector(state => state.spots.singleSpot);
@@ -16,87 +16,52 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
 
     const bookings = useSelector(state => state.bookings.allBookings);
     const bookingsArr = Object.values(bookings);
+    const spotBookings = bookingsArr.filter(booking => booking.spotId === currentSpotId);
+    
+    console.log("booking", spotBookings)
+
+    const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+    dispatch(getSpotBookingsThunk(currentSpotId))
+  }, [dispatch, currentSpotId]);
 
     // const [startDate, setStartDate] = useState('');
     // const [endDate, setEndDate] = useState('');
-    const [errors, setErrors] = useState([]);
 
-    const updateStartDate = (e) => setStartDate(e.target.value);
-    const updateEndDate = (e) => setEndDate(e.target.value);
-
-    const checkin = new Date(startDate) 
-    const checkout = new Date(endDate) 
-    
-    const validations = () => {
-        const errors = [];
-
-        if (checkin >= checkout) return setErrors(["Check-out date cannot be the same as or before Check-in date"]);
-        
-        bookings?.map((booking) => {
-        let bookedcheckin = new Date(booking.startDate)
-        let bookedcheckout = new Date(booking.endDate)
-
-        if (checkin === bookedcheckin ||
-            checkin === bookedcheckout ||
-            checkout === bookedcheckin ||
-            checkout === bookedcheckout) {
-            return setErrors(["Sorry, this spot is already booked for the specified dates"])
-        }
-
-        if (checkin > bookedcheckin && checkin < bookedcheckout) {
-            return setErrors(["Sorry, this spot is already booked for the specified dates"])
-        }
-
-        if (checkin < bookedcheckout && checkout > bookedcheckin && checkout < bookedcheckout) {
-            return setErrors(["Sorry, this spot is already booked for the specified dates"])
-        }
-
-        if (checkin < bookedcheckin && checkout > bookedcheckout) {
-            return setErrors(["Sorry, this spot is already booked for the specified dates"])
-        }
-
-        return setErrors(errors);
-        })
-    }
-
-    // useEffect(() => {
-    //     dispatch(getUserBookingsThunk(spotId))
-    //     validations()
-    // }, [dispatch, spotId, checkin, checkout])
+    // const checkin = new Date(startDate) - 0
+    // const checkout = new Date(endDate) - 0
 
     const submitHandler = async (e) => {
       e.preventDefault();
+    //   validations()
       setErrors([]);  
 
       let Booking = { startDate, endDate}
-      Booking.startDate = checkin
-      Booking.endDate = checkout
-      console.log('checkin', checkin)
+
       if (Booking.startDate >= Booking.endDate) return setErrors(["Check-out date cannot be the same as or before the check-in date"]);
-        
-    //   for (let i=0; i < bookings.length; i++) {
-    //     let booking = bookings[i]
-    //     let bookedcheckin = new Date(booking.startDate)
-    //     let bookedcheckout = new Date(booking.endDate)
+      
+      for (let i=0; i < spotBookings.length; i++) {
+          let booking = spotBookings[i]
 
-    //     if (checkin === bookedcheckin ||
-    //         checkin === bookedcheckout ||
-    //         checkout === bookedcheckin ||
-    //         checkout === bookedcheckout) {
-    //         return setErrors(["Sorry, this spot is already booked for the specified dates"])
-    //     }
+        let bookedcheckin = new Date(booking.startDate).toISOString().slice(0, 10)
+        let bookedcheckout = new Date(booking.endDate).toISOString().slice(0, 10)
 
-    //     if (checkin > bookedcheckin && checkin < bookedcheckout) {
-    //         return setErrors(["Sorry, this spot is already booked for the specified dates"])
-    //     }
+        if (Booking.startDate === bookedcheckin || Booking.endDate === bookedcheckout) {
+            return setErrors(["Sorry, this spot is already booked for the specified dates"])
+        }
 
-    //     if (checkin < bookedcheckout && checkout > bookedcheckin && checkout < bookedcheckout) {
-    //         return setErrors(["Sorry, this spot is already booked for the specified dates"])
-    //     }
+        if (Booking.startDate > bookedcheckin && Booking.startDate < bookedcheckout) {
+            return setErrors(["Sorry, this spot is already booked for the specified dates"])
+        }
 
-    //     if (checkin < bookedcheckin && checkout > bookedcheckout) {
-    //         return setErrors(["Sorry, this spot is already booked for the specified dates"])
-    //     }
+        if (Booking.startDate < bookedcheckout && Booking.endDate > bookedcheckin && Booking.endDate < bookedcheckout) {
+            return setErrors(["Sorry, this spot is already booked for the specified dates"])
+        }
+
+        if (Booking.startDate < bookedcheckin && Booking.endDate > bookedcheckout) {
+            return setErrors(["Sorry, this spot is already booked for the specified dates"])
+        }
 
       const payload = {
         userId: userId,
@@ -105,14 +70,10 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
         endDate
       };
   
-      let createdBooking; 
-  
-      createdBooking = await dispatch(createBookingThunk(payload));
-
-      if (createdBooking) {
+     dispatch(createBookingThunk(payload)).then(() => {
         history.push('/userBookings');
-      }
-    // }
+      })
+    }
 }
 
 
@@ -132,7 +93,7 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
                     value={startDate}
                     min={today}
                     required
-                    onChange={updateStartDate} />
+                    onChange={(e) => setStartDate(e.target.value)} />
             </div>
             <div className='checkout-container'>
                 <div className='checkin'>CHECK-OUT</div>
@@ -142,7 +103,7 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
                     value={endDate}
                     min={today}
                     required
-                    onChange={updateEndDate} />
+                    onChange={(e) => setEndDate(e.target.value)} />
             </div>
         </div>
         <button type="submit" className='CreateBooking-Button'>Reserve</button>

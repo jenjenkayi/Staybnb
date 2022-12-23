@@ -57,7 +57,7 @@ const UpdateBooking = () => {
                     value={startDate}
                     min={today}
                     required
-                    onChange={(e) => updateStartDate(e.target.value)} />
+                    onChange={(e) => setStartDate(e.target.value)} />
             </div>
             <div className='checkout-container'>
                 <div className='checkin'>CHECK-OUT</div>
@@ -67,7 +67,7 @@ const UpdateBooking = () => {
                     value={endDate}
                     min={today}
                     required
-                    onChange={(e) => updateEndDate(e.target.value)} />
+                    onChange={(e) => setEndDate(e.target.value)} />
             </div>
         </div>
         <button type="submit" className='UpdateBooking-Button'>Update</button>

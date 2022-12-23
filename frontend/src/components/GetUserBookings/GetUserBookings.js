@@ -12,7 +12,6 @@ const GetUserBookings = () => {
   const bookings = useSelector(state => state.bookings.allBookings);
   const bookingsArr = Object.values(bookings);
   const userBookings = bookingsArr.filter(booking => booking.userId === user.id);
-
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {

@@ -124,7 +124,7 @@ export default function bookingsReducer(state=initialState, action){
   }
     case LOAD_SPOT_BOOKINGS: {
       const newState = { ...state, allBookings:{}}
-        action.payload.Bookings.forEach(booking => {
+        action.payload.forEach(booking => {
         newState.allBookings[booking.id] = booking
       });
      return newState
