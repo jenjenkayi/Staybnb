@@ -20,6 +20,16 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
     const [errors, setErrors] = useState([]);
 
     const numNights = Math.ceil(new Date(endDate).getTime() - new Date(startDate).getTime()) / (24 * 60 * 60 * 1000) 
+    const roomRate = () => {
+        let fee = 0
+        if (!numNights) {
+            fee = currentSpot.price 
+        }
+        else {
+            fee = currentSpot.price * numNights
+        }
+        return fee
+    }
 
     useEffect(() => {
     dispatch(getSpotBookingsThunk(currentSpotId))
@@ -107,21 +117,21 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
       <div className='booking-text'>You won't be charged yet</div>
       <div className='booking-payment-container'>
         <div className='payment-info'>
-            <div>${currentSpot.price} x {numNights} night(s)</div>
-            <div>${currentSpot.price * numNights}</div>
+            <div>${currentSpot.price} x {parseFloat(numNights) ? {numNights} : 1} night(s)</div>
+            <div>${roomRate()}</div>
         </div>
         <div className='payment-info'>
             <div>Cleaning fee</div>
-            <div>${(currentSpot.price * 0.05).toFixed(2)}</div>
+            <div>${Math.ceil((currentSpot.price * 0.05))}</div>
         </div>
         <div className='payment-info'>
             <div>Service fee</div>
-            <div>${(currentSpot.price * 0.15).toFixed(2)}</div>
+            <div>${Math.ceil((currentSpot.price * 0.15))}</div>
         </div>
         <div className='border'></div>
         <div className='payment-info'>
             <div><strong>Total before taxes</strong></div>
-            <div>${currentSpot.price * numNights + currentSpot.price * 0.20}</div>
+            <div>${roomRate() + currentSpot.price * 0.20}</div>
         </div>
       </div>
     </section>
