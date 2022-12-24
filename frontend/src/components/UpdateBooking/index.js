@@ -11,7 +11,7 @@ function UpdateBookingModal({booking}) {
       <button className='userBookings-buttons' onClick={() => setShowModal(true)}>Edit Booking</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <UpdateBooking />
+          <UpdateBooking booking={booking} setShowModal={setShowModal}/>
         </Modal>
       )}
     </>
