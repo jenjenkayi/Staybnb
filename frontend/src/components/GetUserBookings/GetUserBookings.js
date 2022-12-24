@@ -70,13 +70,6 @@ const GetUserBookings = () => {
                             <UpdateBooking booking={booking} />
                           </div> :
                           <button className="userBookings-buttons1">Past booking cannot be edited or deleted</button>}
-                        {/* <div>  
-                          {new Date(booking.startDate).toISOString().slice(0, 10) > today ?
-                            <NavLink to={`/editBooking/${booking.id}`}>
-                              <button className="userBookings-buttons">Edit Booking</button>
-                            </NavLink> : 
-                            <button className="userBookings-buttons1">Past booking cannot be edited or deleted</button>}
-                        </div> */}
                         <div>
                         {new Date(booking.startDate).toISOString().slice(0, 10) > today && user && 
                         <button className="userBookings-buttons"

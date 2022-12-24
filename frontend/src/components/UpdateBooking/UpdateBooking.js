@@ -1,35 +1,58 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
-import { updateBookingThunk, getOneBookingThunk, getUserBookingsThunk } from '../../store/bookings';
+import { useHistory } from 'react-router-dom';
+import { updateBookingThunk, getUserBookingsThunk } from '../../store/bookings';
 import './UpdateBooking.css';
 
 const UpdateBooking = ({booking, setShowModal}) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { spotId } = useParams();
 
     const user = useSelector(state => state.session.user);
+    const currentSpot = useSelector(state => state.spots.singleSpot);
     const userId = user.id
-   
+    const currentSpotId = currentSpot.id
+    const bookingId = booking.id
+  console.log('booking', booking)
     const bookings = useSelector(state => state.bookings.allBookings);
     const bookingsArr = Object.values(bookings);
-    const userBookings = bookingsArr.filter(booking => booking.userId === user.id);
-    const bookingId = booking.id
-
+    const spotBookings = bookingsArr.filter(booking => booking.spotId === currentSpotId);
+    
     const today = (new Date()).toISOString().slice(0, 10)
 
     const [startDate, setStartDate] = useState(booking?.startDate.slice(0, 10));
     const [endDate, setEndDate] = useState(booking?.endDate.slice(0, 10));
     const [errors, setErrors] = useState([]);
 
-  //   useEffect(() => {
-  //   dispatch(getOneBookingThunk(bookingId, spotId))
-  // }, [dispatch, bookingId, spotId])
-
     const submitHandler = async (e) => {
       e.preventDefault();
       setErrors([]);  
+
+      let Booking = { startDate, endDate}
+
+      if (startDate >= endDate) return setErrors(["Check-out date cannot be the same as or before the check-in date"]);
+      
+      for (let i=0; i < spotBookings.length; i++) {
+          let booking = spotBookings[i]
+
+        let bookedcheckin = new Date(booking.startDate).toISOString().slice(0, 10)
+        let bookedcheckout = new Date(booking.endDate).toISOString().slice(0, 10)
+
+        if (startDate === bookedcheckin || endDate === bookedcheckout) {
+            return setErrors(["Sorry, this spot is already booked for the specified dates"])
+        }
+
+        if (startDate > bookedcheckin && startDate < bookedcheckout) {
+            return setErrors(["Sorry, this spot is already booked for the specified dates"])
+        }
+
+        if (startDate < bookedcheckout && endDate > bookedcheckin && endDate < bookedcheckout) {
+            return setErrors(["Sorry, this spot is already booked for the specified dates"])
+        }
+
+        if (Booking.startDate < bookedcheckin && Booking.endDate > bookedcheckout) {
+            return setErrors(["Sorry, this spot is already booked for the specified dates"])
+        }
 
       const payload = {
         userId: userId,
@@ -45,7 +68,8 @@ const UpdateBooking = ({booking, setShowModal}) => {
     })
 
   }
-   
+}
+
 
   return (
     <section>

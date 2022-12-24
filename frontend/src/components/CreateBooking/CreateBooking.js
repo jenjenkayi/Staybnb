@@ -7,13 +7,12 @@ import './CreateBooking.css';
 const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate }) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { spotId } = useParams();
 
     const user = useSelector(state => state.session.user);
     const currentSpot = useSelector(state => state.spots.singleSpot);
     const userId = user.id
     const currentSpotId = currentSpot.id
-
+    console.log('currentSpot', currentSpot)
     const bookings = useSelector(state => state.bookings.allBookings);
     const bookingsArr = Object.values(bookings);
     const spotBookings = bookingsArr.filter(booking => booking.spotId === currentSpotId);
@@ -97,7 +96,11 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
                     onChange={(e) => setEndDate(e.target.value)} />
             </div>
         </div>
+        {currentSpot.ownerId !== user.id ? 
         <button type="submit" className='CreateBooking-Button'>Reserve</button>
+        :
+        <button className="userBookings-buttons1">Reserve</button>
+        }
       </form>
       <div className='booking-text'>You won't be charged yet</div>
       <div className='booking-payment-container'>
