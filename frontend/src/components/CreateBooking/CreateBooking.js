@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { createBookingThunk, getSpotBookingsThunk } from '../../store/bookings';
 import './CreateBooking.css';
 
@@ -12,12 +12,14 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
     const currentSpot = useSelector(state => state.spots.singleSpot);
     const userId = user.id
     const currentSpotId = currentSpot.id
-    console.log('currentSpot', currentSpot)
+
     const bookings = useSelector(state => state.bookings.allBookings);
     const bookingsArr = Object.values(bookings);
     const spotBookings = bookingsArr.filter(booking => booking.spotId === currentSpotId);
     
     const [errors, setErrors] = useState([]);
+
+    const numNights = Math.ceil(new Date(endDate).getTime() - new Date(startDate).getTime()) / (24 * 60 * 60 * 1000) 
 
     useEffect(() => {
     dispatch(getSpotBookingsThunk(currentSpotId))
@@ -99,27 +101,27 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
         {currentSpot.ownerId !== user.id ? 
         <button type="submit" className='CreateBooking-Button'>Reserve</button>
         :
-        <button className="userBookings-buttons1">Reserve</button>
+        <button className="CreateBooking-Button1">Reserve</button>
         }
       </form>
       <div className='booking-text'>You won't be charged yet</div>
       <div className='booking-payment-container'>
         <div className='payment-info'>
-            <div>${currentSpot.price} x {} nights</div>
-            <div>${}</div>
+            <div>${currentSpot.price} x {numNights} night(s)</div>
+            <div>${currentSpot.price * numNights}</div>
         </div>
         <div className='payment-info'>
             <div>Cleaning fee</div>
-            <div>${}</div>
+            <div>${(currentSpot.price * 0.05).toFixed(2)}</div>
         </div>
         <div className='payment-info'>
             <div>Service fee</div>
-            <div>${}</div>
+            <div>${(currentSpot.price * 0.15).toFixed(2)}</div>
         </div>
         <div className='border'></div>
         <div className='payment-info'>
             <div><strong>Total before taxes</strong></div>
-            <div>${}</div>
+            <div>${currentSpot.price * numNights + currentSpot.price * 0.20}</div>
         </div>
       </div>
     </section>
