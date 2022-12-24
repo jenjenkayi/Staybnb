@@ -67,7 +67,7 @@ export const getSpotBookingsThunk = (spotId) => async (dispatch) => {
 }
 
 export const updateBookingThunk = (payload, bookingId) => async (dispatch) => {
-   const response = await csrfFetch(`/api/bookings/${bookingId}`, {
+   const response = await csrfFetch(`/api/bookings/${payload.bookingId}`, {
      method: 'PUT',
      headers: {
        'Content-Type': 'application/json'

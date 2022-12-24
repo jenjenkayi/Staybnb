@@ -1,33 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { updateBookingThunk, getOneBookingThunk } from '../../store/bookings';
+import { updateBookingThunk, getOneBookingThunk, getUserBookingsThunk } from '../../store/bookings';
 import './UpdateBooking.css';
 
 const UpdateBooking = ({booking, setShowModal}) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { bookingId } = useParams();
     const { spotId } = useParams();
 
     const user = useSelector(state => state.session.user);
-    const currentSpot = useSelector(state => state.spots.singleSpot);
     const userId = user.id
-    const currentSpotId = currentSpot.id
-
-    console.log('currentSpotId', currentSpotId)
-
-    const currBooking = useSelector(state => state.bookings.singleBooking);
-    
+   
     const bookings = useSelector(state => state.bookings.allBookings);
     const bookingsArr = Object.values(bookings);
     const userBookings = bookingsArr.filter(booking => booking.userId === user.id);
-    console.log('booking', booking)
+    const bookingId = booking.id
 
     const today = (new Date()).toISOString().slice(0, 10)
 
-    const [startDate, setStartDate] = useState(booking?.startDate);
-    const [endDate, setEndDate] = useState(booking?.endDate);
+    const [startDate, setStartDate] = useState(booking?.startDate.slice(0, 10));
+    const [endDate, setEndDate] = useState(booking?.endDate.slice(0, 10));
     const [errors, setErrors] = useState([]);
 
   //   useEffect(() => {
@@ -40,14 +33,15 @@ const UpdateBooking = ({booking, setShowModal}) => {
 
       const payload = {
         userId: userId,
-        spotId: currentSpotId,
+        bookingId: bookingId,
         startDate,
         endDate
       };
   
-    dispatch(updateBookingThunk(payload)).then(() => {
+    dispatch(updateBookingThunk(payload, bookingId)).then(() => {
         history.push('/userBookings');
         setShowModal(false)
+    dispatch(getUserBookingsThunk())
     })
 
   }
