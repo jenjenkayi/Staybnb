@@ -30,6 +30,7 @@ a:active {
 }
 
 .footer-container {
+    margin-top: 5%;
     position: absolute;
     bottom: -1;
     width: 100%;
@@ -51,9 +52,10 @@ a:active {
 .footer-background {
     width: 100%;
     height: 140px;
-    background-color: #BF9E87;
+    /* background-color: #BF9E87; */
     position: relative;
     margin-top: 5%;
+    border-top: 1px solid #dddddd;
 }
 
 .footer-links {
@@ -68,3 +70,10 @@ a:active {
     top: -50px;
 }
 
+.fa-brands {
+    margin-right: 5px;
+}
+
+.fa-linkedin {
+    margin-left: 10px;
+}

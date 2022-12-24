@@ -147,7 +147,11 @@ const CreateSpotForm = () => {
             placeholder="Image URL"
             value={imageUrl}
             required
-            onChange={updateImageUrl} />
+            onChange={updateImageUrl}
+            onError={e => {
+                    e.currentTarget.src = "https://nckenya.com/wp-content/themes/consultix/images/no-image-found-360x260.png"
+                    e.onerror=null;
+            }} />
         <button type="submit" className="CreateSpotForm_submit_button">Create Spot</button>
         <button type="button" className="CreateSpotForm_cancel_button" onClick={cancelHandler}>
         Cancel
