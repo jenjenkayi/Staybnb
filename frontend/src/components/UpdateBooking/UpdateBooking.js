@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { updateBookingThunk, getOneBookingThunk } from '../../store/bookings';
 import './UpdateBooking.css';
 
-const UpdateBooking = () => {
+const UpdateBooking = ({booking, setShowModal}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { bookingId } = useParams();
@@ -14,10 +14,11 @@ const UpdateBooking = () => {
     const userId = user.id
     const currentSpotId = currentSpot.id
 
-    const currBooking = useSelector(state => state.review.singleBooking);
+    const currBooking = useSelector(state => state.bookings.singleBooking);
+    const today = (new Date()).toISOString().slice(0, 10)
 
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+    const [startDate, setStartDate] = useState(booking.startDate);
+    const [endDate, setEndDate] = useState(booking.endDate);
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {

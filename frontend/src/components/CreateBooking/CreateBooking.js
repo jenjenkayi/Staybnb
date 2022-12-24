@@ -18,23 +18,14 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
     const bookingsArr = Object.values(bookings);
     const spotBookings = bookingsArr.filter(booking => booking.spotId === currentSpotId);
     
-    console.log("booking", spotBookings)
-
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {
     dispatch(getSpotBookingsThunk(currentSpotId))
   }, [dispatch, currentSpotId]);
 
-    // const [startDate, setStartDate] = useState('');
-    // const [endDate, setEndDate] = useState('');
-
-    // const checkin = new Date(startDate) - 0
-    // const checkout = new Date(endDate) - 0
-
     const submitHandler = async (e) => {
       e.preventDefault();
-    //   validations()
       setErrors([]);  
 
       let Booking = { startDate, endDate}

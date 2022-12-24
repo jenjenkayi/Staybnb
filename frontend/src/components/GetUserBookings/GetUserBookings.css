@@ -84,6 +84,19 @@
     cursor: pointer;
 }
 
+.userBookings-buttons1 {
+    color: black;
+    background-color: rgba(174, 169, 169, 0.867)c;
+    border-radius: 10px;
+    border: none;
+    height: 40px;
+    width: 300px;
+    line-height: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: not-allowed;
+}
+
 .userBookings-buttons-container {
     display: flex;
     flex-wrap: nowrap;

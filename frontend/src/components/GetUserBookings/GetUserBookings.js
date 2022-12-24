@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { getUserBookingsThunk, deleteBookingThunk } from '../../store/bookings';
+import UpdateBooking from "../UpdateBooking";
 import './GetUserBookings.css';
 
 const GetUserBookings = () => {
@@ -14,6 +15,8 @@ const GetUserBookings = () => {
   const userBookings = bookingsArr.filter(booking => booking.userId === user.id);
   const [isLoaded, setIsLoaded] = useState(false)
 
+  const today = (new Date()).toISOString().slice(0, 10)
+  
   useEffect(() => {
     dispatch(getUserBookingsThunk())
     .then(() => setIsLoaded(true))
@@ -62,13 +65,21 @@ const GetUserBookings = () => {
                           <div>{(booking?.endDate).slice(0,10)}</div>
                         </div>
                       <div className="userBookings-buttons-container">
-                        <div className="userBookings-buttons">
-                        <NavLink to={`/editBooking/${booking.id}`}>
-                            {user && <button className="userBookings-buttons">Edit Booking</button>}
-                        </NavLink>
-                        </div>
-                        <div className="userBookings-buttons">
-                        {user && <button className="userBookings-buttons"
+                          {new Date(booking.startDate).toISOString().slice(0, 10) > today ?
+                          <div>  
+                            <UpdateBooking booking={booking} />
+                          </div> :
+                          <button className="userBookings-buttons1">Past booking cannot be edited or deleted</button>}
+                        {/* <div>  
+                          {new Date(booking.startDate).toISOString().slice(0, 10) > today ?
+                            <NavLink to={`/editBooking/${booking.id}`}>
+                              <button className="userBookings-buttons">Edit Booking</button>
+                            </NavLink> : 
+                            <button className="userBookings-buttons1">Past booking cannot be edited or deleted</button>}
+                        </div> */}
+                        <div>
+                        {new Date(booking.startDate).toISOString().slice(0, 10) > today && user && 
+                        <button className="userBookings-buttons"
                         onClick={()=>deleteHandler(booking.id)}>Cancel Booking
                         </button>}
                         </div>
