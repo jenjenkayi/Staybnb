@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { getUserReviewsThunk, deleteReviewThunk } from '../../store/reviews';
 import './GetUserReviews.css';
 
@@ -51,9 +51,9 @@ const GetUserReviews = () => {
                   {user && <button className="UserReviews_Delete_Button"
                   onClick={()=>deleteHandler(review.id)}>Delete Review
                   </button>}
-                  {/* <NavLink to={`/updateReview/${review.id}`}>
+                  <NavLink to={`/updateReview/${review.id}`}>
                   <button className="UserReviews_Edit_Button">Edit Review</button>
-                  </NavLink> */}
+                  </NavLink>
                   </div>
                 )}
                   </>

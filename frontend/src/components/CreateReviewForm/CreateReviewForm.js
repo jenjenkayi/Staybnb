@@ -49,7 +49,6 @@ const CreateReviewForm = () => {
 
   const cancelHandler = (e) => {
     e.preventDefault();
-    // history.push(`/spots/${currentSpotId}`);
     history.push(`/spots/${spotId}`);
   };
 

@@ -16,7 +16,7 @@ const GetOneSpot = () => {
   const userReview = Object.values(reviews).filter((review) => review.userId === user?.id)
 
   const [isLoaded, setIsLoaded] = useState(false)
-  
+
   const today = (new Date()).toISOString().slice(0, 10)
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -142,7 +142,7 @@ const GetOneSpot = () => {
             <button 
               type="submit"
               className="one_spot_create_review_button"
-              >Create a Review
+              >Write a Review
             </button>
             </NavLink>}
         </div>

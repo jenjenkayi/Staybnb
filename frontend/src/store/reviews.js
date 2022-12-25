@@ -74,13 +74,13 @@ export const getUserReviewsThunk = () => async (dispatch) => {
   }
 }
 
-export const updateReviewThunk = (review, reviewId) => async (dispatch) => {
-   const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+export const updateReviewThunk = (payload, reviewId) => async (dispatch) => {
+   const response = await csrfFetch(`/api/reviews/${payload.reviewId}`, {
      method: 'PUT',
      headers: {
        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(review)
+      body: JSON.stringify(payload)
     });
     
     if(response.ok){
