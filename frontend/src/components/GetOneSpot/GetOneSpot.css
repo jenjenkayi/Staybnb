@@ -15,7 +15,12 @@ a {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    /* text-align: left; */
+}
+
+.one_spot_details {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .one_spot_name {
@@ -36,9 +41,9 @@ a {
 }
 
 .one_spot_rating {
-    color: rgb(34, 34, 34);
+    display: flex;
+    flex-direction: row;
     margin-bottom: 5px;
-    /* border: 5px; */
     margin-left: 5px;
 }
 
