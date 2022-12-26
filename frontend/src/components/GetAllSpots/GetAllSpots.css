@@ -19,8 +19,8 @@ a:active {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
     margin-top: 60px; 
     column-gap: 20px;
     row-gap: 20px;

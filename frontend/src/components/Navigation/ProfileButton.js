@@ -36,12 +36,19 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <div className="dropdown_menu">
-      {sessionUser && <button className="profile_button" onClick={openMenu}>
-        <i className="fa-solid fa-bars fa-lg"/>
-        <i className="fas fa-user-circle fa-2xl"/>
-      </button>}
-      {showMenu && (
+    <div className="nav-right-container">
+      <div className="host-button">
+        {sessionUser && <button type="button" className='nav_host_button' 
+              onClick={() => history.push("/createSpot")}>
+              Become a Host
+        </button>}
+      </div>
+      <div className="dropdown_menu">
+        {sessionUser && <button className="profile_button" onClick={openMenu}>
+          <i className="fa-solid fa-bars fa-lg"/>
+          <i className="fas fa-user-circle fa-2xl"/>
+        </button>}
+        {showMenu && (
         <ul className="profile_dropdown">
           <li>Hi {user.username}!</li>
           <li>{user.email}</li>
@@ -62,7 +69,8 @@ function ProfileButton({ user }) {
             Log Out
           </button>
         </ul>
-    )}
+      )}
+      </div>
     </div>
   );
 }

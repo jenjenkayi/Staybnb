@@ -48,12 +48,12 @@ const GetUserReviews = () => {
                     {review.stars}
                   </div>
                   <div className="UserReviews_Description">{review.review}</div>
-                  {user && <button className="UserReviews_Delete_Button"
-                  onClick={()=>deleteHandler(review.id)}>Delete Review
-                  </button>}
                   <NavLink to={`/updateReview/${review.id}`}>
                   <button className="UserReviews_Edit_Button">Edit Review</button>
                   </NavLink>
+                  {user && <button className="UserReviews_Delete_Button"
+                  onClick={()=>deleteHandler(review.id)}>Delete Review
+                  </button>}
                   </div>
                 )}
                   </>
