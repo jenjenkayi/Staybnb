@@ -37,10 +37,10 @@ const GetOneSpot = () => {
         <div className="one_spot_header_info">
           <div className="one_spot_name">{spot.name}</div>
           <div className="one_spot_details">
-            <div className="one_spot_rating">
+            {/* <div className="one_spot_rating"> */}
               <i className="fa-solid fa-star"></i>
-              {parseFloat(spot.avgStarRating) ? spot.avgStarRating : "New"} · {spot.numReviews ? spot.numReviews : 0} review(s) · {spot.city}, {spot.state}, {spot.country}
-            </div>
+              <div>{parseFloat(spot.avgStarRating) ? spot.avgStarRating : "New"} · {spot.numReviews ? spot.numReviews : 0} review(s) · {spot.city}, {spot.state}, {spot.country}</div>
+            {/* </div> */}
           </div>
         </div>
 
