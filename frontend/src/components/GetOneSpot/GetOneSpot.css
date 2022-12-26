@@ -13,8 +13,11 @@ a {
 
 .one_spot_header_info {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-direction: row;
+    /* align-content: stretch;
+    justify-content: flex-start;
+    align-items: baseline; */
 }
 
 .one_spot_details {
