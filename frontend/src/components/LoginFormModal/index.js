@@ -9,11 +9,11 @@ function LoginFormModal() {
   return (
     <>
       <button className='Nav_Login_Button' onClick={() => setShowModal(true)}>Log In</button>
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <LoginForm />
-        </Modal>
-      )}
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <LoginForm />
+          </Modal>
+        )}
     </>
   );
 }

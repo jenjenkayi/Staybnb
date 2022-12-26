@@ -9,11 +9,11 @@ function SignupFormModal() {
   return (
     <>
       <button className='Nav_Signup_Button' onClick={() => setShowModal(true)}>Sign Up</button>
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <SignupForm />
-        </Modal>
-      )}
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <SignupForm />
+          </Modal>
+        )}
     </>
   );
 }

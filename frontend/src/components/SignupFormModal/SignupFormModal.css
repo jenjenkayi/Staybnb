@@ -6,7 +6,7 @@
     border-radius: 20px;
     cursor: pointer;
     height: 35px;
-    width: 60px;
+    width: 65px;
     border: .5px solid #dddddd;
     background-color: #ffffff;
     background: transparent;
@@ -19,6 +19,8 @@
     color: white;
     background-color: #ff385c;
     font-size: 12px;
+    margin-right: 7%;
+    margin-left: 2%;
 }
 
 .SignupForm_Container {

@@ -1,13 +1,12 @@
 .Nav_Login_Button {
     padding: 5px 5px 5px 5px;
     justify-content: space-around;
-    margin-left: 80%;
     display: flex;
     flex-direction: row;
     border-radius: 20px;
     cursor: pointer;
     height: 35px;
-    width: 60px;
+    width: 65px;
     border: .5px solid #dddddd;
     background-color: #ffffff;
     background: transparent;
@@ -37,7 +36,6 @@
     outline: 1px solid #dddddd;
     text-align: center;
     cursor: pointer;
-    /* border-radius: 50px; */
 }
 
 .LoginForm_Title {

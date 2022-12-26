@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    width: 95%;
-    margin-left: 6%;
+    margin-left: 9%;
     padding-bottom: 10px;
     padding-top: 10px;
     border-bottom: 1px solid #dddddd;
@@ -13,7 +13,7 @@
 .nav-right-container {
     display: flex;
     flex-direction: row;
-    margin-right: 6%;
+    margin-right: 13%;
 }
 
 .nav_logo {
@@ -22,6 +22,12 @@
     display:flex;
     cursor: pointer;
     align-items: center;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-direction: row;
+    margin-right: 13%;
 }
 
 .nav_host_button {
