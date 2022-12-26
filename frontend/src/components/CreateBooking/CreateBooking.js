@@ -117,7 +117,7 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
       <div className='booking-text'>You won't be charged yet</div>
       <div className='booking-payment-container'>
         <div className='payment-info'>
-            <div>${currentSpot.price} x {parseFloat(numNights) ? {numNights} : 1} night(s)</div>
+            <div>${currentSpot.price} x {numNights ? numNights : 1} night(s)</div>
             <div>${roomRate()}</div>
         </div>
         <div className='payment-info'>
