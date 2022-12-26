@@ -15,9 +15,9 @@ a {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
-    /* align-content: stretch;
+    align-content: stretch;
     justify-content: flex-start;
-    align-items: baseline; */
+    align-items: baseline;
 }
 
 .one_spot_details {
