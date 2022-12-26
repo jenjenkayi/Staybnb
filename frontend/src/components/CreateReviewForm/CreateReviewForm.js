@@ -27,8 +27,7 @@ const CreateReviewForm = () => {
 
       let Review = {review, stars}
 
-      if (!Review.review.length || Review.review.length < 10) return setErrors(["Please provide a review and it must be 10 or more characters"]);
-      if (!Review.stars.length) return setErrors(["Please provide a star"]);
+      if (Review.review.length < 10) return setErrors(["Review must be 10 or more characters"]);
       if (Review.stars > 5 || Review.stars < 1) return setErrors(["Stars must be between 1 to 5"]);
 
     const payload = {
@@ -50,14 +49,13 @@ const CreateReviewForm = () => {
 
   const cancelHandler = (e) => {
     e.preventDefault();
-    // history.push(`/spots/${currentSpotId}`);
     history.push(`/spots/${spotId}`);
   };
 
   return (
     <section>
       <form className="CreateReviewForm_Container" onSubmit={submitHandler}>
-        <h3 className="CreateReviewForm_Title">Create A Review</h3>
+        <h3 className="CreateReviewForm_Title">Leave A Review</h3>
         <ul className="errors">
           {errors.length > 0 &&
           errors.map((error) => <li key={error}>{error}</li>)}
@@ -67,16 +65,16 @@ const CreateReviewForm = () => {
             type="text"
             placeholder='Write your review'
             value={review}
-            // required
+            required
             onChange={updateReview} />
         <input
             className='CreateReviewForm_Input'
             type="number"
             placeholder="Stars"
             value={stars}
-            // required
-            // min="1"
-            // max="5"
+            required
+            min="1"
+            max="5"
             onChange={updateStars} />
         <button type="submit" className='CreateReviewForm_Submit_Button'>Submit</button>
         <button type="button" 

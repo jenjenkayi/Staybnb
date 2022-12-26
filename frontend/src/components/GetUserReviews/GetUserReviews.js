@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { getUserReviewsThunk, deleteReviewThunk } from '../../store/reviews';
 import './GetUserReviews.css';
 
@@ -13,8 +13,11 @@ const GetUserReviews = () => {
   const reviewsArr = Object.values(reviews);
   const userReviews = reviewsArr.filter((review) => review.userId === user.id);
 
+  const [isLoaded, setIsLoaded] = useState(false)
+
   useEffect(() => {
     dispatch(getUserReviewsThunk())
+    .then(() => setIsLoaded(true))
   }, [dispatch]);
 
   // if (userReviews.length === 0) {
@@ -30,12 +33,13 @@ const GetUserReviews = () => {
 
   return (
     <>
-        <div className="UserReviews_Header">Reviews</div>
+        <div className="UserReviews_Header">My Reviews</div>
       <div className="UserReviews_Container">
-            {!userReviews.length && <div className="UserReviews_no_review">There is no review yet.</div>}
-            {userReviews && userReviews.map((review) => {
+            {isLoaded && !userReviews.length && <div className="UserReviews_no_review">There is no review yet.</div>}
+            {isLoaded && userReviews && userReviews.map((review) => {
                 return (
                   <>
+                {isLoaded && (
                   <div className="UserReviews_Details">
                   <div className="UserReviews_Location">Location: {review?.Spot?.name}</div>
                   <div className="UserReviews_Creator">Review by: {review?.User?.firstName}</div>
@@ -44,13 +48,14 @@ const GetUserReviews = () => {
                     {review.stars}
                   </div>
                   <div className="UserReviews_Description">{review.review}</div>
+                  <NavLink to={`/updateReview/${review.id}`}>
+                  <button className="UserReviews_Edit_Button">Edit Review</button>
+                  </NavLink>
                   {user && <button className="UserReviews_Delete_Button"
                   onClick={()=>deleteHandler(review.id)}>Delete Review
                   </button>}
-                  {/* <NavLink to={`/updateReview/${review.id}`}>
-                  <button className="UserReviews_Edit_Button">Edit Review</button>
-                  </NavLink> */}
                   </div>
+                )}
                   </>
                 )
               })}

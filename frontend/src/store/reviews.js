@@ -74,13 +74,13 @@ export const getUserReviewsThunk = () => async (dispatch) => {
   }
 }
 
-export const updateReviewThunk = (review, reviewId) => async (dispatch) => {
-   const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+export const updateReviewThunk = (payload, reviewId) => async (dispatch) => {
+   const response = await csrfFetch(`/api/reviews/${payload.reviewId}`, {
      method: 'PUT',
      headers: {
        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(review)
+      body: JSON.stringify(payload)
     });
     
     if(response.ok){
@@ -118,7 +118,6 @@ export default function reviewsReducer(state=initialState, action){
   switch(action.type) {
     case CREATE_REVIEW: {
       // const newState = { ...state, spotReviews:{...state.spotReviews}}
-      // console.log("newState", newState)
       // newState.spotReviews[action.payload.id] = action.payload
       // return newState
       const newState = {...state}
@@ -137,7 +136,6 @@ export default function reviewsReducer(state=initialState, action){
         action.payload.Reviews.forEach(review => {
         newState.userReviews[review.id] = review
       });
-      console.log('thunk', newState)
       return newState;
     }
     case UPDATE_REVIEW: {

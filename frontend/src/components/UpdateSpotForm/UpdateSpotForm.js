@@ -49,16 +49,11 @@ const UpdateSpotForm = ({ spot }) => {
 
     let spot = {address, city, state, country, lat, lng, name, description, price}
       
-      if (!spot.address.length || spot.address.length > 50) return setErrors(['Please provide an address and it must be less than 50 characters']);
-      if (!spot.city.length || spot.city.length > 50) return setErrors(['Please provide a city and it must be less than 50 characters']);
-      if (!spot.state.length || spot.state.length > 50) return setErrors(['Please provide a state and it must be less than 50 characters']);
-      if (!spot.country.length || spot.country.length > 50) return setErrors(['Please provide a country and it must be less than 50 characters']);
-      if (!spot.lat) return setErrors(['Please provide a lat']);
-      if (!spot.lng) return setErrors(['Please provide a lng']);
-      if (!spot.name.length || spot.name.length > 50) return setErrors(['Please provide a name and it must be less than 50 characters']);
-      if (!spot.description || spot.description.length < 10 || spot.description.length > 200) return setErrors(['Please provide a description and it must be between 10 and 200 characters']);
-      if (!spot.price || spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
-    
+    if (spot.name.length > 50) return setErrors(['Name must be less than 50 characters']);
+    if (spot.description.length < 10) return setErrors(['Description must be more than 10 characters']);
+    if (spot.price < 0 ) return setErrors(['Price must be 1 or higher']);
+    if (!spot.imageUrl.includes('.jpg') && !spot.imageUrl.includes('.jpeg') && !spot.imageUrl.includes('.png')) return setErrors(['Image must be in .jpg, .jpeg, or .png format']);
+
     const payload = {
       id: spotId,
       address,
@@ -102,63 +97,63 @@ const UpdateSpotForm = ({ spot }) => {
             type="text"
             placeholder='Address'
             value={address}
-            // required
+            required
             onChange={updateAddress} />
         <input
             className="UpdateSpotForm_Input"
             type="text"
             placeholder="City"
             value={city}
-            // required
+            required
             onChange={updateCity} />
         <input
             className="UpdateSpotForm_Input"
             type="text"
             placeholder="State"
             value={state}
-            // required
+            required
             onChange={updateState} />
         <input
             className="UpdateSpotForm_Input"
             type="text"
             placeholder="Country"
             value={country}
-            // required
+            required
             onChange={updateCountry} />
         <input
             className="UpdateSpotForm_Input"
             type="number"
             placeholder="Lat"
             value={lat}
-            // required
+            required
             onChange={updateLat} />
           <input
             className="UpdateSpotForm_Input"
             type="number"
             placeholder="Lng"
             value={lng}
-            // required
+            required
             onChange={updateLng} />
           <input
             className="UpdateSpotForm_Input"
             type="text"
             placeholder="Name"
             value={name}
-            // required
+            required
             onChange={updateName} />
           <input
             className="UpdateSpotForm_Input"
             type="text"
             placeholder="Description"
             value={description}
-            // required
+            required
             onChange={updateDescription} />
           <input
             className="UpdateSpotForm_Input"
             type="number"
             placeholder="Price"
             value={price}
-            // required
+            required
             min='1'
             onChange={updatePrice} />
         <button type="submit" className="UpdateSpotForm_Submit_Button">Submit</button>

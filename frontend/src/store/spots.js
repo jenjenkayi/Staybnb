@@ -52,7 +52,6 @@ export const createSpotThunk = (data) => async (dispatch) => {
 
   if(response.ok){
     const spotData = await response.json()  //new created spot
-    console.log("data", spotData)
     const imgRes = await csrfFetch(`api/spots/${spotData.id}/images`, {
       method: 'POST',
       headers: {
@@ -154,7 +153,6 @@ export default function spotsReducer(state = initialState, action){
     }
     case READ_USER_SPOTS: {
       // const newState = {...state, singleSpot:{...state.singleSpot}}
-      // console.log("newState", newState)
       // action.payload.forEach(spot => {
       //   newState.singleSpot[spot.id] = spot
       // })

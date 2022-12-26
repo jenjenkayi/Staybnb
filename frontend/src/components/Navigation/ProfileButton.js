@@ -36,29 +36,41 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <div className="dropdown_menu">
-      {sessionUser && <button className="profile_button" onClick={openMenu}>
-        <i className="fa-solid fa-bars fa-lg"/>
-        <i className="fas fa-user-circle fa-2xl"/>
-      </button>}
-      {showMenu && (
+    <div className="nav-right-container">
+      <div className="host-button">
+        {sessionUser && <button type="button" className='nav_host_button' 
+              onClick={() => history.push("/createSpot")}>
+              Become a Host
+        </button>}
+      </div>
+      <div className="dropdown_menu">
+        {sessionUser && <button className="profile_button" onClick={openMenu}>
+          <i className="fa-solid fa-bars fa-lg"/>
+          <i className="fas fa-user-circle fa-2xl"/>
+        </button>}
+        {showMenu && (
         <ul className="profile_dropdown">
           <li>Hi {user.username}!</li>
           <li>{user.email}</li>
-          <button className="my_spots_button"
+          <button className="profile_buttons"
             onClick={() => history.push('/currentSpots')}>
             Manage Listings
           </button>
-          <button className="my_reviews_button"
+          <button className="profile_buttons"
              onClick={() => history.push('/userReviews')}>
             Manage Reviews
+          </button>
+          <button className="profile_buttons"
+             onClick={() => history.push('/userBookings')}>
+            Manage Bookings
           </button>
           <button className="log_out_button"
             onClick={logout}>
             Log Out
           </button>
         </ul>
-    )}
+      )}
+      </div>
     </div>
   );
 }

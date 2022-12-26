@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import { getOneSpotThunk } from '../../store/spots';
 import  GetSpotReviews from "../../components/GetSpotReviews/GetSpotReviews";
 import './GetOneSpot.css';
+import CreateBookingForm from "../CreateBooking/CreateBooking";
 
 const GetOneSpot = () => {
   const dispatch = useDispatch();
@@ -14,8 +15,15 @@ const GetOneSpot = () => {
   const reviews = useSelector(state => state.reviews.spotReviews);
   const userReview = Object.values(reviews).filter((review) => review.userId === user?.id)
 
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  const today = (new Date()).toISOString().slice(0, 10)
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
   useEffect(() => {
     dispatch(getOneSpotThunk(spotId))
+    .then(() => setIsLoaded(true))
   }, [dispatch, spotId]);
   
   if (Object.keys(spot).length === 0) {
@@ -24,6 +32,7 @@ const GetOneSpot = () => {
 
   return (
     <>
+      {isLoaded && (
     <div className="one_spot_wrapper">
         <div className="one_spot_header_info">
           <div className="one_spot_name">{spot.name}</div>
@@ -108,17 +117,19 @@ const GetOneSpot = () => {
       </div>
 
         <div className="one_spot_border_box">
-            {/* <div className="border_box_top"> */}
               <div className="border_box_left">${spot.price} night</div>
               <div className="border_box_right">
                 <i className="fa-solid fa-star"></i>
                 {parseFloat(spot.avgStarRating)? spot.avgStarRating : "New"} · {spot.numReviews? spot.numReviews : 0} review(s)
               </div>
+              <CreateBookingForm 
+                today={today}
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+              /> 
             </div>
-            {/* <div className="border_box_middle">
-              <div>Cleaning Fee</div>        
-            </div> */}
-        {/* </div> */}
         </div>
        
         <div>
@@ -131,11 +142,12 @@ const GetOneSpot = () => {
             <button 
               type="submit"
               className="one_spot_create_review_button"
-              >Create a Review
+              >Write a Review
             </button>
             </NavLink>}
         </div>
   </div>
+  )}
   </>
   );
 };
