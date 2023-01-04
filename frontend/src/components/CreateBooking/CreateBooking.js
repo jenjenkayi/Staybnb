@@ -10,7 +10,7 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
 
     const user = useSelector(state => state.session.user);
     const currentSpot = useSelector(state => state.spots.singleSpot);
-    const userId = user.id
+    const userId = user?.id
     const currentSpotId = currentSpot.id
 
     const bookings = useSelector(state => state.bookings.allBookings);
@@ -108,7 +108,7 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
                     onChange={(e) => setEndDate(e.target.value)} />
             </div>
         </div>
-        {currentSpot.ownerId !== user.id ? 
+        {user && currentSpot.ownerId !== user?.id ? 
         <button type="submit" className='CreateBooking-Button'>Reserve</button>
         :
         <button className="CreateBooking-Button1">Reserve</button>
