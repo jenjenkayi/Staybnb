@@ -5,6 +5,7 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
+import SearchSpot from '../SearchSpot/SearchSpot';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -34,11 +35,10 @@ function Navigation({ isLoaded }){
           onClick={() => history.push('/')}
           >
           </img>
-        {/* {sessionUser && <button type="button" className='nav_host_button' 
-            onClick={() => history.push("/createSpot")}>
-            Become a Host
-          </button>} */}
-            {isLoaded && sessionLinks}
+        <div className='search-bar'>
+          <SearchSpot />
+        </div>
+        {isLoaded && sessionLinks}
       </div>
   )
 }
