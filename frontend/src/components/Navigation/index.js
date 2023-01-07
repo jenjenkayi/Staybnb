@@ -5,7 +5,7 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
-import SearchSpot from '../SearchSpot/SearchSpot';
+import SearchBar from '../SearchSpot/SearchBar';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -36,7 +36,7 @@ function Navigation({ isLoaded }){
           >
           </img>
         <div className='search-bar'>
-          <SearchSpot />
+          <SearchBar />
         </div>
             {isLoaded && sessionLinks}
       </div>

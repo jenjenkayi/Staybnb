@@ -1,0 +1,70 @@
+.search-bar-form-container {
+    display: flex;
+    min-width: 350px;
+    height: 48px;
+    border-radius: 50px;
+    box-shadow: 0 1px 4px 0 rgb(34 34 34 / 10%);
+    background: #FFFFFF;
+    border: 1px solid #b0b0b0;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.search-bar-form-input {
+    width: 350px;
+    height: 35px;
+    margin: 5px 5px 5px 15px;
+    border: none;
+}
+
+.search-bar-form-button {
+    margin-left: 10px;
+    margin-right: 15px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    background-color: #ff385c;
+    align-items: center;
+    padding: 5px 5px 5px 8px;
+    cursor: pointer;
+    color: white;
+}
+
+.searchbar-dropdown {
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    padding: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 1px 4px 0 rgb(34 34 34 / 10%);
+}
+
+.searchbar-results {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.searchbar-spot-img {
+    width: 100px;
+    height: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    border-radius: 10px;
+    gap: 2em;
+    object-fit: cover;
+    margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.2);
+}
+
+.searchbar-spot-info {
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 10px;
+}
