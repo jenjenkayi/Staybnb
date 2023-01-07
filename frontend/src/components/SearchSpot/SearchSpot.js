@@ -24,7 +24,7 @@ return (
         <input
             className='search-bar-form-input'
             type="text"
-            placeholder='Search for anything'
+            placeholder='Anywhere | City | State | Country'
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
         />
