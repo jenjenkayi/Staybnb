@@ -16,11 +16,14 @@ const SearchSpot = () => {
     dispatch(getAllSpotsThunk())
   }, [dispatch]);
 
+  const submitHandler = async (e) => {
+      e.preventDefault();
+
+      dispatch(getAllSpotsThunk)
+  }
 
 return (
-     <form className="search-bar-form-container" 
-    //  onSubmit={submitHandler}
-     >
+     <form className="search-bar-form-container" onSubmit={submitHandler}>
         <input
             className='search-bar-form-input'
             type="text"
