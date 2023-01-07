@@ -5,9 +5,6 @@ const Footer = () => {
 return (
     <footer className='footer-container'>
         <div className="footer-background"></div>
-            <div className='footer-info'>
-                {/* Connect With The Developer! */}
-                </div>
                 <div className='footer-links'>
                     <i className="fa-brands fa-github"></i>
                     <a 
@@ -24,6 +21,13 @@ return (
                         target="_blank"
                         rel="noreferrer">
                         LinkedIn
+                    </a>
+                    <i class="fa-regular fa-envelope"></i>                    <a 
+                        className='about-me-link'
+                        href="mailto:jennyjiang0830@hotmail.com"
+                        target="_blank"
+                        rel="noreferrer">
+                        Email
                     </a>
                 </div>
     </footer>

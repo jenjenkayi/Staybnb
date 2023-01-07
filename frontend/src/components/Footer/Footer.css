@@ -30,44 +30,28 @@ a:active {
 }
 
 .footer-container {
-    margin-top: 5%;
-    position: sticky;
-    bottom: -1;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
     width: 100%;
-}
-
-.footer-info {
-    font-family: 'Roboto', Georgia, serif;
-    font-size: 28px;
-    font-style: bold;
-    line-height: 26px;
-    font-weight: 600;
-    color: #222222;
-    text-align: center;
-    margin-top: -50px;
-    position: relative;
-    top: -40px;
+    height: 40px;
+    z-index: 100;
+    border-top: 1px solid #dddddd;
 }
 
 .footer-background {
-    width: 100%;
-    height: 80px;
-    background-color: #EBEBEB;
-    position: relative;
-    margin-top: 5%;
-    border-top: 1px solid #dddddd;
+    background-color: #ffffff;
 }
 
 .footer-links {
     font-family: 'Roboto', Georgia, serif;
-    font-size: 20px;
-    font-style: normal;
-    line-height: 26px;
+    font-size: 16px;
+    line-height: 18px;
     font-weight: 600;
     color: #222222;
     text-align: center;
-    position: relative;
-    top: -10px;
+    padding-top: 10px;
 }
 
 .fa-brands {
@@ -75,5 +59,9 @@ a:active {
 }
 
 .fa-linkedin {
+    margin-left: 10px;
+}
+
+.fa-envelope {
     margin-left: 10px;
 }
