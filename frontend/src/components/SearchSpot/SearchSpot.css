@@ -1,24 +1,31 @@
 .search-bar-form-container {
     display: flex;
-    border: 2px solid black;
-    min-width: 900px;
+    min-width: 350px;
     height: 48px;
     border-radius: 50px;
     box-shadow: 0 1px 4px 0 rgb(34 34 34 / 10%);
     background: #FFFFFF;
+    border: 1px solid #b0b0b0;
 }
 
 .search-bar-form-input {
-    width: 900px;
+    width: 350px;
     height: 35px;
     margin: 5px 5px 5px 15px;
     border: none;
 }
 
 .search-bar-form-button {
+    margin-left: 10px;
+    margin-right: 15px;
+    margin-top: 8px;
     border: none;
-    background: transparent;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    background-color: #ff385c;
     align-items: center;
-    padding: 15px 10px 10px 10px;
+    padding: 5px 5px 5px 8px;
     cursor: pointer;
+    color: white;
 }
