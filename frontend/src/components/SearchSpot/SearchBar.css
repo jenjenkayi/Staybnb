@@ -34,24 +34,24 @@
 }
 
 .searchbar-dropdown {
-    width: 380px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     position: absolute;
-    padding: 30px;
-    z-index: 1;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 20px;
+    margin-left: 15px;
+    border-radius: 15px;
     background-color: #FFFFFF;
     overflow: visible;
-    /* box-shadow: 0 1px 4px 0 rgb(34 34 34 / 10%); */
+    box-shadow: 0 1px 4px 0 rgb(34 34 34 / 10%);
 }
 
 .searchbar-results {
     display: flex;
     flex-direction: row;
     position: relative;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
 }
 
 .searchbar-spot-img {
