@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { getAllSpotsThunk } from '../../store/spots';
 import "./SearchBar.css";
 
@@ -15,20 +15,21 @@ const SearchBar = () => {
   const [result, setResult] = useState([])
 
   const results = keyword => {
-    const res = []
+    let res = []
 
-    for (let i=0; i<spotsArr.length; i++) {
+    for (let i = 0; i < spotsArr.length; i++) {
       let spot = spotsArr[i]
       keyword = keyword.toLowerCase()
       
       if (spot.city.toLowerCase().includes(keyword) || 
           spot.state.toLowerCase().includes(keyword) || 
           spot.country.toLowerCase().includes(keyword)) {
-            res.push(spot)
-          }
+          res.push(spot)
+      }
     }
     return res
   }
+
   useEffect(() => {
     dispatch(getAllSpotsThunk())
   }, [dispatch]);
@@ -55,12 +56,12 @@ return (
             onChange={(e) => setKeyword(e.target.value)}
         />
         <button type="submit" className="search-bar-form-button">
-            <i className="fa-solid fa-magnifying-glass"></i>
+          <i className="fa-solid fa-magnifying-glass"></i>
         </button>
     </form>
   
     <div className="searchbar-dropdown">
-      {showDropdown && result.length > 0 && 
+      {result.length > 0 && showDropdown && 
       <div>{result.map(spot => {
         return (
             <NavLink key={spot.id} to={`/spots/${spot.id}`} onClick={()=>setKeyword("")}>
@@ -83,7 +84,7 @@ return (
     </div>}
     </div>
 
-    {(showDropdown && !result.length) && 
+    {!result.length && showDropdown &&  
       <div className="searchbar-dropdown">We couldn't find any results for '{keyword}'</div>}
   </>
   )
