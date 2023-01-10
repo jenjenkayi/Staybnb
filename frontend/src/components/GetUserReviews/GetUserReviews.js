@@ -20,14 +20,10 @@ const GetUserReviews = () => {
     .then(() => setIsLoaded(true))
   }, [dispatch]);
 
-  // if (userReviews.length === 0) {
-  //   return <div className='UserReviews_no_review'>
-  //     There are no reviews yet.
-  //   </div>;
-  // }
-
   const deleteHandler = async (reviewId) => {
+    if (window.confirm("Are you sure you want delete this review?")) {
       await dispatch(deleteReviewThunk(reviewId));
+    }
       history.push("/");
   }
 

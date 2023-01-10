@@ -24,7 +24,9 @@ const GetUserBookings = () => {
 
 
   const deleteHandler = async (bookingId) => {
+    if (window.confirm("Are you sure you want delete this booking?")) {
       await dispatch(deleteBookingThunk(bookingId));
+    }
       history.push("/userBookings");
   }
 

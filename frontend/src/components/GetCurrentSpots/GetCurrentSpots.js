@@ -20,14 +20,10 @@ const GetCurrentSpots = () => {
     .then(() => setIsLoaded(true))
   }, [dispatch]);
 
-  // if (userSpots.length === 0) {
-  //   return <div className="curr_spot_no_spots">
-  //     There are no listings yet.
-  //   </div>;
-  // }
-
   const deleteHandler = async (spotId) => {
+    if (window.confirm("Are you sure you want delete this listing?")) {
       await dispatch(deleteSpotThunk(spotId));
+    }
       history.push("/");
   }
 
