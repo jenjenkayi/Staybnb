@@ -24,7 +24,7 @@ const GetUserReviews = () => {
     if (window.confirm("Are you sure you want delete this review?")) {
       await dispatch(deleteReviewThunk(reviewId));
     }
-      history.push("/");
+      history.push("/userReviews");
   }
 
   return (

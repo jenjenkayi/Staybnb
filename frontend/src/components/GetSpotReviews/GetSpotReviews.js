@@ -31,8 +31,8 @@ const GetSpotReviews = () => {
                 <div className="review_creator">Review by: {review?.User?.firstName}</div>
                 <div className="review_date">{review?.createdAt?.slice(0, 10)}</div>
                 <div className="review_rating">
-                  <i className="fa-solid fa-star"></i>
-                  {review.stars}
+                <div>{[...Array(review.stars)].map(star => <i className="fa-solid fa-star fa-xs"></i>)}
+                </div>
                 </div>
                 <div className="review_description">{review.review}</div>
                 </div>
