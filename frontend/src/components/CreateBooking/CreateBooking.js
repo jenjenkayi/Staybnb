@@ -111,7 +111,7 @@ const CreateBookingForm = ({ today, startDate, setStartDate, endDate, setEndDate
         {user && currentSpot.ownerId !== user?.id ? 
         <button type="submit" className='CreateBooking-Button'>Reserve</button>
         :
-        <button className="CreateBooking-Button1">Reserve</button>
+        <button className="CreateBooking-Button1">You Cannot Book Your Spot</button>
         }
       </form>
       <div className='booking-text'>You won't be charged yet</div>

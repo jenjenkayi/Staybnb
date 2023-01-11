@@ -20,8 +20,10 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
+      <div className='nav-right-wrapper'>
         <LoginFormModal />
         <SignupFormModal />
+      </div>
       </>
     );
   }

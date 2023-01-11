@@ -19,17 +19,15 @@ const GetSpotReviews = () => {
     return null;
   }
 
-
-
   return (
     <>
       <div className="reviews_cards_container">
           <div className="reviews_details1">
-          {reviewsArr && reviewsArr.map((review) => {
+          {reviewsArr && reviewsArr.map(review => {
             return (
               <div className="review_details2">
-                <div className="review_creator">Review by: {review?.User?.firstName}</div>
-                <div className="review_date">{review?.createdAt?.slice(0, 10)}</div>
+                <div className="review_creator">Review by: {review.User.firstName}</div>
+                <div className="review_date">{review.createdAt.slice(0, 10)}</div>
                 <div className="review_rating">
                 <div>{[...Array(review.stars)].map(star => <i className="fa-solid fa-star fa-xs"></i>)}
                 </div>

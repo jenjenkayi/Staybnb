@@ -216,10 +216,11 @@ a {
 .one_spot_review_header {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     padding-top: 35px;
     padding-bottom: 5px;
     font-size: 18px;
+    align-items: baseline;
 }
 
 .one_spot_create_review_button {
@@ -227,9 +228,10 @@ a {
     background-color: #ff385c;
     border-radius: 10px;
     border: none;
-    font-size: 12px;
+    font-size: 14px;
     height: 30px;
-    width: 105px;
+    width: 110px;
     margin-top: 10px;
+    margin-left: 40px;
     cursor: pointer;
 }

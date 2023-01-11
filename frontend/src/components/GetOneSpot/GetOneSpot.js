@@ -134,8 +134,6 @@ const GetOneSpot = () => {
           <div className="one_spot_review_header">
              <i className="fa-solid fa-star"></i>
             {parseFloat(spot.avgStarRating)? spot.avgStarRating : "New"} · {spot.numReviews? spot.numReviews : 0} Review(s)
-            </div>
-            <GetSpotReviews />
             {!userReview.length && user && <NavLink to={`/createReview/${spotId}`}>
             <button 
               type="submit"
@@ -143,6 +141,8 @@ const GetOneSpot = () => {
               >Write a Review
             </button>
             </NavLink>}
+              </div>
+            <GetSpotReviews />
         </div>
   </div>
   )}

@@ -22,7 +22,7 @@ return (
                         rel="noreferrer">
                         LinkedIn
                     </a>
-                    <i class="fa-regular fa-envelope"></i>                    
+                    <i className="fa-regular fa-envelope"></i>                    
                     <a 
                         className='about-me-link'
                         href="mailto:jennyjiang0830@hotmail.com"

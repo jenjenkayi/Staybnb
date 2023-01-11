@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getUserBookingsThunk, deleteBookingThunk } from '../../store/bookings';
 import UpdateBooking from "../UpdateBooking";
 import './GetUserBookings.css';
