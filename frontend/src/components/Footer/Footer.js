@@ -9,7 +9,7 @@ return (
                     <i className="fa-brands fa-github"></i>
                     <a 
                         className='about-me-link'
-                        href='https://github.com/jenjenkayi'
+                        href='https://github.com/jenjenkayi/Staybnb'
                         target="_blank"
                         rel="noreferrer">
                         Github
